@@ -31,10 +31,64 @@
 *.out
 *.app
 
-*.bin/
-*.obj/
-*.vs/
+# Directories for compiled binaries
+/bin/
+/obj/
+/vs/
+/build/
 
-bin/
-obj/
-vs/
+# NuGet Packages
+/packages/
+*.nupkg
+*.snupkg
+
+# Project-specific configuration files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.sln.ide
+*.vsconfig
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Visual Studio Code settings
+.vscode/
+
+# Visual Studio temporary files
+.vs/
+.ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cache
+*.ilk
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
+
+# Backup files
+*.bak
+*.old
+*.orig
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+ehthumbs.db
+Icon?
+
+# IDE-specific directories
+.idea/
+*.iml
+
+# Other temporary directories and files
+*.swp
+*.lock
+*.directory
+*.~lock.*
