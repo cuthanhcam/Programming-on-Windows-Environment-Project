@@ -1,94 +1,47 @@
-# Prerequisites
-*.d
+# .NET SDK
+# Temporary directories and files created by the .NET SDK
+bin/
+obj/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# IDE directories and files
+.vscode/
+.idea/
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Directories for compiled binaries
-/bin/
-/obj/
-/vs/
-/build/
-
-# NuGet Packages
-/packages/
-*.nupkg
-*.snupkg
-
-# Project-specific configuration files
+# Visual Studio configuration files
+.vs/
+.vsconfig
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 *.sln.ide
-*.vsconfig
 
-# Temporary files
+# Temporary files created by .NET
 *.tmp
-*.temp
 *.log
-
-# Visual Studio Code settings
-.vscode/
-
-# Visual Studio temporary files
-.vs/
-.ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-*.cache
-*.ilk
-*.idb
-*.pdb
-*.tlog
-*.lastbuildstate
-
-# Backup files
 *.bak
-*.old
-*.orig
+*.swp
 
-# OS-specific files
+# Unnecessary compiled binary files
+*.dll
+*.exe
+*.pdb
+*.app
+
+# NuGet package files
+/packages/
+*.nupkg
+*.snupkg
+
+# Installation and lock files (if using other tools like npm or Yarn)
+# Add if your project uses JavaScript package management tools
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS installation files (Windows, macOS)
 Thumbs.db
 .DS_Store
 ehthumbs.db
-Icon?
 
-# IDE-specific directories
-.idea/
-*.iml
-
-# Other temporary directories and files
-*.swp
-*.lock
-*.directory
-*.~lock.*
+# Other cache or temporary directories created by IDEs
