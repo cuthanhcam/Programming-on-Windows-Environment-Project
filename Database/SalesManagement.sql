@@ -1,0 +1,74 @@
+﻿-- Tạo cơ sở dữ liệu
+CREATE DATABASE SalesManagement;
+GO
+
+-- Sử dụng cơ sở dữ liệu vừa tạo
+USE SalesManagement;
+GO
+
+-- Tạo bảng Products (Sản phẩm)
+CREATE TABLE Products (
+    ProductID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    Category NVARCHAR(100) NOT NULL,        -- Loại linh kiện
+    Model NVARCHAR(200) NOT NULL,           -- Tên model
+    Brand NVARCHAR(100) NOT NULL,           -- Thương hiệu
+    Specifications NVARCHAR(MAX) NULL,      -- Thông số kỹ thuật (dạng text hoặc JSON)
+    Price DECIMAL(18, 2) NOT NULL,          -- Giá bán
+    StockQuantity INT NOT NULL              -- Số lượng tồn kho
+);
+GO
+
+-- Tạo bảng Orders (Đơn hàng)
+CREATE TABLE Orders (
+    OrderID INT IDENTITY(1,1) PRIMARY KEY,  -- Khóa chính tự tăng
+    CustomerID INT NOT NULL,                -- Liên kết đến khách hàng
+    OrderDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày đặt hàng, mặc định là ngày hiện tại
+    TotalAmount DECIMAL(18, 2) NOT NULL,    -- Tổng tiền
+    Status NVARCHAR(50) NOT NULL            -- Trạng thái đơn hàng (Pending, Completed, Canceled)
+);
+GO
+
+-- Tạo bảng OrderDetails (Chi tiết đơn hàng)
+CREATE TABLE OrderDetails (
+    OrderDetailID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    OrderID INT NOT NULL,                        -- Liên kết đến bảng Orders
+    ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
+    Quantity INT NOT NULL,                       -- Số lượng sản phẩm
+    Price DECIMAL(18, 2) NOT NULL,               -- Giá sản phẩm tại thời điểm đặt hàng
+    CONSTRAINT FK_OrderDetails_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+GO
+
+-- Tạo bảng Customers (Khách hàng)
+CREATE TABLE Customers (
+    CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
+    Email NVARCHAR(200) NULL,                 -- Email khách hàng
+    Phone NVARCHAR(15) NULL,                  -- Số điện thoại
+    MembershipLevel NVARCHAR(50) NULL         -- Cấp bậc khách hàng (Silver, Gold, Platinum)
+);
+GO
+
+-- Tạo bảng Employees (Nhân viên)
+CREATE TABLE Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    Name NVARCHAR(200) NOT NULL,              -- Tên nhân viên
+    Position NVARCHAR(100) NOT NULL,          -- Chức vụ (Admin, Sales)
+    Salary DECIMAL(18, 2) NULL,               -- Lương
+    HireDate DATETIME NOT NULL DEFAULT GETDATE() -- Ngày vào làm
+);
+GO
+
+-- Tạo bảng StockTransactions (Giao dịch kho)
+CREATE TABLE StockTransactions (
+    TransactionID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
+    TransactionType NVARCHAR(50) NOT NULL,       -- Loại giao dịch (Nhập kho, Xuất kho)
+    Quantity INT NOT NULL,                       -- Số lượng
+    TransactionDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày giao dịch
+    EmployeeID INT NOT NULL,                     -- Người thực hiện
+    CONSTRAINT FK_StockTransactions_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    CONSTRAINT FK_StockTransactions_Employees FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+GO
