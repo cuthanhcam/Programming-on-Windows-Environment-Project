@@ -6,15 +6,17 @@ GO
 USE SalesManagement;
 GO
 
+--SET DATEFORMAT DMY
+
 -- Tạo bảng Products (Sản phẩm)
 CREATE TABLE Products (
     ProductID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Category NVARCHAR(100) NOT NULL,        -- Loại linh kiện
     Model NVARCHAR(200) NOT NULL,           -- Tên model
     Brand NVARCHAR(100) NOT NULL,           -- Thương hiệu
-    Specifications NVARCHAR(MAX) NULL,      -- Thông số kỹ thuật (dạng text hoặc JSON)
     Price DECIMAL(18, 2) NOT NULL,          -- Giá bán
-    StockQuantity INT NOT NULL              -- Số lượng tồn kho
+    StockQuantity INT NOT NULL,              -- Số lượng tồn kho
+	Specifications NVARCHAR(MAX) NULL      -- Thông số kỹ thuật (dạng text hoặc JSON)
 );
 GO
 
@@ -22,9 +24,10 @@ GO
 CREATE TABLE Orders (
     OrderID INT IDENTITY(1,1) PRIMARY KEY,  -- Khóa chính tự tăng
     CustomerID INT NOT NULL,                -- Liên kết đến khách hàng
+    EmployeeID INT NULL,                    -- Người thực hiện đơn hàng
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày đặt hàng, mặc định là ngày hiện tại
     TotalAmount DECIMAL(18, 2) NOT NULL,    -- Tổng tiền
-    Status NVARCHAR(50) NOT NULL            -- Trạng thái đơn hàng (Pending, Completed, Canceled)
+    Status NVARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Completed', 'Canceled')), -- Trạng thái đơn hàng
 );
 GO
 
@@ -35,8 +38,6 @@ CREATE TABLE OrderDetails (
     ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
     Quantity INT NOT NULL,                       -- Số lượng sản phẩm
     Price DECIMAL(18, 2) NOT NULL,               -- Giá sản phẩm tại thời điểm đặt hàng
-    CONSTRAINT FK_OrderDetails_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 GO
 
@@ -45,8 +46,8 @@ CREATE TABLE Customers (
     CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
     Email NVARCHAR(200) NULL,                 -- Email khách hàng
-    Phone NVARCHAR(15) NULL,                  -- Số điện thoại
-    MembershipLevel NVARCHAR(50) NULL         -- Cấp bậc khách hàng (Silver, Gold, Platinum)
+    Phone VARCHAR(15) NULL,                   -- Số điện thoại
+    MembershipLevel NVARCHAR(50) NULL CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum')) -- Cấp bậc khách hàng
 );
 GO
 
@@ -68,7 +69,13 @@ CREATE TABLE StockTransactions (
     Quantity INT NOT NULL,                       -- Số lượng
     TransactionDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày giao dịch
     EmployeeID INT NOT NULL,                     -- Người thực hiện
-    CONSTRAINT FK_StockTransactions_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    CONSTRAINT FK_StockTransactions_Employees FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
 );
 GO
+
+SELECT * FROM Products;
+SELECT * FROM Orders;
+SELECT * FROM OrderDetails;
+SELECT * FROM Customers;
+SELECT * FROM Employees;
+SELECT * FROM StockTransactions;
+
