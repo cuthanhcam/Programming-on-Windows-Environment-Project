@@ -1,4 +1,4 @@
-USE SalesManagement;
+﻿USE SalesManagement;
 GO
 
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
@@ -257,4 +257,74 @@ VALUES
 	'{"Power": "750 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20),
 	('Power Supply', 'SuperNOVA', 'EVGA', '379.99', 
 	'{"Power": "1000 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20);
+GO
+
+INSERT INTO Customers (Name, Email, Phone, MembershipLevel)
+VALUES 
+    ('John Doe', 'johndoe@example.com', '1234567890', 'Gold'),
+    ('Jane Smith', 'janesmith@example.com', '2345678901', 'Silver'),
+    ('Alice Brown', 'alice.brown@example.com', '3456789012', 'Platinum'),
+    ('Bob White', 'bob.white@example.com', '4567890123', 'Gold'),
+    ('Charlie Black', 'charlie.black@example.com', '5678901234', 'Silver'),
+    ('David Green', 'david.green@example.com', '6789012345', 'Gold'),
+    ('Eva Blue', 'eva.blue@example.com', '7890123456', 'Platinum'),
+    ('Frank Gray', 'frank.gray@example.com', '8901234567', 'Silver'),
+    ('Grace Yellow', 'grace.yellow@example.com', '9012345678', 'Platinum'),
+    ('Henry Pink', 'henry.pink@example.com', '0123456789', 'Gold');
+GO
+
+INSERT INTO Employees (Name, Position, Salary, HireDate)
+VALUES 
+    ('Alice Johnson', 'Sales', 5000.00, '2023-01-15'),
+    ('Bob Turner', 'Sales', 4800.00, '2022-11-20'),
+    ('Charlie Harris', 'Admin', 5500.00, '2021-07-10'),
+    ('David Clark', 'Sales', 5300.00, '2023-03-22'),
+    ('Eva Lewis', 'Admin', 6000.00, '2021-06-15'),
+    ('Frank Walker', 'Sales', 5100.00, '2022-02-28'),
+    ('Grace Scott', 'Admin', 5700.00, '2021-08-03'),
+    ('Henry Adams', 'Sales', 4950.00, '2023-05-19'),
+    ('Ivy Morgan', 'Sales', 5200.00, '2022-04-25'),
+    ('Jack Evans', 'Admin', 5800.00, '2021-12-10');
+GO
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status)
+VALUES 
+    (1, 2, 1500.50, 'Completed'),
+    (2, 3, 799.99, 'Pending'),
+    (3, 4, 2150.75, 'Completed'),
+    (4, 5, 980.10, 'Canceled'),
+    (5, 6, 3200.00, 'Pending'),
+    (6, 7, 1500.99, 'Completed'),
+    (7, 8, 2100.00, 'Completed'),
+    (8, 9, 1750.75, 'Pending'),
+    (9, 10, 5400.00, 'Completed'),
+    (10, 1, 1890.20, 'Canceled');
+GO
+
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price)
+VALUES 
+    (1, 1, 2, 8078),
+    (1, 2, 3, 699),
+    (2, 3, 1, 574),
+    (3, 4, 1, 2193.4),
+    (3, 5, 2, 641.92),
+    (4, 6, 4, 439.99),
+    (5, 7, 3, 559.2),
+    (6, 8, 5, 319.97),
+    (7, 9, 1, 8078),
+    (8, 10, 3, 574);
+GO
+
+INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID)
+VALUES 
+    (1, 'Nhập kho', 20, 1),
+    (2, 'Xuất kho', 5, 2),
+    (3, 'Nhập kho', 10, 3),
+    (4, 'Xuất kho', 7, 4),
+    (5, 'Nhập kho', 15, 5),
+    (6, 'Xuất kho', 2, 6),
+    (7, 'Nhập kho', 30, 7),
+    (8, 'Xuất kho', 10, 8),
+    (9, 'Nhập kho', 50, 9),
+    (10, 'Xuất kho', 3, 10);
 GO
