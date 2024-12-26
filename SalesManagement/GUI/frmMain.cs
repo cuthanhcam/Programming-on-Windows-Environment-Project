@@ -12,6 +12,10 @@ namespace GUI
 {
     public partial class frmMain : Form
     {
+        public frmMain()
+        {
+            InitializeComponent();
+        }
         public frmMain(string role)
         {
             InitializeComponent();

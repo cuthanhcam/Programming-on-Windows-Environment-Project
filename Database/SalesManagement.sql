@@ -60,8 +60,8 @@ CREATE TABLE Customers (
     Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
     Email NVARCHAR(200) NULL,                 -- Email khách hàng
     Phone VARCHAR(15) NULL,                   -- Số điện thoại
-    MembershipLevel NVARCHAR(50) NULL 
-        CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
+    MembershipLevel NVARCHAR(50) NULL,
+    CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
     CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum'))
 );
 GO
@@ -106,5 +106,5 @@ SELECT * FROM Employees;
 SELECT * FROM StockTransactions;
 SELECT * FROM Users;
 -- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet)
-SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'your_password'), 2) AS HashedPassword;
+SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'admin123'), 2) AS HashedPassword;
 
