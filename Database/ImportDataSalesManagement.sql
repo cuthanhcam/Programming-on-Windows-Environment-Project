@@ -282,21 +282,6 @@ VALUES
     ('Henry Pink', 'henry.pink@example.com', '0123456789', 'Gold');
 GO
 
-
-INSERT INTO Employees (Name, Position, Salary, HireDate)
-VALUES 
-    ('Alice Johnson', 'Sales', 5000.00, '2023-01-15'),
-    ('Bob Turner', 'Sales', 4800.00, '2022-11-20'),
-    ('Charlie Harris', 'Admin', 5500.00, '2021-07-10'),
-    ('David Clark', 'Sales', 5300.00, '2023-03-22'),
-    ('Eva Lewis', 'Admin', 6000.00, '2021-06-15'),
-    ('Frank Walker', 'Sales', 5100.00, '2022-02-28'),
-    ('Grace Scott', 'Admin', 5700.00, '2021-08-03'),
-    ('Henry Adams', 'Sales', 4950.00, '2023-05-19'),
-    ('Ivy Morgan', 'Sales', 5200.00, '2022-04-25'),
-    ('Jack Evans', 'Admin', 5800.00, '2021-12-10');
-GO
-
 INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status)
 VALUES 
     (1, 2, 1500.50, 'Completed'),
@@ -323,6 +308,20 @@ VALUES
     (6, 8, 5, 319.97),
     (7, 9, 1, 8078),
     (8, 10, 3, 574);
+GO
+
+INSERT INTO Employees (Name, Position, Salary, HireDate)
+VALUES 
+    ('Alice Johnson', 'Sales', 5000.00, '2023-01-15'),
+    ('Bob Turner', 'Sales', 4800.00, '2022-11-20'),
+    ('Charlie Harris', 'Admin', 5500.00, '2021-07-10'),
+    ('David Clark', 'Sales', 5300.00, '2023-03-22'),
+    ('Eva Lewis', 'Admin', 6000.00, '2021-06-15'),
+    ('Frank Walker', 'Sales', 5100.00, '2022-02-28'),
+    ('Grace Scott', 'Admin', 5700.00, '2021-08-03'),
+    ('Henry Adams', 'Sales', 4950.00, '2023-05-19'),
+    ('Ivy Morgan', 'Sales', 5200.00, '2022-04-25'),
+    ('Jack Evans', 'Admin', 5800.00, '2021-12-10');
 GO
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID)

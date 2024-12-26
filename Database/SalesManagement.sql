@@ -89,6 +89,14 @@ CREATE TABLE StockTransactions (
 );
 GO
 
+-- Tạo bảng Users (Lưu thông tin đăng nhập của user trong hệ thống)
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),         -- Khóa chính tự tăng
+    Username NVARCHAR(50) NOT NULL UNIQUE,       -- Tên đăng nhập, duy nhất
+    PasswordHash NVARCHAR(255) NOT NULL,         -- Mật khẩu mã hóa
+    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Admin', 'User')), -- Phân quyền
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE() -- Ngày tạo tài khoản
+);
 
 SELECT * FROM Products;
 SELECT * FROM Orders;
@@ -96,4 +104,5 @@ SELECT * FROM OrderDetails;
 SELECT * FROM Customers;
 SELECT * FROM Employees;
 SELECT * FROM StockTransactions;
+SELECT * FROM Users;
 
