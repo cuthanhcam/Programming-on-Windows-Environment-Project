@@ -105,4 +105,6 @@ SELECT * FROM Customers;
 SELECT * FROM Employees;
 SELECT * FROM StockTransactions;
 SELECT * FROM Users;
+-- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet)
+SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'your_password'), 2) AS HashedPassword;
 

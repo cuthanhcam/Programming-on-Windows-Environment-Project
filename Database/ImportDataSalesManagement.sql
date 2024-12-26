@@ -338,9 +338,17 @@ VALUES
     (10, 'Xuất kho', 3, 10);
 GO
 
+DELETE FROM Users;
+
 -- Thêm tài khoản Admin và User mẫu
 INSERT INTO Users (Username, PasswordHash, Role)
 VALUES 
     ('admin', HASHBYTES('SHA2_256', 'admin123'), 'Admin'), -- Tài khoản Admin
     ('user1', HASHBYTES('SHA2_256', 'user123'), 'User');  -- Tài khoản User
+GO
+-- Điều chỉnh không trả về VARBINARY mà trả về chuỗi HEX
+INSERT INTO Users (Username, PasswordHash, Role)
+VALUES 
+    ('admin', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2), 'Admin'), -- Tài khoản Admin
+    ('user1', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'user123'), 2), 'User');  -- Tài khoản User
 GO
