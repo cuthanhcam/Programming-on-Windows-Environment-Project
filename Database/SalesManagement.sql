@@ -48,6 +48,7 @@ CREATE TABLE Products (
     Specifications NVARCHAR(MAX) NULL,      -- Thông số kỹ thuật (JSON)
 	Promotion INT DEFAULT 0,
 	Warranty INT DEFAULT 0,
+	Image NVARCHAR(255) NULL,
     CONSTRAINT CK_Products_Category CHECK (Category <> '') -- Kiểm tra loại sản phẩm không rỗng
 );
 GO

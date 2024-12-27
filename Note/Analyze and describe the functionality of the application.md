@@ -3,7 +3,7 @@
 ## Phần đã hoàn thành
 
 ### 1. Database (Có tổng cộng 7 Tables)
-- Products(ProductID, Category, Model, Brand, Price, StockQuantity, Specifications) - Cần bổ sung thêm 2 columns: Promotion INT DEFAULT 0, Warranty INT DEFAULT 0.
+- Products(ProductID, Category, Model, Brand, Price, StockQuantity, Specifications, Promotion, Warranty, Image)
 - Orders(OrderID, CustomerID, EmployeeID, OrderDate, TotalAmount, Status)
 - OrderDetails(OrderDetailID, OrderID, ProductID, Quantity, Price)
 - Customers(CustomerID, Name, Email, Phone, MembershipLevel)
