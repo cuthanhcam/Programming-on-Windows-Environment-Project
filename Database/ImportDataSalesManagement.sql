@@ -1,6 +1,34 @@
 ﻿USE SalesManagement;
 GO
 
+INSERT INTO Customers (Name, Email, Phone, MembershipLevel)
+VALUES 
+    ('John Doe', 'johndoe@example.com', '1234567890', 'Gold'),
+    ('Jane Smith', 'janesmith@example.com', '2345678901', 'Silver'),
+    ('Alice Brown', 'alice.brown@example.com', '3456789012', 'Platinum'),
+    ('Bob White', 'bob.white@example.com', '4567890123', 'Gold'),
+    ('Charlie Black', 'charlie.black@example.com', '5678901234', 'Silver'),
+    ('David Green', 'david.green@example.com', '6789012345', 'Gold'),
+    ('Eva Blue', 'eva.blue@example.com', '7890123456', 'Platinum'),
+    ('Frank Gray', 'frank.gray@example.com', '8901234567', 'Silver'),
+    ('Grace Yellow', 'grace.yellow@example.com', '9012345678', 'Platinum'),
+    ('Henry Pink', 'henry.pink@example.com', '0123456789', 'Gold');
+GO
+
+INSERT INTO Employees (Name, Position, Salary, HireDate)
+VALUES 
+    ('Alice Johnson', 'Sales', 5000.00, '2023-01-15'),
+    ('Bob Turner', 'Sales', 4800.00, '2022-11-20'),
+    ('Charlie Harris', 'Admin', 5500.00, '2021-07-10'),
+    ('David Clark', 'Sales', 5300.00, '2023-03-22'),
+    ('Eva Lewis', 'Admin', 6000.00, '2021-06-15'),
+    ('Frank Walker', 'Sales', 5100.00, '2022-02-28'),
+    ('Grace Scott', 'Admin', 5700.00, '2021-08-03'),
+    ('Henry Adams', 'Sales', 4950.00, '2023-05-19'),
+    ('Ivy Morgan', 'Sales', 5200.00, '2022-04-25'),
+    ('Jack Evans', 'Admin', 5800.00, '2021-12-10');
+GO
+
 -- Products: Processor
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -29,7 +57,6 @@ VALUES
 	('Processor', 'Ryzen 7 7700X', 'AMD', 348.99, 
 	'{"Cores": "8", "Threads": "16", "Socket Type": "AM5", "Memory Type": "DDR5", "Memory Speed": "5200 MHz", "Base Speed": "4.5 GHz", "Turbo Speed": "5.4 GHz", "Max Power Consumption": "107 W"}', 20);
 GO
-
 -- Products: Motherboard
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -58,7 +85,6 @@ VALUES
 	('Motherboard', 'ROG CROSSHAIR VIII HERO (WI-FI)', 'ASUS', 380.75, 
 	'{"Chipset": "AMD X570", "Form Factor": "ATX", "Socket Type": "AM4", "Memory Slots": "4", "Memory Type": "DDR4", "Memory Speed": "2133 MHz", "Storage Expansion": "SATA III, PCIe 4.0 x4", "Multi-GPU Support": "yes"}', 20);
 GO
-
 -- Products: CPU Cooler
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -87,7 +113,6 @@ VALUES
 	('CPU Cooler', 'Kraken Z73 RGB', 'NZXT', 290.99, 
 	'{"Fan RPM": "500 to 1500 RPM", "Noise Level": "22 to 33 dBA", "Color": "RGB"}', 20);
 GO
-
 -- Products: Case
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -116,7 +141,6 @@ VALUES
 	('Case', 'CC-9011205-WW', 'Cosair', 119.99, 
 	'{"Side Panel": "Tempered Glass", "Carbinet Type": "ATX Mid Tower", "Color": "White", "Motherboard Support": "ATX, Micro-ATX, Mini-ITX", "Max GPU Length": "360 mm", "CPU Cooler Height": "N/A", "Supported PSU Size": "ATX"}', 20);
 GO
-
 -- Products: Graphic Card
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -145,7 +169,6 @@ VALUES
 	('Graphic Card', 'RTX 3080 Ti Ventus 3X 12G OC', 'MSI', 1199.99, 
 	'{"Memory": "12GB", "Memory Interface": "GDDR6X", "Length": "305 mm", "Interface": "PCIe 4.0 x16", "Chipset": "GeForce RTX 3080Ti", "Max Power Consumption": "350 W"}', 20);
 GO
-
 -- Products: RAM
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -180,7 +203,6 @@ VALUES
 	('RAM', 'Trident Z RGB', 'G.Skill', 311.46, 
 	'{"RAM Size": "16 GB", "Quantity": "2x8 GB", "RAM Type": "DDR4", "RAM Speed": "4600 MHz"}', 20);
 GO
-
 -- Products: Storage
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -209,7 +231,6 @@ VALUES
 	('Storage', 'SN 750', 'Western Digital', 137.99, 
 	'{"Capacity": "1 TB", "Type": "SSD", "RPM": "N/A", "Interface": "PCIe 4.0 x4", "Cache Memory": "N/A", "Form Factor": "M.2-2280"}', 20);
 GO
-
 -- Products: Case Cooler
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -238,7 +259,6 @@ VALUES
 	('Case Cooler', 'HD140 RGB', 'Corsair', 142.98, 
 	'{"Fan RPM": "600 to 1350 RPM", "Airflow": "74 CFM", "Noise Level": "18 to 28.6 dBA"}', 20);
 GO
-
 -- Products: Power Supply
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -266,21 +286,8 @@ VALUES
 	'{"Power": "750 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20),
 	('Power Supply', 'SuperNOVA', 'EVGA', 379.99, 
 	'{"Power": "1000 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20);
-
--- Customers
-INSERT INTO Customers (Name, Email, Phone, MembershipLevel)
-VALUES 
-    ('John Doe', 'johndoe@example.com', '1234567890', 'Gold'),
-    ('Jane Smith', 'janesmith@example.com', '2345678901', 'Silver'),
-    ('Alice Brown', 'alice.brown@example.com', '3456789012', 'Platinum'),
-    ('Bob White', 'bob.white@example.com', '4567890123', 'Gold'),
-    ('Charlie Black', 'charlie.black@example.com', '5678901234', 'Silver'),
-    ('David Green', 'david.green@example.com', '6789012345', 'Gold'),
-    ('Eva Blue', 'eva.blue@example.com', '7890123456', 'Platinum'),
-    ('Frank Gray', 'frank.gray@example.com', '8901234567', 'Silver'),
-    ('Grace Yellow', 'grace.yellow@example.com', '9012345678', 'Platinum'),
-    ('Henry Pink', 'henry.pink@example.com', '0123456789', 'Gold');
 GO
+
 
 INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status)
 VALUES 
@@ -310,45 +317,27 @@ VALUES
     (8, 10, 3, 574);
 GO
 
-INSERT INTO Employees (Name, Position, Salary, HireDate)
-VALUES 
-    ('Alice Johnson', 'Sales', 5000.00, '2023-01-15'),
-    ('Bob Turner', 'Sales', 4800.00, '2022-11-20'),
-    ('Charlie Harris', 'Admin', 5500.00, '2021-07-10'),
-    ('David Clark', 'Sales', 5300.00, '2023-03-22'),
-    ('Eva Lewis', 'Admin', 6000.00, '2021-06-15'),
-    ('Frank Walker', 'Sales', 5100.00, '2022-02-28'),
-    ('Grace Scott', 'Admin', 5700.00, '2021-08-03'),
-    ('Henry Adams', 'Sales', 4950.00, '2023-05-19'),
-    ('Ivy Morgan', 'Sales', 5200.00, '2022-04-25'),
-    ('Jack Evans', 'Admin', 5800.00, '2021-12-10');
-GO
-
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID)
 VALUES 
-    (1, 'Nhập kho', 20, 1),
-    (2, 'Xuất kho', 5, 2),
-    (3, 'Nhập kho', 10, 3),
-    (4, 'Xuất kho', 7, 4),
-    (5, 'Nhập kho', 15, 5),
-    (6, 'Xuất kho', 2, 6),
-    (7, 'Nhập kho', 30, 7),
-    (8, 'Xuất kho', 10, 8),
-    (9, 'Nhập kho', 50, 9),
-    (10, 'Xuất kho', 3, 10);
+    (1, N'Nhập kho', 20, 1),
+    (2, N'Xuất kho', 5, 2),
+    (3, N'Nhập kho', 10, 3),
+    (4, N'Xuất kho', 7, 4),
+    (5, N'Nhập kho', 15, 5),
+    (6, N'Xuất kho', 2, 6),
+    (7, N'Nhập kho', 30, 7),
+    (8, N'Xuất kho', 10, 8),
+    (9, N'Nhập kho', 50, 9),
+    (10, N'Xuất kho', 3, 10);
 GO
 
-DELETE FROM Users;
 
--- Thêm tài khoản Admin và User mẫu
-INSERT INTO Users (Username, PasswordHash, Role)
-VALUES 
-    ('admin', HASHBYTES('SHA2_256', 'admin123'), 'Admin'), -- Tài khoản Admin
-    ('user1', HASHBYTES('SHA2_256', 'user123'), 'User');  -- Tài khoản User
-GO
--- Điều chỉnh không trả về VARBINARY mà trả về chuỗi HEX
 INSERT INTO Users (Username, PasswordHash, Role)
 VALUES 
     ('admin', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2), 'Admin'), -- Tài khoản Admin
     ('user1', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'user123'), 2), 'User');  -- Tài khoản User
 GO
+
+DELETE FROM Users;
+
+

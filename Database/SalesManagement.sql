@@ -6,15 +6,36 @@ GO
 USE SalesManagement;
 GO
 
---SET DATEFORMAT DMY
+-- SET DATEFORMAT DMY
 
+DROP TABLE Customers;
+DROP TABLE Employees;
 DROP TABLE Products;
 DROP TABLE Orders;
 DROP TABLE OrderDetails;
-DROP TABLE Customers;
-DROP TABLE Employees;
 DROP TABLE StockTransactions;
 
+-- Tạo bảng Customers (Khách hàng)
+CREATE TABLE Customers (
+    CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
+    Email NVARCHAR(200) NULL,                 -- Email khách hàng
+    Phone VARCHAR(15) NULL,                   -- Số điện thoại
+    MembershipLevel NVARCHAR(50) NULL
+		CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
+    CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum'))
+);
+GO
+
+-- Tạo bảng Employees (Nhân viên)
+CREATE TABLE Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
+    Name NVARCHAR(200) NOT NULL,              -- Tên nhân viên
+    Position NVARCHAR(100) NOT NULL,          -- Chức vụ (Admin, Sales)
+    Salary DECIMAL(18, 2) NULL CHECK (Salary >= 0), -- Lương
+    HireDate DATETIME NOT NULL DEFAULT GETDATE() -- Ngày vào làm
+);
+GO
 
 -- Tạo bảng Products (Sản phẩm)
 CREATE TABLE Products (
@@ -25,6 +46,8 @@ CREATE TABLE Products (
     Price DECIMAL(18, 2) NOT NULL CHECK (Price > 0), -- Giá bán
     StockQuantity INT NOT NULL CHECK (StockQuantity >= 0), -- Số lượng tồn kho
     Specifications NVARCHAR(MAX) NULL,      -- Thông số kỹ thuật (JSON)
+	Promotion INT DEFAULT 0,
+	Warranty INT DEFAULT 0,
     CONSTRAINT CK_Products_Category CHECK (Category <> '') -- Kiểm tra loại sản phẩm không rỗng
 );
 GO
@@ -54,33 +77,12 @@ CREATE TABLE OrderDetails (
 );
 GO
 
--- Tạo bảng Customers (Khách hàng)
-CREATE TABLE Customers (
-    CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
-    Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
-    Email NVARCHAR(200) NULL,                 -- Email khách hàng
-    Phone VARCHAR(15) NULL,                   -- Số điện thoại
-    MembershipLevel NVARCHAR(50) NULL,
-    CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
-    CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum'))
-);
-GO
-
--- Tạo bảng Employees (Nhân viên)
-CREATE TABLE Employees (
-    EmployeeID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
-    Name NVARCHAR(200) NOT NULL,              -- Tên nhân viên
-    Position NVARCHAR(100) NOT NULL,          -- Chức vụ (Admin, Sales)
-    Salary DECIMAL(18, 2) NULL CHECK (Salary >= 0), -- Lương
-    HireDate DATETIME NOT NULL DEFAULT GETDATE() -- Ngày vào làm
-);
-GO
 
 -- Tạo bảng StockTransactions (Giao dịch kho)
 CREATE TABLE StockTransactions (
     TransactionID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
-    TransactionType NVARCHAR(50) NOT NULL CHECK (TransactionType IN ('Nhập kho', 'Xuất kho')), -- Loại giao dịch
+    TransactionType NVARCHAR(50) NOT NULL CHECK (TransactionType IN (N'Nhập kho', N'Xuất kho')), -- Loại giao dịch
     Quantity INT NOT NULL CHECK (Quantity > 0),  -- Số lượng
     TransactionDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày giao dịch
     EmployeeID INT NOT NULL,                     -- Người thực hiện
@@ -97,14 +99,17 @@ CREATE TABLE Users (
     Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Admin', 'User')), -- Phân quyền
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE() -- Ngày tạo tài khoản
 );
+GO
 
+SELECT * FROM Customers;
+SELECT * FROM Employees;
 SELECT * FROM Products;
 SELECT * FROM Orders;
 SELECT * FROM OrderDetails;
-SELECT * FROM Customers;
-SELECT * FROM Employees;
 SELECT * FROM StockTransactions;
 SELECT * FROM Users;
--- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet)
+
+
+-- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet) - Đã fix
 SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'admin123'), 2) AS HashedPassword;
 

@@ -35,6 +35,10 @@ namespace DAL.Entities
 
         public string Specifications { get; set; }
 
+        public int Promotion { get; set; }
+
+        public int Warranty { get; set; }
+
         [StringLength(255)]
         public string Image { get; set; }
 
