@@ -21,11 +21,11 @@ namespace GUI
             InitializeComponent();
             // Load form và xử lý sự kiện button
             btnProduct.Click += (s, e) => LoadUserControl(new ProductManagement());
-            //btnOrder.Click += (s, e) => LoadUserControl(new OrderManagement());
-            //btnCustomer.Click += (s, e) => LoadUserControl(new CustomerManagement());
-            //btnStock.Click += (s, e) => LoadUserControl(new StockManagement());
-            //btnStatistics.Click += (s, e) => LoadUserControl(new Statistics());
-            //btnEmployee.Click += (s, e) => LoadUserControl(new EmployeeManagement());
+            btnOrder.Click += (s, e) => LoadUserControl(new OrderManagement());
+            btnCustomer.Click += (s, e) => LoadUserControl(new CustomerManagement());
+            btnStock.Click += (s, e) => LoadUserControl(new StockManagement());
+            btnStatistics.Click += (s, e) => LoadUserControl(new Statistics());
+            btnEmployee.Click += (s, e) => LoadUserControl(new EmployeeManagement());
             btnLogout.Click += (s, e) => Application.Exit();
         }
         private void LoadUserControl(UserControl uc)
