@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.lstProduct = new System.Windows.Forms.ListView();
+            this.ProductID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Model = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.StockQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Promotion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Warranty = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTextBoxSpecs = new System.Windows.Forms.RichTextBox();
@@ -53,12 +59,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.ProductID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Model = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.StockQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Promotion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Warranty = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWarranty)).BeginInit();
@@ -69,6 +69,8 @@
             // 
             // lstProduct
             // 
+            this.lstProduct.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lstProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstProduct.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ProductID,
             this.Model,
@@ -76,22 +78,56 @@
             this.StockQuantity,
             this.Promotion,
             this.Warranty});
+            this.lstProduct.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
             this.lstProduct.FullRowSelect = true;
-            this.lstProduct.HideSelection = false;
+            this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstProduct.Location = new System.Drawing.Point(6, 19);
+            this.lstProduct.MultiSelect = false;
             this.lstProduct.Name = "lstProduct";
-            this.lstProduct.Size = new System.Drawing.Size(635, 361);
+            this.lstProduct.Size = new System.Drawing.Size(688, 361);
+            this.lstProduct.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstProduct.TabIndex = 0;
+            this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
             this.lstProduct.UseCompatibleStateImageBehavior = false;
             this.lstProduct.View = System.Windows.Forms.View.Details;
             this.lstProduct.Click += new System.EventHandler(this.lstProduct_Click);
             // 
+            // ProductID
+            // 
+            this.ProductID.Text = "Product ID";
+            this.ProductID.Width = 100;
+            // 
+            // Model
+            // 
+            this.Model.Text = "Model";
+            this.Model.Width = 150;
+            // 
+            // Price
+            // 
+            this.Price.Text = "Price";
+            this.Price.Width = 100;
+            // 
+            // StockQuantity
+            // 
+            this.StockQuantity.Text = "Stock Quantity";
+            this.StockQuantity.Width = 150;
+            // 
+            // Promotion
+            // 
+            this.Promotion.Text = "Promotion";
+            this.Promotion.Width = 100;
+            // 
+            // Warranty
+            // 
+            this.Warranty.Text = "Warranty";
+            this.Warranty.Width = 100;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lstProduct);
-            this.groupBox1.Location = new System.Drawing.Point(322, 13);
+            this.groupBox1.Location = new System.Drawing.Point(462, 206);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(647, 392);
+            this.groupBox1.Size = new System.Drawing.Size(700, 392);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "List of Products";
@@ -116,9 +152,9 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.bntAddPic);
             this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Location = new System.Drawing.Point(14, 12);
+            this.groupBox2.Location = new System.Drawing.Point(18, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(302, 533);
+            this.groupBox2.Size = new System.Drawing.Size(402, 586);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Infomation of Product";
@@ -136,7 +172,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 393);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 13);
+            this.label8.Size = new System.Drawing.Size(78, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Specifications:";
             // 
@@ -159,7 +195,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(147, 352);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Warranty:";
             // 
@@ -168,7 +204,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 352);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.Size = new System.Drawing.Size(61, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Promotion:";
             // 
@@ -198,7 +234,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 315);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Price:";
             // 
@@ -241,7 +277,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 197);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Brand:";
             // 
@@ -250,7 +286,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 158);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Category:";
             // 
@@ -276,7 +312,7 @@
             this.groupBox3.Controls.Add(this.btnDelete);
             this.groupBox3.Controls.Add(this.btnUpdate);
             this.groupBox3.Controls.Add(this.btnAdd);
-            this.groupBox3.Location = new System.Drawing.Point(338, 430);
+            this.groupBox3.Location = new System.Drawing.Point(515, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(352, 100);
             this.groupBox3.TabIndex = 3;
@@ -313,36 +349,6 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // ProductID
-            // 
-            this.ProductID.Text = "Product ID";
-            this.ProductID.Width = 100;
-            // 
-            // Model
-            // 
-            this.Model.Text = "Model";
-            this.Model.Width = 150;
-            // 
-            // Price
-            // 
-            this.Price.Text = "Price";
-            this.Price.Width = 100;
-            // 
-            // StockQuantity
-            // 
-            this.StockQuantity.Text = "Stock Quantity";
-            this.StockQuantity.Width = 100;
-            // 
-            // Promotion
-            // 
-            this.Promotion.Text = "Promotion";
-            this.Promotion.Width = 100;
-            // 
-            // Warranty
-            // 
-            this.Warranty.Text = "Warranty";
-            this.Warranty.Width = 100;
-            // 
             // ProductManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,8 +356,9 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Bahnschrift", 8F);
             this.Name = "ProductManagement";
-            this.Size = new System.Drawing.Size(980, 561);
+            this.Size = new System.Drawing.Size(1176, 612);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

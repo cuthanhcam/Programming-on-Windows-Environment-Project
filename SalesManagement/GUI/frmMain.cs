@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BUS;
+using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,7 @@ namespace GUI
 {
     public partial class frmMain : Form
     {
+        private readonly ProductService _productService;
         public frmMain()
         {
             InitializeComponent();
@@ -19,25 +22,18 @@ namespace GUI
         public frmMain(string role)
         {
             InitializeComponent();
-            // Load form và xử lý sự kiện button
-            btnProduct.Click += (s, e) => LoadUserControl(new ProductManagement());
-            btnOrder.Click += (s, e) => LoadUserControl(new OrderManagement());
-            btnCustomer.Click += (s, e) => LoadUserControl(new CustomerManagement());
-            btnStock.Click += (s, e) => LoadUserControl(new StockManagement());
-            btnStatistics.Click += (s, e) => LoadUserControl(new Statistics());
-            btnEmployee.Click += (s, e) => LoadUserControl(new EmployeeManagement());
-            btnLogout.Click += (s, e) => Application.Exit();
-        }
-        private void LoadUserControl(UserControl uc)
-        {
-            mainPanel.Controls.Clear();
-            uc.Dock = DockStyle.Fill;
-            mainPanel.Controls.Add(uc);
-        }
+            _productService = new ProductService(new SalesManagementContext()); // Khởi tạo ProductService
+            InitializeTabPages(); // Gọi phương thức khởi tạo các tab
 
-        private void btnProduct_Click(object sender, EventArgs e)
+        }
+        private void InitializeTabPages()
         {
-            LoadUserControl(new ProductManagement());
+            // Thêm UserControl vào TabPage sản phẩm
+            var productManagement = new ProductManagement(_productService)
+            {
+                Dock = DockStyle.Fill,
+            };
+            tpProducts.Controls.Add(productManagement);
         }
     }
 }

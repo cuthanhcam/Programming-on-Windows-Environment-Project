@@ -18,48 +18,90 @@ namespace BUS
         // Lấy toàn bộ danh sách sản phẩm
         public List<Product> GetAllProducts()
         {
-            return _context.Products.ToList();
+            try
+            {
+                return _context.Products.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving products: " + ex.Message);
+            }
         }
 
         // Thêm sản phẩm mới
         public void AddProduct(Product product)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            try
+            {
+                _context.Products.Add(product);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding product: " + ex.Message);
+            }
         }
 
         // Cập nhật sản phẩm
         public void UpdateProduct(Product product)
         {
-            var existing = _context.Products.Find(product.ProductID);
-            if (existing != null)
+            try
             {
-                _context.Entry(existing).CurrentValues.SetValues(product);
-                _context.SaveChanges();
+                var existing = _context.Products.Find(product.ProductID);
+                if (existing != null)
+                {
+                    _context.Entry(existing).CurrentValues.SetValues(product);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating product: " + ex.Message);
             }
         }
 
         // Xóa sản phẩm
         public void DeleteProduct(int productId)
         {
-            var product = _context.Products.Find(productId);
-            if (product != null)
+            try
             {
-                _context.Products.Remove(product);
-                _context.SaveChanges();
+                var product = _context.Products.Find(productId);
+                if (product != null)
+                {
+                    _context.Products.Remove(product);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting product: " + ex.Message);
             }
         }
 
         // Tìm kiếm theo loại sản phẩm
         public List<Product> GetProductsByCategory(string category)
         {
-            return _context.Products.Where(p => p.Category == category).ToList();
+            try
+            {
+                return _context.Products.Where(p => p.Category == category).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving products by category: " + ex.Message);
+            }
         }
 
         // Lọc theo thương hiệu
         public List<Product> GetProductsByBrand(string brand)
         {
-            return _context.Products.Where(p => p.Brand == brand).ToList();
+            try
+            {
+                return _context.Products.Where(p => p.Brand == brand).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving products by brand: " + ex.Message);
+            }
         }
     }
 }

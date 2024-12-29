@@ -17,7 +17,7 @@ namespace GUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new frmLogin());
-            Application.Run(new frmMain());
+            Application.Run(new frmMain("Admin")); // Chạy form frmMain với quyền Admin
 
         }
     }
