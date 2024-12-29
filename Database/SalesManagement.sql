@@ -8,12 +8,12 @@ GO
 
 -- SET DATEFORMAT DMY
 
-DROP TABLE Customers;
-DROP TABLE Employees;
-DROP TABLE Products;
-DROP TABLE Orders;
-DROP TABLE OrderDetails;
-DROP TABLE StockTransactions;
+DROP TABLE IF EXISTS Customers;
+DROP TABLE IF EXISTS Employees;
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS OrderDetails;
+DROP TABLE IF IF EXISTS StockTransactions;
 
 -- Tạo bảng Customers (Khách hàng)
 CREATE TABLE Customers (
