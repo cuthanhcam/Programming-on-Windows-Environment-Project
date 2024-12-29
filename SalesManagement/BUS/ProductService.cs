@@ -103,5 +103,23 @@ namespace BUS
                 throw new Exception("Error retrieving products by brand: " + ex.Message);
             }
         }
+
+        // Cập nhật ảnh sản phẩm
+        public void UpdateProductImage(int productId, string imagePath)
+        {
+            try
+            {
+                var product = _context.Products.Find(productId);
+                if (product != null)
+                {
+                    product.Image = imagePath;
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating product image: " + ex.Message);
+            }
+        }
     }
 }

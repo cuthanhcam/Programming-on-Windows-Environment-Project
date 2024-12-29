@@ -42,11 +42,11 @@
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tcMain.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
             this.tcMain.ItemSize = new System.Drawing.Size(150, 30);
-            this.tcMain.Location = new System.Drawing.Point(0, 161);
+            this.tcMain.Location = new System.Drawing.Point(0, 111);
             this.tcMain.Margin = new System.Windows.Forms.Padding(0);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(1184, 650);
+            this.tcMain.Size = new System.Drawing.Size(1184, 700);
             this.tcMain.TabIndex = 7;
             // 
             // tpProducts
@@ -65,7 +65,7 @@
             this.tpOrders.Location = new System.Drawing.Point(4, 34);
             this.tpOrders.Name = "tpOrders";
             this.tpOrders.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOrders.Size = new System.Drawing.Size(1176, 612);
+            this.tpOrders.Size = new System.Drawing.Size(1176, 662);
             this.tpOrders.TabIndex = 1;
             this.tpOrders.Text = "Orders";
             this.tpOrders.UseVisualStyleBackColor = true;
