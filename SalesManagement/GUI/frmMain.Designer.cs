@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpProducts = new System.Windows.Forms.TabPage();
             this.tpOrders = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tcMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -55,7 +58,7 @@
             this.tpProducts.Location = new System.Drawing.Point(4, 34);
             this.tpProducts.Margin = new System.Windows.Forms.Padding(0);
             this.tpProducts.Name = "tpProducts";
-            this.tpProducts.Size = new System.Drawing.Size(1176, 612);
+            this.tpProducts.Size = new System.Drawing.Size(1176, 662);
             this.tpProducts.TabIndex = 0;
             this.tpProducts.Text = "Products";
             this.tpProducts.UseVisualStyleBackColor = true;
@@ -74,23 +77,35 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift", 35.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(71, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 57);
+            this.label1.Size = new System.Drawing.Size(424, 57);
             this.label1.TabIndex = 8;
-            this.label1.Text = "C4F";
+            this.label1.Text = "Sales Management";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(57, 57);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 811);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tcMain);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmMain";
             this.tcMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,5 +116,6 @@
         private System.Windows.Forms.TabPage tpProducts;
         private System.Windows.Forms.TabPage tpOrders;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

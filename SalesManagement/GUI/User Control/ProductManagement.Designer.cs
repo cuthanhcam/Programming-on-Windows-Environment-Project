@@ -106,7 +106,7 @@
             // 
             this.cmbBrand.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
             this.cmbBrand.FormattingEnabled = true;
-            this.cmbBrand.Location = new System.Drawing.Point(748, 85);
+            this.cmbBrand.Location = new System.Drawing.Point(739, 85);
             this.cmbBrand.Name = "cmbBrand";
             this.cmbBrand.Size = new System.Drawing.Size(150, 29);
             this.cmbBrand.TabIndex = 7;
@@ -136,7 +136,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label2.Location = new System.Drawing.Point(693, 88);
+            this.label2.Location = new System.Drawing.Point(684, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 22);
             this.label2.TabIndex = 3;
