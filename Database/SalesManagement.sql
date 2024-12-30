@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Products;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS OrderDetails;
-DROP TABLE IF IF EXISTS StockTransactions;
+DROP TABLE IF EXISTS StockTransactions;
 
 -- Tạo bảng Customers (Khách hàng)
 CREATE TABLE Customers (
