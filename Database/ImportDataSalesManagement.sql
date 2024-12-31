@@ -1,6 +1,13 @@
 ﻿USE SalesManagement;
 GO
 
+DELETE FROM Customers;
+DELETE FROM Employees;
+DELETE FROM Products;
+DELETE FROM Orders;
+DELETE FROM OrderDetails;
+DELETE FROM StockTransactions;
+
 INSERT INTO Customers (Name, Email, Phone, MembershipLevel)
 VALUES 
     ('John Doe', 'johndoe@example.com', '1234567890', 'Gold'),
@@ -33,7 +40,7 @@ GO
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
 	('Processor', 'Ryzen Threadripper 3990X', 'AMD', 8078, 
-	'{"Cores": "64", "Threads": "128", "Socket Type": "sTRX4", "Memory Type": "DDR4", "Memory Speed": "3200 MHz", "Base Speed": "2.9 GHz", "Turbo Speed": "4.3 GHz", "Max Power Consumption": "280 W"}', 20),
+	'{"Cores": "64", "Threads": "128", "Socket Type": "sTRX4", "Memory Speed": "DDR4", "Memory Type": "3200 MHz", "Base Speed": "2.9 GHz", "Turbo Speed": "4.3 GHz", "Max Power Consumption": "280 W"}', 20),
 	('Processor', 'Ryzen 9 7950X', 'AMD', 699, 
 	'{"Cores": "16", "Threads": "32", "Socket Type": "AM5", "Memory Type": "DDR5", "Memory Speed": "5200 MHz", "Base Speed": "4.5 GHz", "Turbo Speed": "5.7 GHz", "Max Power Consumption": "170 W"}', 20),
 	('Processor', 'i9-13900KF', 'Intel', 574, 

@@ -47,9 +47,47 @@ namespace GUI
 
         private void LoadProducts(List<Product> products)
         {
+            //lstProduct.BeginUpdate(); // Tạm dừng cập nhật giao diện
+            //imageListProducts.Images.Clear();
+            //lstProduct.Items.Clear();
+
+            //foreach (var product in products)
+            //{
+            //    var item = new ListViewItem();
+
+            //    string imagePath = Path.Combine("Images", product.Category, product.Model + ".jpg");
+            //    if (File.Exists(imagePath))
+            //    {
+            //        imageListProducts.Images.Add(Image.FromFile(imagePath));
+            //        item.ImageIndex = imageListProducts.Images.Count - 1;
+            //    }
+            //    else
+            //    {
+            //        item.ImageIndex = -1;
+            //    }
+
+            //    item.SubItems.Add(product.ProductID.ToString());
+            //    item.SubItems.Add(product.Model);
+            //    item.SubItems.Add(product.Price.ToString("C"));
+            //    item.SubItems.Add(product.StockQuantity.ToString());
+            //    item.SubItems.Add(product.Promotion.ToString());
+            //    item.SubItems.Add(product.Warranty.ToString());
+
+            //    lstProduct.Items.Add(item);
+            //}
+
+            //lstProduct.EndUpdate(); // Kích hoạt cập nhật giao diện
             lstProduct.BeginUpdate(); // Tạm dừng cập nhật giao diện
             imageListProducts.Images.Clear();
             lstProduct.Items.Clear();
+            lstProduct.Groups.Clear(); // Xóa các nhóm cũ
+
+            // Tạo các nhóm dựa trên Category
+            var categories = products.Select(p => p.Category).Distinct();
+            foreach (var category in categories)
+            {
+                lstProduct.Groups.Add(new ListViewGroup(category, category));
+            }
 
             foreach (var product in products)
             {
@@ -73,6 +111,9 @@ namespace GUI
                 item.SubItems.Add(product.Promotion.ToString());
                 item.SubItems.Add(product.Warranty.ToString());
 
+                // Gán sản phẩm vào nhóm tương ứng
+                item.Group = lstProduct.Groups[product.Category];
+
                 lstProduct.Items.Add(item);
             }
 
@@ -90,6 +131,7 @@ namespace GUI
             lstProduct.Columns.Add("Promotion", 100);
             lstProduct.Columns.Add("Warranty", 100);
             lstProduct.SmallImageList = imageListProducts;
+            lstProduct.ShowGroups = true;
         }
         private void LoadCategories()
         {
@@ -322,6 +364,27 @@ namespace GUI
             else
             {
                 MessageBox.Show("Please enter a valid Product ID.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Đặt lại các bộ lọc về mặc định
+                cmbCategory.SelectedIndex = 0;
+                cmbBrand.SelectedIndex = 0;
+                txtSearch.Clear();
+                cmbPrice.SelectedIndex = 0;
+
+                // Tải lại danh sách sản phẩm
+                _allProducts = _productService.GetAllProducts();
+                LoadProducts(_allProducts);
+                ClearForm(); // Xóa form nhập liệu
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reloading products: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
