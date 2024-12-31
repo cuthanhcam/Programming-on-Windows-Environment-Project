@@ -39,6 +39,7 @@
             this.tcOrder.Controls.Add(this.tpCreateOrder);
             this.tcOrder.Controls.Add(this.tpOrderDetails);
             this.tcOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcOrder.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
             this.tcOrder.ItemSize = new System.Drawing.Size(150, 30);
             this.tcOrder.Location = new System.Drawing.Point(0, 0);
             this.tcOrder.Name = "tcOrder";
