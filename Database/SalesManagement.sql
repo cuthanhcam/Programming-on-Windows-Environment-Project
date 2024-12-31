@@ -21,6 +21,7 @@ CREATE TABLE Customers (
     Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
     Email NVARCHAR(200) NULL,                 -- Email khách hàng
     Phone VARCHAR(15) NULL,                   -- Số điện thoại
+	Address NVARCHAR(MAX) NULL,			      -- Địa chỉ
     MembershipLevel NVARCHAR(50) NULL
 		CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
     CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum'))
@@ -60,7 +61,9 @@ CREATE TABLE Orders (
     EmployeeID INT NULL,                    -- Người thực hiện đơn hàng
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày đặt hàng, mặc định là ngày hiện tại
     TotalAmount DECIMAL(18, 2) NOT NULL CHECK (TotalAmount > 0), -- Tổng tiền
+	Discount DECIMAL(18, 2) DEFAULT 0,      -- Giảm giá
     Status NVARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Completed', 'Canceled')), -- Trạng thái đơn hàng
+	Note NVARCHAR(MAX) NULL,                -- Ghi chú đơn hàng
     CONSTRAINT FK_Orders_Customers FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE,
     CONSTRAINT FK_Orders_Employees FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE SET NULL
 );
@@ -72,6 +75,7 @@ CREATE TABLE OrderDetails (
     OrderID INT NOT NULL,                        -- Liên kết đến bảng Orders
     ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
     Quantity INT NOT NULL CHECK (Quantity > 0),  -- Số lượng sản phẩm
+	UnitPrice DECIMAL(18, 2) NOT NULL CHECK (UnitPrice > 0), -- Giá đơn vị sản phẩm -- Total = UnitPrice * Quantity
     Price DECIMAL(18, 2) NOT NULL CHECK (Price > 0), -- Giá sản phẩm tại thời điểm đặt hàng
     CONSTRAINT FK_OrderDetails_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
     CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
@@ -83,10 +87,11 @@ GO
 CREATE TABLE StockTransactions (
     TransactionID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
-    TransactionType NVARCHAR(50) NOT NULL CHECK (TransactionType IN (N'Nhập kho', N'Xuất kho')), -- Loại giao dịch
+    TransactionType NVARCHAR(50) NOT NULL CHECK (TransactionType IN (N'Import', N'Export')), -- Loại giao dịch
     Quantity INT NOT NULL CHECK (Quantity > 0),  -- Số lượng
     TransactionDate DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày giao dịch
     EmployeeID INT NOT NULL,                     -- Người thực hiện
+	Note NVARCHAR(MAX) NULL,                     -- Ghi chú giao dịch
     CONSTRAINT FK_StockTransactions_Products FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
     CONSTRAINT FK_StockTransactions_Employees FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
 );
