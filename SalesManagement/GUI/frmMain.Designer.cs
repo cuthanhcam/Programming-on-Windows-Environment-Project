@@ -77,50 +77,50 @@
             // 
             // tpOrders
             // 
-            this.tpOrders.Location = new System.Drawing.Point(4, 22);
+            this.tpOrders.Location = new System.Drawing.Point(4, 5);
             this.tpOrders.Name = "tpOrders";
             this.tpOrders.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOrders.Size = new System.Drawing.Size(1176, 636);
+            this.tpOrders.Size = new System.Drawing.Size(1177, 653);
             this.tpOrders.TabIndex = 1;
             this.tpOrders.Text = "Orders";
             this.tpOrders.UseVisualStyleBackColor = true;
             // 
             // tpCustomers
             // 
-            this.tpCustomers.Location = new System.Drawing.Point(4, 22);
+            this.tpCustomers.Location = new System.Drawing.Point(4, 5);
             this.tpCustomers.Name = "tpCustomers";
             this.tpCustomers.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCustomers.Size = new System.Drawing.Size(1176, 636);
+            this.tpCustomers.Size = new System.Drawing.Size(1177, 653);
             this.tpCustomers.TabIndex = 2;
             this.tpCustomers.Text = "Customers";
             this.tpCustomers.UseVisualStyleBackColor = true;
             // 
             // tpStock
             // 
-            this.tpStock.Location = new System.Drawing.Point(4, 22);
+            this.tpStock.Location = new System.Drawing.Point(4, 5);
             this.tpStock.Name = "tpStock";
             this.tpStock.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStock.Size = new System.Drawing.Size(1176, 636);
+            this.tpStock.Size = new System.Drawing.Size(1177, 653);
             this.tpStock.TabIndex = 3;
             this.tpStock.Text = "Stock";
             this.tpStock.UseVisualStyleBackColor = true;
             // 
             // tpStatistics
             // 
-            this.tpStatistics.Location = new System.Drawing.Point(4, 22);
+            this.tpStatistics.Location = new System.Drawing.Point(4, 5);
             this.tpStatistics.Name = "tpStatistics";
             this.tpStatistics.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStatistics.Size = new System.Drawing.Size(1176, 636);
+            this.tpStatistics.Size = new System.Drawing.Size(1177, 653);
             this.tpStatistics.TabIndex = 4;
             this.tpStatistics.Text = "Statistics";
             this.tpStatistics.UseVisualStyleBackColor = true;
             // 
             // tpEmployees
             // 
-            this.tpEmployees.Location = new System.Drawing.Point(4, 22);
+            this.tpEmployees.Location = new System.Drawing.Point(4, 5);
             this.tpEmployees.Name = "tpEmployees";
             this.tpEmployees.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEmployees.Size = new System.Drawing.Size(1176, 636);
+            this.tpEmployees.Size = new System.Drawing.Size(1177, 653);
             this.tpEmployees.TabIndex = 5;
             this.tpEmployees.Text = "Employees";
             this.tpEmployees.UseVisualStyleBackColor = true;
@@ -139,11 +139,11 @@
             // 
             this.btnProductsManagement.BackColor = System.Drawing.Color.White;
             this.btnProductsManagement.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnProductsManagement.Location = new System.Drawing.Point(4, 102);
+            this.btnProductsManagement.Location = new System.Drawing.Point(8, 102);
             this.btnProductsManagement.Name = "btnProductsManagement";
             this.btnProductsManagement.Size = new System.Drawing.Size(190, 50);
             this.btnProductsManagement.TabIndex = 10;
-            this.btnProductsManagement.Text = "Available Products";
+            this.btnProductsManagement.Text = "Products Management";
             this.btnProductsManagement.UseVisualStyleBackColor = false;
             this.btnProductsManagement.Click += new System.EventHandler(this.btnProductsManagement_Click);
             // 
@@ -151,7 +151,7 @@
             // 
             this.btnOrdersManagement.BackColor = System.Drawing.Color.White;
             this.btnOrdersManagement.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnOrdersManagement.Location = new System.Drawing.Point(200, 102);
+            this.btnOrdersManagement.Location = new System.Drawing.Point(204, 102);
             this.btnOrdersManagement.Name = "btnOrdersManagement";
             this.btnOrdersManagement.Size = new System.Drawing.Size(190, 50);
             this.btnOrdersManagement.TabIndex = 11;
@@ -163,7 +163,7 @@
             // 
             this.btnCustomersManagement.BackColor = System.Drawing.Color.White;
             this.btnCustomersManagement.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnCustomersManagement.Location = new System.Drawing.Point(396, 102);
+            this.btnCustomersManagement.Location = new System.Drawing.Point(400, 102);
             this.btnCustomersManagement.Name = "btnCustomersManagement";
             this.btnCustomersManagement.Size = new System.Drawing.Size(190, 50);
             this.btnCustomersManagement.TabIndex = 12;
@@ -175,7 +175,7 @@
             // 
             this.btnStockManagement.BackColor = System.Drawing.Color.White;
             this.btnStockManagement.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnStockManagement.Location = new System.Drawing.Point(592, 102);
+            this.btnStockManagement.Location = new System.Drawing.Point(596, 102);
             this.btnStockManagement.Name = "btnStockManagement";
             this.btnStockManagement.Size = new System.Drawing.Size(190, 50);
             this.btnStockManagement.TabIndex = 13;
@@ -187,7 +187,7 @@
             // 
             this.btnStatistics.BackColor = System.Drawing.Color.White;
             this.btnStatistics.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnStatistics.Location = new System.Drawing.Point(788, 102);
+            this.btnStatistics.Location = new System.Drawing.Point(792, 102);
             this.btnStatistics.Name = "btnStatistics";
             this.btnStatistics.Size = new System.Drawing.Size(190, 50);
             this.btnStatistics.TabIndex = 14;
@@ -199,7 +199,7 @@
             // 
             this.btnEmployeesManagement.BackColor = System.Drawing.Color.White;
             this.btnEmployeesManagement.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnEmployeesManagement.Location = new System.Drawing.Point(982, 102);
+            this.btnEmployeesManagement.Location = new System.Drawing.Point(986, 102);
             this.btnEmployeesManagement.Name = "btnEmployeesManagement";
             this.btnEmployeesManagement.Size = new System.Drawing.Size(190, 50);
             this.btnEmployeesManagement.TabIndex = 15;

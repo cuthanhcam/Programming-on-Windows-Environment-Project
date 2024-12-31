@@ -58,7 +58,7 @@
             this.lstProduct.Location = new System.Drawing.Point(395, 142);
             this.lstProduct.MultiSelect = false;
             this.lstProduct.Name = "lstProduct";
-            this.lstProduct.Size = new System.Drawing.Size(770, 500);
+            this.lstProduct.Size = new System.Drawing.Size(770, 350);
             this.lstProduct.SmallImageList = this.imageListProducts;
             this.lstProduct.TabIndex = 0;
             this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
@@ -69,7 +69,7 @@
             // imageListProducts
             // 
             this.imageListProducts.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageListProducts.ImageSize = new System.Drawing.Size(40, 40);
+            this.imageListProducts.ImageSize = new System.Drawing.Size(35, 35);
             this.imageListProducts.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // richTextBoxDetail
@@ -96,7 +96,7 @@
             // 
             this.txtProductID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtProductID.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtProductID.Location = new System.Drawing.Point(107, 225);
+            this.txtProductID.Location = new System.Drawing.Point(107, 223);
             this.txtProductID.Name = "txtProductID";
             this.txtProductID.Size = new System.Drawing.Size(163, 28);
             this.txtProductID.TabIndex = 9;

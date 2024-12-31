@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.tcOrder = new System.Windows.Forms.TabControl();
+            this.tpOrderList = new System.Windows.Forms.TabPage();
+            this.tpOrderDetail = new System.Windows.Forms.TabPage();
             this.tpCreateOrder = new System.Windows.Forms.TabPage();
-            this.tpOrderDetails = new System.Windows.Forms.TabPage();
             this.tcOrder.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcOrder
             // 
+            this.tcOrder.Controls.Add(this.tpOrderList);
+            this.tcOrder.Controls.Add(this.tpOrderDetail);
             this.tcOrder.Controls.Add(this.tpCreateOrder);
-            this.tcOrder.Controls.Add(this.tpOrderDetails);
             this.tcOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcOrder.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
             this.tcOrder.ItemSize = new System.Drawing.Size(150, 30);
@@ -47,25 +49,35 @@
             this.tcOrder.Size = new System.Drawing.Size(1177, 653);
             this.tcOrder.TabIndex = 0;
             // 
+            // tpOrderList
+            // 
+            this.tpOrderList.Location = new System.Drawing.Point(4, 34);
+            this.tpOrderList.Name = "tpOrderList";
+            this.tpOrderList.Padding = new System.Windows.Forms.Padding(3);
+            this.tpOrderList.Size = new System.Drawing.Size(1169, 615);
+            this.tpOrderList.TabIndex = 0;
+            this.tpOrderList.Text = "Order List";
+            this.tpOrderList.UseVisualStyleBackColor = true;
+            // 
+            // tpOrderDetail
+            // 
+            this.tpOrderDetail.Location = new System.Drawing.Point(4, 34);
+            this.tpOrderDetail.Name = "tpOrderDetail";
+            this.tpOrderDetail.Padding = new System.Windows.Forms.Padding(3);
+            this.tpOrderDetail.Size = new System.Drawing.Size(1169, 615);
+            this.tpOrderDetail.TabIndex = 1;
+            this.tpOrderDetail.Text = "Order Detail";
+            this.tpOrderDetail.UseVisualStyleBackColor = true;
+            // 
             // tpCreateOrder
             // 
             this.tpCreateOrder.Location = new System.Drawing.Point(4, 34);
             this.tpCreateOrder.Name = "tpCreateOrder";
             this.tpCreateOrder.Padding = new System.Windows.Forms.Padding(3);
             this.tpCreateOrder.Size = new System.Drawing.Size(1169, 615);
-            this.tpCreateOrder.TabIndex = 0;
-            this.tpCreateOrder.Text = "Create Order";
+            this.tpCreateOrder.TabIndex = 2;
+            this.tpCreateOrder.Text = "Create New Order";
             this.tpCreateOrder.UseVisualStyleBackColor = true;
-            // 
-            // tpOrderDetails
-            // 
-            this.tpOrderDetails.Location = new System.Drawing.Point(4, 34);
-            this.tpOrderDetails.Name = "tpOrderDetails";
-            this.tpOrderDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOrderDetails.Size = new System.Drawing.Size(1169, 615);
-            this.tpOrderDetails.TabIndex = 1;
-            this.tpOrderDetails.Text = "Order Details";
-            this.tpOrderDetails.UseVisualStyleBackColor = true;
             // 
             // OrderManagement
             // 
@@ -82,7 +94,8 @@
         #endregion
 
         private System.Windows.Forms.TabControl tcOrder;
+        private System.Windows.Forms.TabPage tpOrderList;
+        private System.Windows.Forms.TabPage tpOrderDetail;
         private System.Windows.Forms.TabPage tpCreateOrder;
-        private System.Windows.Forms.TabPage tpOrderDetails;
     }
 }

@@ -24,9 +24,13 @@ namespace DAL.Entities
 
         public decimal TotalAmount { get; set; }
 
+        public decimal Discount { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Status { get; set; }
+        
+        public string Note { get; set; }
 
         public virtual Customer Customer { get; set; }
 

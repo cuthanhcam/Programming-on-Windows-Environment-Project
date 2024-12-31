@@ -26,6 +26,8 @@ namespace DAL.Entities
         [StringLength(15)]
         public string Phone { get; set; }
 
+        public string Address { get; set; }
+
         [StringLength(50)]
         public string MembershipLevel { get; set; }
 

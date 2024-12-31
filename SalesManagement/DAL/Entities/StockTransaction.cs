@@ -23,6 +23,8 @@ namespace DAL.Entities
 
         public int EmployeeID { get; set; }
 
+        public string Note { get; set; }
+
         public virtual Employee Employee { get; set; }
 
         public virtual Product Product { get; set; }
