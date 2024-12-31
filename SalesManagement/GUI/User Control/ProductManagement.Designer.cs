@@ -55,7 +55,7 @@
             this.lstProduct.FullRowSelect = true;
             this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstProduct.HideSelection = false;
-            this.lstProduct.Location = new System.Drawing.Point(386, 142);
+            this.lstProduct.Location = new System.Drawing.Point(395, 142);
             this.lstProduct.MultiSelect = false;
             this.lstProduct.Name = "lstProduct";
             this.lstProduct.Size = new System.Drawing.Size(770, 500);
@@ -98,7 +98,7 @@
             this.txtProductID.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
             this.txtProductID.Location = new System.Drawing.Point(107, 225);
             this.txtProductID.Name = "txtProductID";
-            this.txtProductID.Size = new System.Drawing.Size(200, 28);
+            this.txtProductID.Size = new System.Drawing.Size(163, 28);
             this.txtProductID.TabIndex = 9;
             this.txtProductID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductID_KeyPress);
             // 
@@ -222,7 +222,7 @@
             this.Controls.Add(this.label3);
             this.Font = new System.Drawing.Font("Bahnschrift", 8F);
             this.Name = "ProductManagement";
-            this.Size = new System.Drawing.Size(1176, 662);
+            this.Size = new System.Drawing.Size(1177, 653);
             ((System.ComponentModel.ISupportInitialize)(this.pbProduct)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

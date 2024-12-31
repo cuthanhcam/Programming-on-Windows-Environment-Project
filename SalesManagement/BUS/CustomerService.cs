@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,12 @@ namespace BUS
 {
     public class CustomerService
     {
+        private readonly SalesManagementContext _context;
+        public CustomerService(SalesManagementContext context)
+        {
+            _context = context;
+        }
+
         public static List<DAL.Entities.Customer> GetAll()
         {
             return BUS.CustomerService.GetAll();

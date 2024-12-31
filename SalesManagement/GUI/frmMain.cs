@@ -15,6 +15,7 @@ namespace GUI
     public partial class frmMain : Form
     {
         private readonly ProductService _productService;
+        private readonly CustomerService _customerService;
         public frmMain()
         {
             InitializeComponent();
@@ -34,6 +35,36 @@ namespace GUI
                 Dock = DockStyle.Fill,
             };
             tpProducts.Controls.Add(productManagement);
+        }
+
+        private void btnProductsManagement_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 0;
+        }
+
+        private void btnOrdersManagement_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 1;
+        }
+
+        private void btnCustomersManagement_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 2;
+        }
+
+        private void btnStockManagement_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 3;
+        }
+
+        private void btnStatistics_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 4;
+        }
+
+        private void btnEmployeesManagement_Click(object sender, EventArgs e)
+        {
+            tcMain.SelectedIndex = 5;
         }
     }
 }
