@@ -310,18 +310,18 @@ VALUES
     (10, 1, 1890.20, 'Canceled');
 GO
 
-INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price)
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
 VALUES 
-    (1, 1, 2, 8078),
-    (1, 2, 3, 699),
-    (2, 3, 1, 574),
-    (3, 4, 1, 2193.4),
-    (3, 5, 2, 641.92),
-    (4, 6, 4, 439.99),
-    (5, 7, 3, 559.2),
-    (6, 8, 5, 319.97),
-    (7, 9, 1, 8078),
-    (8, 10, 3, 574);
+    (1, 1, 2, 8078, 8078),
+    (1, 2, 3, 699, 699),
+    (2, 3, 1, 574, 574),
+    (3, 4, 1, 2193.4, 2193.4),
+    (3, 5, 2, 641.92, 641.92),
+    (4, 6, 4, 439.99, 439.99),
+    (5, 7, 3, 559.2, 559.2),
+    (6, 8, 5, 319.97, 319.97),
+    (7, 9, 1, 8078, 8078),
+    (8, 10, 3, 574, 574);
 GO
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID)

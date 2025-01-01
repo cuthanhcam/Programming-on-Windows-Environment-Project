@@ -41,7 +41,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManagement));
             this.lstProduct = new System.Windows.Forms.ListView();
             this.imageListProducts = new System.Windows.Forms.ImageList(this.components);
-            this.richTextBoxDetail = new System.Windows.Forms.RichTextBox();
+            this.rtbDetail = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.cmbBrand = new System.Windows.Forms.ComboBox();
@@ -116,15 +116,16 @@
             this.imageListProducts.ImageSize = new System.Drawing.Size(35, 35);
             this.imageListProducts.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // richTextBoxDetail
+            // rtbDetail
             // 
-            this.richTextBoxDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBoxDetail.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.richTextBoxDetail.Location = new System.Drawing.Point(26, 308);
-            this.richTextBoxDetail.Name = "richTextBoxDetail";
-            this.richTextBoxDetail.Size = new System.Drawing.Size(281, 315);
-            this.richTextBoxDetail.TabIndex = 17;
-            this.richTextBoxDetail.Text = "";
+            this.rtbDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbDetail.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.rtbDetail.Location = new System.Drawing.Point(26, 308);
+            this.rtbDetail.Name = "rtbDetail";
+            this.rtbDetail.Size = new System.Drawing.Size(281, 315);
+            this.rtbDetail.TabIndex = 17;
+            this.rtbDetail.Text = "";
+            this.rtbDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbDetail_KeyPress);
             // 
             // label8
             // 
@@ -144,7 +145,7 @@
             this.txtProductID.Name = "txtProductID";
             this.txtProductID.Size = new System.Drawing.Size(163, 28);
             this.txtProductID.TabIndex = 9;
-            this.txtProductID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductID_KeyPress);
+            this.txtProductID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductID_KeyDown);
             // 
             // cmbBrand
             // 
@@ -287,6 +288,7 @@
             this.btnUpdate.TabIndex = 25;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -302,12 +304,13 @@
             // btnAddUpdatePic
             // 
             this.btnAddUpdatePic.Font = new System.Drawing.Font("Bahnschrift", 11F);
-            this.btnAddUpdatePic.Location = new System.Drawing.Point(140, 202);
+            this.btnAddUpdatePic.Location = new System.Drawing.Point(145, 202);
             this.btnAddUpdatePic.Name = "btnAddUpdatePic";
             this.btnAddUpdatePic.Size = new System.Drawing.Size(75, 30);
             this.btnAddUpdatePic.TabIndex = 27;
             this.btnAddUpdatePic.Text = "Picture";
             this.btnAddUpdatePic.UseVisualStyleBackColor = true;
+            this.btnAddUpdatePic.Click += new System.EventHandler(this.btnAddUpdatePic_Click);
             // 
             // ProductManagement
             // 
@@ -325,7 +328,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.richTextBoxDetail);
+            this.Controls.Add(this.rtbDetail);
             this.Controls.Add(this.lstProduct);
             this.Controls.Add(this.txtProductID);
             this.Controls.Add(this.pbProduct);
@@ -353,7 +356,7 @@
         private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.TextBox txtProductID;
         private System.Windows.Forms.ComboBox cmbBrand;
-        private System.Windows.Forms.RichTextBox richTextBoxDetail;
+        private System.Windows.Forms.RichTextBox rtbDetail;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ImageList imageListProducts;
         private System.Windows.Forms.TextBox txtSearch;

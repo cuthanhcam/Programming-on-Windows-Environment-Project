@@ -17,72 +17,134 @@ namespace GUI
     {
         private readonly ProductService _productService;
         private List<Product> _allProducts;
+        private List<Product> _filteredProducts;
 
         public ProductManagement(ProductService productService)
         {
             InitializeComponent();
             _productService = productService;
-            _allProducts = _productService.GetAllProducts(); // Lưu trữ danh sách sản phẩm
+            _allProducts = _productService.GetAllProducts();
+            _filteredProducts = _allProducts;
             InitializeListViewColumns();
-            LoadCategories();
-            LoadBrands();
-            LoadProducts(_allProducts);
-            ClearForm();
+            LoadProducts(_filteredProducts);
+            InitializeComboBoxes();
+            InitializeSearch();
 
-            richTextBoxDetail.ReadOnly = true;
-            richTextBoxDetail.BackColor = Color.White;
+            rtbDetail.KeyPress += rtbDetail_KeyPress;
+        }
 
+        private void InitializeComboBoxes()
+        {
+            // Khởi tạo cmbCategory và cmbBrand
+            var categories = _allProducts.Select(p => p.Category).Distinct().ToList();
+            var brands = _allProducts.Select(p => p.Brand).Distinct().ToList();
+
+            cmbCategory.Items.Add("All");
+            cmbCategory.Items.AddRange(categories.ToArray());
+
+            cmbBrand.Items.Add("All");
+            cmbBrand.Items.AddRange(brands.ToArray());
+
+            // Đặt SelectedIndex = 0 mà không kích hoạt sự kiện
+            UnsubscribeEvents();
+            cmbCategory.SelectedIndex = 0;
+            cmbBrand.SelectedIndex = 0;
+            SubscribeEvents();
+
+            // Khởi tạo cmbPrice
             cmbPrice.Items.Add("All");
-            cmbPrice.Items.Add("Price Ascending"); // Giá tăng dần
-            cmbPrice.Items.Add("Price Descending"); // Giá giảm dần
+            cmbPrice.Items.Add("Price Ascending");
+            cmbPrice.Items.Add("Price Descending");
             cmbPrice.SelectedIndex = 0;
+            cmbPrice.SelectedIndexChanged += cmbPrice_SelectedIndexChanged;
+        }
 
-            // Đăng ký sự kiện SelectedIndexChanged cho cmbCategory và cmbBrand
-            //cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
-            //cmbBrand.SelectedIndexChanged += cmbBrand_SelectedIndexChanged;
+        private void SubscribeEvents()
+        {
+            // Đăng ký sự kiện SelectedIndexChanged
+            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
+            cmbBrand.SelectedIndexChanged += cmbBrand_SelectedIndexChanged;
+            txtProductID.KeyDown += txtProductID_KeyDown;
+        }
 
-            // Đăng ký sự kiện KeyPress cho txtProductID
-            txtProductID.KeyPress += txtProductID_KeyPress;
+        private void UnsubscribeEvents()
+        {
+            // Hủy đăng ký sự kiện SelectedIndexChanged
+            cmbCategory.SelectedIndexChanged -= cmbCategory_SelectedIndexChanged;
+            cmbBrand.SelectedIndexChanged -= cmbBrand_SelectedIndexChanged;
+            txtProductID.KeyDown -= txtProductID_KeyDown;
+        }
+
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedCategory = cmbCategory.SelectedItem.ToString();
+
+            // Lấy danh sách brands theo category
+            var brands = selectedCategory == "All"
+                ? _productService.GetAllBrands()
+                : _productService.GetBrandsByCategory(selectedCategory);
+
+            UnsubscribeEvents();
+            cmbBrand.Items.Clear();
+            cmbBrand.Items.Add("All");
+            cmbBrand.Items.AddRange(brands.ToArray());
+            cmbBrand.SelectedIndex = 0;
+            SubscribeEvents();
+
+            // Hiển thị thông số trống
+            rtbDetail.Text = _productService.GetEmptySpecifications(selectedCategory);
+
+            // Lọc danh sách sản phẩm
+            FilterProducts();
+        }
+
+        private void cmbBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Lọc danh sách sản phẩm
+            FilterProducts();
+        }
+
+
+        private void cmbPrice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Lọc danh sách sản phẩm theo giá
+            FilterProducts();
+        }
+
+        private void InitializeSearch()
+        {
+            // Thêm sự kiện TextChanged cho txtSearch
+            txtSearch.TextChanged += txtSearch_TextChanged;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            // Lọc danh sách sản phẩm theo model
+            FilterProducts();
+        }
+
+        private void FilterProducts()
+        {
+            string selectedCategory = cmbCategory.SelectedItem.ToString();
+            string selectedBrand = cmbBrand.SelectedItem.ToString();
+            string selectedPriceSort = cmbPrice.SelectedItem.ToString();
+            string searchText = txtSearch.Text.Trim();
+
+            // Lọc sản phẩm từ ProductService
+            _filteredProducts = _productService.FilterProducts(selectedCategory, selectedBrand, searchText, selectedPriceSort);
+
+            // Cập nhật danh sách sản phẩm
+            LoadProducts(_filteredProducts);
         }
 
         private void LoadProducts(List<Product> products)
         {
-            //lstProduct.BeginUpdate(); // Tạm dừng cập nhật giao diện
-            //imageListProducts.Images.Clear();
-            //lstProduct.Items.Clear();
-
-            //foreach (var product in products)
-            //{
-            //    var item = new ListViewItem();
-
-            //    string imagePath = Path.Combine("Images", product.Category, product.Model + ".jpg");
-            //    if (File.Exists(imagePath))
-            //    {
-            //        imageListProducts.Images.Add(Image.FromFile(imagePath));
-            //        item.ImageIndex = imageListProducts.Images.Count - 1;
-            //    }
-            //    else
-            //    {
-            //        item.ImageIndex = -1;
-            //    }
-
-            //    item.SubItems.Add(product.ProductID.ToString());
-            //    item.SubItems.Add(product.Model);
-            //    item.SubItems.Add(product.Price.ToString("C"));
-            //    item.SubItems.Add(product.StockQuantity.ToString());
-            //    item.SubItems.Add(product.Promotion.ToString());
-            //    item.SubItems.Add(product.Warranty.ToString());
-
-            //    lstProduct.Items.Add(item);
-            //}
-
-            //lstProduct.EndUpdate(); // Kích hoạt cập nhật giao diện
-            lstProduct.BeginUpdate(); // Tạm dừng cập nhật giao diện
+            lstProduct.BeginUpdate();
             imageListProducts.Images.Clear();
             lstProduct.Items.Clear();
-            lstProduct.Groups.Clear(); // Xóa các nhóm cũ
+            lstProduct.Groups.Clear();
 
-            // Tạo các nhóm dựa trên Category
             var categories = products.Select(p => p.Category).Distinct();
             foreach (var category in categories)
             {
@@ -111,13 +173,12 @@ namespace GUI
                 item.SubItems.Add(product.Promotion.ToString());
                 item.SubItems.Add(product.Warranty.ToString());
 
-                // Gán sản phẩm vào nhóm tương ứng
                 item.Group = lstProduct.Groups[product.Category];
 
                 lstProduct.Items.Add(item);
             }
 
-            lstProduct.EndUpdate(); // Kích hoạt cập nhật giao diện
+            lstProduct.EndUpdate();
         }
 
         private void InitializeListViewColumns()
@@ -133,34 +194,7 @@ namespace GUI
             lstProduct.SmallImageList = imageListProducts;
             lstProduct.ShowGroups = true;
         }
-        private void LoadCategories()
-        {
-            var categories = _allProducts
-                            .Select(p => p.Category)
-                            .Distinct()
-                            .ToList();
 
-            // Thêm mục "All" vào đầu danh sách
-            categories.Insert(0, "All");
-
-            cmbCategory.DataSource = categories;
-            cmbCategory.SelectedIndex = 0; // Chọn mục "All" mặc định
-        }
-
-        private void LoadBrands()
-        {
-            var brands = _allProducts
-                        .Select(p => p.Brand)
-                        .Distinct()
-                        .ToList();
-
-            // Thêm mục "All" vào đầu danh sách
-            brands.Insert(0, "All");
-
-            cmbBrand.DataSource = brands;
-            cmbBrand.SelectedIndex = 0; // Chọn mục "All" mặc định
-        }
-        
         private void lstProduct_Click(object sender, EventArgs e)
         {
             if (lstProduct.SelectedItems.Count > 0)
@@ -179,20 +213,20 @@ namespace GUI
 
         private void PopulateProductDetails(Product product)
         {
-            // Cập nhật Product ID
             txtProductID.Text = product.ProductID.ToString();
-
-            // Hiển thị thông tin chi tiết trong richTextBoxDetails
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Category: {product.Category}");
-            sb.AppendLine($"Model: {product.Model}");
-            sb.AppendLine($"Brand: {product.Brand}");
-            sb.AppendLine($"Price: {product.Price.ToString("C")}");
-            sb.Append(DisplaySpecifications(product.Specifications));
 
-            richTextBoxDetail.Text = sb.ToString();
-                
-            // Hiển thị ảnh sản phẩm
+            var specifications = _productService.GetDefaultSpecifications(product.Category);
+            var specValues = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(product.Specifications);
+
+            foreach (var spec in specifications)
+            {
+                string value = specValues.ContainsKey(spec) ? specValues[spec] : "";
+                sb.AppendLine($"{spec}: {value}");
+            }
+
+            rtbDetail.Text = sb.ToString();
+
             string imagePath = Path.Combine("Images", product.Category, product.Model + ".jpg");
             if (File.Exists(imagePath))
             {
@@ -203,90 +237,14 @@ namespace GUI
                 pbProduct.Image = null;
             }
         }
-        private string DisplaySpecifications(string jsonSpecs)
-        {
-            try
-            {
-                var specs = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonSpecs);
-                StringBuilder sb = new StringBuilder();
 
-                // Thêm các thông số kỹ thuật
-                foreach (var key in specs.Keys)
-                {
-                    sb.AppendLine($"{key}: {specs[key]}");
-                }
+        
 
-                return sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                return "Invalid specifications format.";
-            }
-        }
         private void ClearForm()
         {
             txtProductID.Clear();
-            richTextBoxDetail.Clear();
+            rtbDetail.Clear();
             pbProduct.Image = null;
-        }
-
-        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void cmbBrand_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void cmbPrice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void ApplyFilters()
-        {
-            string selectedCategory = cmbCategory.SelectedItem?.ToString();
-            string selectedBrand = cmbBrand.SelectedItem?.ToString();
-            string searchText = txtSearch.Text.Trim();
-            string selectedPriceSort = cmbPrice.SelectedItem?.ToString();
-
-            var filteredProducts = _productService.FilterProducts(selectedCategory, selectedBrand, searchText, selectedPriceSort);
-            LoadProducts(filteredProducts);
-        }
-
-        private void txtProductID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                SearchProductByID();
-                e.Handled = true; // Ngăn không cho phát ra tiếng bíp khi nhấn Enter
-            }
-        }
-        private void SearchProductByID()
-        {
-            if (int.TryParse(txtProductID.Text, out int productId))
-            {
-                var product = _productService.GetProductById(productId);
-                if (product != null)
-                {
-                    PopulateProductDetails(product);
-                }
-                else
-                {
-                    MessageBox.Show("Product not found.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid Product ID.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -310,54 +268,41 @@ namespace GUI
             }
         }
 
-        
-
-        private void btnAddUpdatePic_Click(object sender, EventArgs e)
+        private void txtProductID_KeyDown(object sender, KeyEventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            if (e.KeyCode == Keys.Enter)
             {
-                openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (int.TryParse(txtProductID.Text, out int productId))
                 {
-                    string selectedImagePath = openFileDialog.FileName;
-                    string category = cmbCategory.Text;
-                    string model = txtModel.Text;
-
-                    if (!string.IsNullOrEmpty(category) && !string.IsNullOrEmpty(model))
+                    var product = _productService.GetProductById(productId);
+                    if (product != null)
                     {
-                        try
-                        {
-                            string destinationFolder = Path.Combine("Images", category);
-                            if (!Directory.Exists(destinationFolder))
-                            {
-                                Directory.CreateDirectory(destinationFolder);
-                            }
-
-                            string destinationPath = Path.Combine(destinationFolder, model + ".jpg");
-                            File.Copy(selectedImagePath, destinationPath, overwrite: true);
-
-                            // Cập nhật ảnh trong PictureBox
-                            pbProduct.ImageLocation = destinationPath;
-
-                            // Cập nhật đường dẫn ảnh trong cơ sở dữ liệu
-                            var product = _allProducts.FirstOrDefault(p => p.Model == model);
-                            if (product != null)
-                            {
-                                _productService.UpdateProductImage(product.ProductID, destinationPath);
-                            }
-
-                            MessageBox.Show("Image added/updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error saving image: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        PopulateProductDetails(product);
                     }
                     else
                     {
-                        MessageBox.Show("Please select a category and enter a model name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Product not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Invalid Product ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                e.Handled = true;
+            }
+        }
+
+        private void rtbDetail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int cursorPosition = rtbDetail.SelectionStart;
+
+            int lineIndex = rtbDetail.GetLineFromCharIndex(cursorPosition);
+            string line = rtbDetail.Lines[lineIndex];
+
+            int colonIndex = line.IndexOf(':');
+            if (colonIndex != -1 && cursorPosition <= rtbDetail.GetFirstCharIndexFromLine(lineIndex) + colonIndex)
+            {
+                e.Handled = true;
             }
         }
 
@@ -365,56 +310,139 @@ namespace GUI
         {
             try
             {
-                string category = cmbCategory.SelectedItem.ToString();
-                string model = txtModel.Text.Trim();
-                string brand = cmbBrand.SelectedItem.ToString();
-                decimal price = decimal.Parse(txtPrice.Text.Trim());
-                int stockQuantity = int.Parse(txtStockQuantity.Text.Trim());
-                string specifications = richTextBoxDetail.Text.Trim();
-                string imagePath = SaveProductImage(pbProduct.Image, model); // Lưu ảnh vào thư mục
-                int promotion = int.Parse(txtPromotion.Text.Trim());
-                int warranty = int.Parse(txtWarranty.Text.Trim());
+                // Lấy dữ liệu từ rtbDetail
+                var lines = rtbDetail.Lines;
+                var details = new Dictionary<string, string>();
 
-                productService.AddProduct(category, model, brand, price, stockQuantity, specifications, imagePath, promotion, warranty);
-                LoadProductsToListView(); // Load lại danh sách
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(new[] { ':' }, 2);
+                    if (parts.Length == 2)
+                    {
+                        details[parts[0].Trim()] = parts[1].Trim();
+                    }
+                }
+
+                // Lấy các thông tin cần thiết
+                string category = details.ContainsKey("Category") ? details["Category"] : string.Empty;
+                string model = details.ContainsKey("Model") ? details["Model"] : string.Empty;
+                string brand = details.ContainsKey("Brand") ? details["Brand"] : string.Empty;
+                decimal price = details.ContainsKey("Price") && decimal.TryParse(details["Price"], out decimal p) ? p : 0;
+                string specifications = Newtonsoft.Json.JsonConvert.SerializeObject(details);
+                string imagePath = SaveImage(category, model);
+
+                // Thêm sản phẩm mới
+                _productService.AddProduct(category, model, brand, price, specifications, imagePath, 0, 0);
+
+                // Cập nhật danh sách sản phẩm
+                _allProducts = _productService.GetAllProducts();
+                LoadProducts(_allProducts);
+                MessageBox.Show("Product added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error adding product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private string SaveImage(string category, string model)
+        {
+            if (pbProduct.Image != null)
+            {
+                string imagePath = Path.Combine("Images", category, model + ".jpg");
+                Directory.CreateDirectory(Path.GetDirectoryName(imagePath));
+
+                using (var bitmap = new Bitmap(pbProduct.Image))
+                {
+                    // Giải phóng ảnh đang sử dụng
+                    if (File.Exists(imagePath))
+                    {
+                        File.Delete(imagePath);
+                    }
+
+                    bitmap.Save(imagePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+
+                return imagePath;
+            }
+            return null;
+        }
+
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                int productId = int.Parse(txtProductID.Text);
-                string details = richTextBoxDetail.Text.Trim();
+                if (!int.TryParse(txtProductID.Text, out int productId))
+                    throw new Exception("Invalid Product ID.");
 
-                productService.UpdateProduct(productId, details);
-                LoadProductsToListView(); // Load lại danh sách
+                var lines = rtbDetail.Lines;
+                var details = new Dictionary<string, string>();
+
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(new[] { ':' }, 2);
+                    if (parts.Length == 2)
+                    {
+                        details[parts[0].Trim()] = parts[1].Trim();
+                    }
+                }
+
+                string category = details.ContainsKey("Category") ? details["Category"] : string.Empty;
+                string model = details.ContainsKey("Model") ? details["Model"] : string.Empty;
+                string brand = details.ContainsKey("Brand") ? details["Brand"] : string.Empty;
+                decimal price = details.ContainsKey("Price") && decimal.TryParse(details["Price"], out decimal p) ? p : 0;
+                string specifications = Newtonsoft.Json.JsonConvert.SerializeObject(details);
+
+                // Giải phóng hình ảnh trước khi ghi đè
+                pbProduct.Image?.Dispose();
+                pbProduct.Image = null;
+
+                string imagePath = SaveImage(category, model);
+
+                _productService.UpdateProduct(productId, category, model, brand, price, specifications, imagePath, 0, 0);
+                _allProducts = _productService.GetAllProducts();
+                LoadProducts(_allProducts);
+
+                MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error updating product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                int productId = int.Parse(txtProductID.Text);
+                if (!int.TryParse(txtProductID.Text, out int productId))
+                    throw new Exception("Invalid Product ID.");
 
-                var confirmResult = MessageBox.Show("Are you sure to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
-                if (confirmResult == DialogResult.Yes)
-                {
-                    productService.DeleteProduct(productId);
-                    LoadProductsToListView(); // Load lại danh sách
-                }
+                // Xóa sản phẩm
+                _productService.DeleteProduct(productId);
+
+                // Cập nhật danh sách sản phẩm
+                _allProducts = _productService.GetAllProducts();
+                LoadProducts(_allProducts);
+                MessageBox.Show("Product deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error deleting product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAddUpdatePic_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pbProduct.Image = Image.FromFile(openFileDialog.FileName);
+                }
             }
         }
     }
