@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BUS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace GUI
 {
     public partial class StockManagement : UserControl
     {
-        public StockManagement()
+        private readonly StockService _stockService;
+        public StockManagement(StockService stockService)
         {
             InitializeComponent();
+            _stockService = stockService;
         }
     }
 }

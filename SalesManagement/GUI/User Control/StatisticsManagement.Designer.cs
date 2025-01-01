@@ -1,6 +1,6 @@
-﻿namespace GUI
+﻿namespace GUI.User_Control
 {
-    partial class Statistics
+    partial class StatisticsManagement
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // StatisticsManagement
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "StatisticsManagement";
+            this.Size = new System.Drawing.Size(1177, 653);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

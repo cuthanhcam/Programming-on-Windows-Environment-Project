@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BUS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace GUI
 {
     public partial class EmployeeManagement : UserControl
     {
-        public EmployeeManagement()
+        private readonly EmployeeService _employeeService;
+        public EmployeeManagement(EmployeeService employeeService)
         {
             InitializeComponent();
+            _employeeService = employeeService;
         }
     }
 }

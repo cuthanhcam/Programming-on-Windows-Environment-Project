@@ -97,11 +97,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User Control\Statistics.cs">
+    <Compile Include="User Control\StatisticsManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User Control\Statistics.Designer.cs">
-      <DependentUpon>Statistics.cs</DependentUpon>
+    <Compile Include="User Control\StatisticsManagement.Designer.cs">
+      <DependentUpon>StatisticsManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="User Control\StockManagement.cs">
       <SubType>UserControl</SubType>

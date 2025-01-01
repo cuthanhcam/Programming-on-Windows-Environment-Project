@@ -1,5 +1,4 @@
 ﻿using BUS;
-using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,16 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GUI
+namespace GUI.User_Control
 {
-    public partial class OrderManagement : UserControl
+    public partial class StatisticsManagement : UserControl
     {
-        private readonly OrderService _orderService;
-        
-        public OrderManagement(OrderService orderService)
+        private readonly StatisticsService _statisticsService;
+        public StatisticsManagement(StatisticsService statisticsService)
         {
             InitializeComponent();
-            _orderService = orderService;
+            _statisticsService = statisticsService;
         }
     }
 }
