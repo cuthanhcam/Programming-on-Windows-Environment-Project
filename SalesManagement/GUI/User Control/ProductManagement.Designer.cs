@@ -41,7 +41,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductManagement));
             this.lstProduct = new System.Windows.Forms.ListView();
             this.imageListProducts = new System.Windows.Forms.ImageList(this.components);
-            this.rtbDetail = new System.Windows.Forms.RichTextBox();
+            this.rtbSpecs = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.cmbBrand = new System.Windows.Forms.ComboBox();
@@ -60,6 +60,14 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAddUpdatePic = new System.Windows.Forms.Button();
+            this.txtCategory = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtModel = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtBrand = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,34 +124,34 @@
             this.imageListProducts.ImageSize = new System.Drawing.Size(35, 35);
             this.imageListProducts.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // rtbDetail
+            // rtbSpecs
             // 
-            this.rtbDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbDetail.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.rtbDetail.Location = new System.Drawing.Point(26, 308);
-            this.rtbDetail.Name = "rtbDetail";
-            this.rtbDetail.Size = new System.Drawing.Size(281, 315);
-            this.rtbDetail.TabIndex = 17;
-            this.rtbDetail.Text = "";
-            this.rtbDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbDetail_KeyPress);
+            this.rtbSpecs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbSpecs.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.rtbSpecs.Location = new System.Drawing.Point(26, 467);
+            this.rtbSpecs.Name = "rtbSpecs";
+            this.rtbSpecs.Size = new System.Drawing.Size(281, 156);
+            this.rtbSpecs.TabIndex = 17;
+            this.rtbSpecs.Text = "";
+            this.rtbSpecs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbDetail_KeyPress);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label8.Location = new System.Drawing.Point(22, 272);
+            this.label8.Location = new System.Drawing.Point(22, 442);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 22);
+            this.label8.Size = new System.Drawing.Size(99, 22);
             this.label8.TabIndex = 16;
-            this.label8.Text = "Detail:";
+            this.label8.Text = "Specifications:";
             // 
             // txtProductID
             // 
             this.txtProductID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtProductID.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.txtProductID.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
             this.txtProductID.Location = new System.Drawing.Point(107, 238);
             this.txtProductID.Name = "txtProductID";
-            this.txtProductID.Size = new System.Drawing.Size(163, 28);
+            this.txtProductID.Size = new System.Drawing.Size(163, 25);
             this.txtProductID.TabIndex = 9;
             this.txtProductID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductID_KeyDown);
             // 
@@ -312,11 +320,95 @@
             this.btnAddUpdatePic.UseVisualStyleBackColor = true;
             this.btnAddUpdatePic.Click += new System.EventHandler(this.btnAddUpdatePic_Click);
             // 
+            // txtCategory
+            // 
+            this.txtCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCategory.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
+            this.txtCategory.Location = new System.Drawing.Point(107, 279);
+            this.txtCategory.Name = "txtCategory";
+            this.txtCategory.Size = new System.Drawing.Size(163, 25);
+            this.txtCategory.TabIndex = 29;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label5.Location = new System.Drawing.Point(22, 281);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 22);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Category:";
+            // 
+            // txtModel
+            // 
+            this.txtModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtModel.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
+            this.txtModel.Location = new System.Drawing.Point(107, 321);
+            this.txtModel.Name = "txtModel";
+            this.txtModel.Size = new System.Drawing.Size(163, 25);
+            this.txtModel.TabIndex = 31;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label7.Location = new System.Drawing.Point(22, 323);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 22);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Model:";
+            // 
+            // txtBrand
+            // 
+            this.txtBrand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBrand.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
+            this.txtBrand.Location = new System.Drawing.Point(107, 358);
+            this.txtBrand.Name = "txtBrand";
+            this.txtBrand.Size = new System.Drawing.Size(163, 25);
+            this.txtBrand.TabIndex = 33;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label10.Location = new System.Drawing.Point(22, 360);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 22);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Brand:";
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPrice.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
+            this.txtPrice.Location = new System.Drawing.Point(107, 395);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(163, 25);
+            this.txtPrice.TabIndex = 35;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label11.Location = new System.Drawing.Point(22, 397);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 22);
+            this.label11.TabIndex = 34;
+            this.label11.Text = "Price:";
+            // 
             // ProductManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.txtPrice);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.txtBrand);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtModel);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtCategory);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnAddUpdatePic);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -328,7 +420,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.rtbDetail);
+            this.Controls.Add(this.rtbSpecs);
             this.Controls.Add(this.lstProduct);
             this.Controls.Add(this.txtProductID);
             this.Controls.Add(this.pbProduct);
@@ -356,7 +448,7 @@
         private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.TextBox txtProductID;
         private System.Windows.Forms.ComboBox cmbBrand;
-        private System.Windows.Forms.RichTextBox rtbDetail;
+        private System.Windows.Forms.RichTextBox rtbSpecs;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ImageList imageListProducts;
         private System.Windows.Forms.TextBox txtSearch;
@@ -369,5 +461,13 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAddUpdatePic;
+        private System.Windows.Forms.TextBox txtCategory;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtModel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtBrand;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.Label label11;
     }
 }

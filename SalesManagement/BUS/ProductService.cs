@@ -37,6 +37,7 @@ namespace BUS
                     throw new ArgumentException("Category, Model, and Brand are required fields.");
                 if (price <= 0) throw new ArgumentException("Price must be greater than zero.");
 
+                // Tạo sản phẩm mới
                 var newProduct = new Product
                 {
                     Category = category,
@@ -44,7 +45,7 @@ namespace BUS
                     Brand = brand,
                     Price = price,
                     StockQuantity = 0, // Mặc định số lượng là 0
-                    Specifications = specifications,
+                    Specifications = specifications, // Lưu các thông số kỹ thuật khác
                     Image = imagePath,
                     Promotion = promotion,
                     Warranty = warranty
@@ -114,70 +115,6 @@ namespace BUS
                 throw new Exception("Error filtering products: " + ex.Message);
             }
         }
-        // Kiểm tra sản phẩm đã tồn tại chưa
-        public bool IsProductExist(string model, string brand)
-        {
-            return _context.Products.Any(p => p.Model == model && p.Brand == brand);
-        }
-        // Cập nhật số lượng tồn kho
-        public void UpdateStockQuantity(int productId, int quantityChange)
-        {
-            try
-            {
-                var product = _context.Products.Find(productId);
-                if (product == null)
-                    throw new Exception("Product not found.");
-
-                product.StockQuantity += quantityChange;
-                if (product.StockQuantity < 0)
-                    throw new Exception("Stock quantity cannot be negative.");
-
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error updating stock quantity: " + ex.Message);
-            }
-        }
-        // Lấy danh sách sản phẩm đang khuyến mãi
-        public List<Product> GetProductsOnPromotion()
-        {
-            try
-            {
-                return _context.Products.Where(p => p.Promotion > 0).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving products on promotion: " + ex.Message);
-            }
-        }
-        // Lấy danh sách sản phẩm còn hàng
-        public List<Product> GetLowStockProducts(int threshold = 10)
-        {
-            try
-            {
-                return _context.Products.Where(p => p.StockQuantity < threshold).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving low stock products: " + ex.Message);
-            }
-        }
-        public (List<Product> Products, int TotalCount) GetProductsPaged(int pageNumber, int pageSize)
-        {
-            try
-            {
-                var query = _context.Products.AsQueryable();
-                var totalCount = query.Count();
-                var products = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-                return (products, totalCount);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving paged products: " + ex.Message);
-            }
-        }
 
 
         public void UpdateProduct(int productId, string category, string model, string brand, decimal price, string specifications, string imagePath, int promotion, int warranty)
@@ -188,11 +125,16 @@ namespace BUS
                 if (product == null)
                     throw new Exception("Product not found.");
 
+                // Cập nhật các trường chính
                 product.Category = category;
                 product.Model = model;
                 product.Brand = brand;
                 product.Price = price;
+
+                // Cập nhật các thông số kỹ thuật
                 product.Specifications = specifications;
+
+                // Cập nhật các trường khác
                 product.Image = imagePath;
                 product.Promotion = promotion;
                 product.Warranty = warranty;
@@ -246,37 +188,6 @@ namespace BUS
                 throw new Exception("Error retrieving categories: " + ex.Message);
             }
         }
-        public bool CanDeleteProduct(int productId)
-        {
-            return !_context.OrderDetails.Any(od => od.ProductID == productId);
-        }
-        public List<Product> GetBestSellingProducts(int topN = 5)
-        {
-            try
-            {
-                return _context.OrderDetails
-                    .GroupBy(od => od.ProductID)
-                    .OrderByDescending(g => g.Sum(od => od.Quantity))
-                    .Take(topN)
-                    .Join(_context.Products, g => g.Key, p => p.ProductID, (g, p) => p)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving best selling products: " + ex.Message);
-            }
-        }
-        public List<Product> GetNewestProducts(int topN = 5)
-        {
-            try
-            {
-                return _context.Products.OrderByDescending(p => p.ProductID).Take(topN).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving newest products: " + ex.Message);
-            }
-        }
 
         public List<string> GetBrandsByCategory(string category)
         {
@@ -314,13 +225,7 @@ namespace BUS
         }
         public List<string> GetDefaultSpecifications(string category)
         {
-            var specifications = new List<string>
-            {
-                "Category",
-                "Model",
-                "Brand",
-                "Price"
-            };
+            var specifications = new List<string>();
 
             switch (category)
             {
@@ -354,6 +259,22 @@ namespace BUS
             }
 
             return specifications;
+        }
+        public void UpdateProductImage(int productId, string imagePath)
+        {
+            try
+            {
+                var product = _context.Products.Find(productId);
+                if (product == null)
+                    throw new Exception("Product not found.");
+
+                product.Image = imagePath;
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating product image: " + ex.Message);
+            }
         }
     }
 }
