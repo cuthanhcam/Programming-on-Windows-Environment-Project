@@ -31,6 +31,9 @@ namespace DAL.Entities
         [StringLength(50)]
         public string MembershipLevel { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

@@ -20,6 +20,9 @@ namespace DAL.Entities
 
         public decimal Price { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
         public virtual Order Order { get; set; }
 
         public virtual Product Product { get; set; }

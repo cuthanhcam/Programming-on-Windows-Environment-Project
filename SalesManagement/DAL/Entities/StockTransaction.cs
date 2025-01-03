@@ -25,6 +25,10 @@ namespace DAL.Entities
 
         public string Note { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+
         public virtual Employee Employee { get; set; }
 
         public virtual Product Product { get; set; }
