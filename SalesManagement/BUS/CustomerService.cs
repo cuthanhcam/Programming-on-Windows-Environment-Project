@@ -2,42 +2,115 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BUS
 {
     public class CustomerService
     {
         private readonly SalesManagementContext _context;
+
         public CustomerService(SalesManagementContext context)
         {
             _context = context;
         }
 
-        public static List<DAL.Entities.Customer> GetAll()
+        // Lấy tất cả khách hàng
+        public List<Customer> GetAllCustomers()
         {
-            return BUS.CustomerService.GetAll();
+            try
+            {
+                return _context.Customers.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving customers: " + ex.Message);
+            }
         }
 
-        public static DAL.Entities.Customer GetCustomerById(int id)
+        // Lấy thông tin khách hàng bằng ID
+        public Customer GetCustomerById(int id)
         {
-            return BUS.CustomerService.GetCustomerById(id);
+            try
+            {
+                return _context.Customers.Find(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving customer by ID: " + ex.Message);
+            }
         }
 
-        public static bool AddCustomer(DAL.Entities.Customer customer)
+        // Tìm kiếm khách hàng bằng số điện thoại
+        public Customer GetCustomerByPhone(string phone)
         {
-            return BUS.CustomerService.AddCustomer(customer);
+            try
+            {
+                return _context.Customers
+                    .FirstOrDefault(c => c.Phone == phone);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving customer by phone: " + ex.Message);
+            }
         }
 
-        public static bool UpdateCustomer(DAL.Entities.Customer customer)
+        // Thêm khách hàng mới
+        public bool AddCustomer(Customer customer)
         {
-            return BUS.CustomerService.UpdateCustomer(customer);
+            try
+            {
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding customer: " + ex.Message);
+            }
         }
 
-        public static bool DeleteCustomer(int id)
+        // Cập nhật thông tin khách hàng
+        public bool UpdateCustomer(Customer customer)
         {
-            return BUS.CustomerService.DeleteCustomer(id);
+            try
+            {
+                var existingCustomer = _context.Customers.Find(customer.CustomerID);
+                if (existingCustomer != null)
+                {
+                    existingCustomer.Name = customer.Name;
+                    existingCustomer.Email = customer.Email;
+                    existingCustomer.Phone = customer.Phone;
+                    existingCustomer.Address = customer.Address;
+                    existingCustomer.MembershipLevel = customer.MembershipLevel;
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating customer: " + ex.Message);
+            }
+        }
+
+        // Xóa khách hàng
+        public bool DeleteCustomer(int id)
+        {
+            try
+            {
+                var customer = _context.Customers.Find(id);
+                if (customer != null)
+                {
+                    _context.Customers.Remove(customer);
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting customer: " + ex.Message);
+            }
         }
     }
 }

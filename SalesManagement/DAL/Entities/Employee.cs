@@ -21,6 +21,10 @@ namespace DAL.Entities
         [StringLength(200)]
         public string Name { get; set; }
 
+        public string Phone { get; set; }
+
+        public string Address { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Position { get; set; }

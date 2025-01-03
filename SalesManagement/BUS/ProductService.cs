@@ -20,11 +20,14 @@ namespace BUS
         {
             try
             {
-                return _context.Products.ToList();
+                using (var _context = new SalesManagementContext())
+                {
+                    return _context.Products.ToList();
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error retrieving products: " + ex.Message);
+                throw new Exception("Error retrieving products: " + ex.Message, ex);
             }
         }
 

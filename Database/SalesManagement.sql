@@ -8,6 +8,7 @@ GO
 
 -- SET DATEFORMAT DMY
 
+DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Products;
@@ -29,12 +30,12 @@ CREATE TABLE Customers (
 );
 GO
 
-SELECT * FROM Customers;
-
 -- Tạo bảng Employees (Nhân viên)
 CREATE TABLE Employees (
     EmployeeID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Name NVARCHAR(200) NOT NULL,              -- Tên nhân viên
+	Phone VARCHAR(15) NOT NULL,				  -- Số điện thoại nhân viên	
+ 	Address NVARCHAR(MAX) NOT NULL,			  -- Địa chỉ nhân viên
     Position NVARCHAR(100) NOT NULL,          -- Chức vụ (Admin, Sales)
     Salary DECIMAL(18, 2) NULL CHECK (Salary >= 0), -- Lương
     HireDate DATETIME NOT NULL DEFAULT GETDATE() -- Ngày vào làm
@@ -105,7 +106,7 @@ CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY(1,1),         -- Khóa chính tự tăng
     Username NVARCHAR(50) NOT NULL UNIQUE,       -- Tên đăng nhập, duy nhất
     PasswordHash NVARCHAR(255) NOT NULL,         -- Mật khẩu mã hóa
-    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Admin', 'User')), -- Phân quyền
+    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Admin', 'Staff')), -- Phân quyền
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE() -- Ngày tạo tài khoản
 );
 GO

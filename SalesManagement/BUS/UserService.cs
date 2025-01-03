@@ -57,5 +57,43 @@ namespace BUS
                 return storedHash.Equals(computedHashString, StringComparison.OrdinalIgnoreCase);
             }
         }
+
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void UpdateUser(User user)
+        {
+            var existingUser = _context.Users.Find(user.UserID);
+            if (existingUser != null)
+            {
+                existingUser.Username = user.Username;
+                existingUser.PasswordHash = user.PasswordHash;
+                existingUser.Role = user.Role;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
+        }
+
+        public User GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.UserID == id);
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
     }
 }

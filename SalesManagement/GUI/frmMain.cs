@@ -21,7 +21,7 @@ namespace GUI
         private readonly StockService _stockService;
         private readonly StatisticsService _statisticsService;
         private readonly EmployeeService _employeeService;
-        
+        private readonly UserService _userService;
         public frmMain()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace GUI
             _stockService = new StockService(new SalesManagementContext());
             _statisticsService = new StatisticsService(new SalesManagementContext());
             _employeeService = new EmployeeService(new SalesManagementContext());
-
+            _userService = new UserService();
             InitializeTabPages(); // Gọi phương thức khởi tạo các tab
 
         }
@@ -44,11 +44,11 @@ namespace GUI
         {
             // Thêm UserControl vào TabPage sản phẩm
             AddUserControlToTab(tpProducts, new ProductManagement(_productService));
-            AddUserControlToTab(tpOrders, new OrderManagement(_orderService));
+            AddUserControlToTab(tpOrders, new OrderManagement(_orderService, _customerService, _productService ));
             AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService));
             AddUserControlToTab(tpStock, new StockManagement(_stockService));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
-            AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService));
+            AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService, _userService));
 
         }
         private void AddUserControlToTab(TabPage tabPage, UserControl userControl)

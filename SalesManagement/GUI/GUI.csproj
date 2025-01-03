@@ -59,17 +59,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form Components\CustomerHistory.cs">
+    <Compile Include="Form Components\CustomerHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form Components\CustomerHistory.Designer.cs">
-      <DependentUpon>CustomerHistory.cs</DependentUpon>
+    <Compile Include="Form Components\CustomerHistoryForm.Designer.cs">
+      <DependentUpon>CustomerHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form Components\Invoice.cs">
+    <Compile Include="Form Components\OrderDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form Components\Invoice.Designer.cs">
-      <DependentUpon>Invoice.cs</DependentUpon>
+    <Compile Include="Form Components\OrderDetailsForm.Designer.cs">
+      <DependentUpon>OrderDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="User Control\CustomerManagement.cs">
       <SubType>UserControl</SubType>
@@ -129,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Control\CustomerManagement.resx">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Control\EmployeeManagement.resx">
+      <DependentUpon>EmployeeManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Control\OrderManagement.resx">
       <DependentUpon>OrderManagement.cs</DependentUpon>
