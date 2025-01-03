@@ -1,6 +1,17 @@
 ﻿USE SalesManagement;
 GO
 
+-- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet) - Đã fix
+SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'admin123'), 2) AS HashedPassword;
+
+SELECT * FROM Customers;
+SELECT * FROM Employees;
+SELECT * FROM Products;
+SELECT * FROM Orders;
+SELECT * FROM OrderDetails;
+SELECT * FROM StockTransactions;
+SELECT * FROM Users;
+
 DELETE FROM Customers;
 DELETE FROM Employees;
 DELETE FROM Products;
@@ -8,27 +19,105 @@ DELETE FROM Orders;
 DELETE FROM OrderDetails;
 DELETE FROM StockTransactions;
 
-INSERT INTO Customers (Name, Email, Phone, MembershipLevel)
+INSERT INTO Customers (Name, Email, Phone, Address, MembershipLevel)
 VALUES 
-    ('John Doe', 'johndoe@example.com', '1234567890', 'Gold'),
-    ('Jane Smith', 'janesmith@example.com', '2345678901', 'Silver'),
-    ('Alice Brown', 'alice.brown@example.com', '3456789012', 'Platinum'),
-    ('Bob White', 'bob.white@example.com', '4567890123', 'Gold'),
-    ('Charlie Black', 'charlie.black@example.com', '5678901234', 'Silver'),
-    ('David Green', 'david.green@example.com', '6789012345', 'Gold'),
-    ('Eva Blue', 'eva.blue@example.com', '7890123456', 'Platinum'),
-    ('Frank Gray', 'frank.gray@example.com', '8901234567', 'Silver'),
-    ('Grace Yellow', 'grace.yellow@example.com', '9012345678', 'Platinum'),
-    ('Henry Pink', 'henry.pink@example.com', '0123456789', 'Gold');
+    (N'Nguyễn Văn A', 'nguyenvana@gmail.com', '0912345678', N'Hà Nội', 'Silver'),
+    (N'Trần Thị B', 'tranthib@gmail.com', '0912345679', N'Hồ Chí Minh', 'Gold'),
+    (N'Lê Văn C', 'levanc@gmail.com', '0912345680', N'Đà Nẵng', 'Platinum'),
+    (N'Phạm Thị D', 'phamthid@gmail.com', '0912345681', N'Hải Phòng', 'Silver'),
+    (N'Hoàng Văn E', 'hoangvane@gmail.com', '0912345682', N'Cần Thơ', 'Gold');
+
+INSERT INTO Employees (Name, Phone, Address, Role, Salary, Username, PasswordHash)
+VALUES 
+	(N'Cù Thanh Cầm', '0353818874' , N'Quảng Ngãi', 'Admin', 1500, 'camct', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2)),
+	(N'Nguyễn Trần Đăng Khoa', '0333333333' , N'Lâm Đồng', 'Staff', 500, 'khoantd', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'staff123'), 2));
 GO
 
-DELETE FROM Employees
 
-INSERT INTO Employees (Name, Phone, Address, Position, Salary)
+INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
-	(N'Cù Thanh Cầm', '0353818874' , N'Quảng Ngãi', 'Admin', 1500),
-	(N'Nguyễn Trần Đăng Khoa', '0333333333' , N'Lâm Đồng', 'Staff', 500);
+	('Processor', 'Ryzen Threadripper 3990X', 'AMD', 8078, 
+	'{"Cores": "64", "Threads": "128", "Socket Type": "sTRX4", "Memory Speed": "DDR4", "Memory Type": "3200 MHz", "Base Speed": "2.9 GHz", "Turbo Speed": "4.3 GHz", "Max Power Consumption": "280 W"}', 20),
+	('Processor', 'Ryzen 9 7950X', 'AMD', 699, 
+	'{"Cores": "16", "Threads": "32", "Socket Type": "AM5", "Memory Type": "DDR5", "Memory Speed": "5200 MHz", "Base Speed": "4.5 GHz", "Turbo Speed": "5.7 GHz", "Max Power Consumption": "170 W"}', 20),
+	('Processor', 'i9-13900KF', 'Intel', 574, 
+	'{"Cores": "24", "Threads": "32", "Socket Type": "LGA 1700", "Memory Type": "DDR5", "Memory Speed": "5600 MHz", "Base Speed": "3.0 GHz", "Turbo Speed": "5.8 GHz", "Max Power Consumption": "125 W"}', 20),
+	('Motherboard', 'TRX40 CREATOR', 'ASRock', 1549, 
+	'{"Chipset": "AMD X570", "Form Factor": "ATX", "Socket Type": "sTRX4", "Memory Slots": "8", "Memory Type": "DDR4", "Memory Speed": "2666 MHz", "Storage Expansion": "SATA III, PCIe 4.0 x4", "Multi-GPU Support": "Yes"}', 20),
+	('Motherboard', 'TRX40 Aorus Pro WiFi', 'Gigabyte', 820, 
+	'{"Chipset": "AMD TRX40", "Form Factor": "ATX", "Socket Type": "sTRX4", "Memory Slots": "8", "Memory Type": "DDR4", "Memory Speed": "4400 MHz", "Storage Expansion": "SATA III, PCIe 4.0 x4", "Multi-GPU Support": "Yes"}', 20),
+	('Motherboard', 'ROG ZENITH II EXTREME ALPHA', 'ASUS', 962.99, 
+	'{"Chipset": "AMD TRX40", "Form Factor": "Extended ATX", "Socket Type": "sTRX4", "Memory Slots": "8", "Memory Type": "DDR4", "Memory Speed": "2400 MHz", "Storage Expansion": "SATA III, PCIe 4.0 x4", "Multi-GPU Support": "yes"}', 20),
+	('CPU Cooler', 'Hyper 212 EVO', 'Cooler Master', 42.99, 
+	'{"Fan RPM": "600 to 2000 rpm", "Noise Level": "9 to 36 dBA", "Color": "RGB"}', 20),
+	('CPU Cooler', 'Hyper 212 RGB', 'Cooler Master', 95.99, 
+	'{"Fan RPM": "650 to 2000 rpm", "Noise Level": "8 to 30 dBA", "Color": "RGB"}', 20),
+	('CPU Cooler', 'Hyper H412R', 'Cooler Master', 32.99, 
+	'{"Fan RPM": "600 to 2000 RPM", "Noise Level": "29.4 dBA", "Color": "Black"}', 20),
+	('Case', 'H510B-W1', 'NZXT', 89.99, 
+	'{"Side Panel": "Tempered Glass, Steel", "Carbinet Type": "ATX Mid Tower", "Color": "White", "Motherboard Support": "ATX, Micro-ATK, Mini-ITX", "Max GPU Length": "381 mm", "CPU Cooler Height": "165 mm", "Supported PSU Size": "ATX"}', 20),
+	('Case', 'H510B-B1', 'NZXT', 83.13, 
+	'{"Side Panel": "Tempered Glass, Steel", "Carbinet Type": "ATX Full Tower", "Color": "Black", "Motherboard Support": "ATX, Micro-ATX, Mini-ITX", "Max GPU Length": "381 mm", "CPU Cooler Height": "165 mm", "Supported PSU Size": "ATX"}', 20),
+	('Case', 'H510 Elite', 'NZXT', 99.99, 
+	'{"Side Panel": "Tempered Glass, Steel", "Carbinet Type": "ATX Mid Tower", "Color": "White", "Motherboard Support": "ATX, Micro-ATX, Mini-ITX", "Max GPU Length": "368.6 mm", "CPU Cooler Height": "165 mm", "Supported PSU Size": "ATX"}', 20),
+	('Graphic Card', 'GeForce RTX 3080 Ti Gaming OC 12G', 'Gigabyte', 1529.86, 
+	'{"Memory": "12 GB", "Memory Interface": "GDDR6X", "Length": "320 mm", "Interface": "PCIe x16", "Chipset": "GeForce RTX 3080 Ti", "Max Power Consumption": "350 W"}', 20),
+	('Graphic Card', 'TUF Gaming GeForce RTX 3080 Ti OC Edition', 'ASUS', 1159, 
+	'{"Memory": "12 GB", "Memory Interface": "GDDR6X", "Length": "300 mm", "Interface": "PCIe x16", "Chipset": "GeForce RTX 3080 Ti", "Max Power Consumption": "350 W"}', 20),
+	('Graphic Card', 'RTX 4090 Gaming Trio 24G', 'MSI', 2999.99, 
+	'{"Memory": "24GB", "Memory Interface": "GDDR6X", "Length": "337 mm", "Interface": "PCIe 4.0 x16", "Chipset": "GeForce RTX 4090", "Max Power Consumption": "450 W"}', 20),
+	('RAM', 'Trident Z5 RGB', 'G.Skill', 269.99, 
+	'{"RAM Size": "32 GB", "Quantity": "2x16 GB", "RAM Type": "DDR5", "RAM Speed": "6400 MHz"}', 20),
+	('RAM', 'Fury Renegade RGB', 'Kingston', 307.20, 
+	'{"RAM Size": "32 GB", "Quantity": "2x16 GB", "RAM Type": "DDR5", "RAM Speed": "6400 MHz"}', 20),
+	('RAM', 'XLR8', 'PNY', 219.99, 
+	'{"RAM Size": "32 GB", "Quantity": "2x16 GB", "RAM Type": "DDR5", "RAM Speed": "6200 MHz"}', 20),
+	('Storage', '970 EVO', 'Samsung', 219.99, 
+	'{"Capacity": "1 TB", "Type": "SSD", "RPM": "N/A", "Interface": "PCIe 3.0 x4", "Cache Memory": "1024 MB", "Form Factor": "M.2-2280"}', 20),
+	('Storage', 'BarraCuda', 'Seagate', 55.49, 
+	'{"Capacity": "2 TB", "Type": "HHD", "RPM": "7200 RPM", "Interface": "SATA III", "Cache Memory": "256 MB", "Form Factor": "3.5\""}', 20),
+	('Storage', 'Caviar Blue', 'Western Digital', 34.99, 
+	'{"Capacity": "1 TB", "Type": "HDD", "RPM": "7200RPM", "Interface": "SATA III", "Cache Memory": "64 MB", "Form Factor": "3.5\""}', 20),
+	('Case Cooler', 'MasterFan MF120R', 'Cooler Master', 79, 
+	'{"Fan RPM": "650 to 2000 RPM", "Airflow": "59 CFM", "Noise Level": "31 dBA"}', 20),
+	('Case Cooler', 'AER RGB', 'NZXT', 24.55, 
+	'{"Fan RPM": "500 to 1500 RPM", "Airflow": "17.48 to 52.44 CFM", "Noise Level": "22 to 33 dBA"}', 20),
+	('Case Cooler', 'P12 PST', 'ARCTIC', 9.99, 
+	'{"Fan RPM": "1800 RPM", "Airflow": "56.3 CFM", "Noise Level": "56.3dBA"}', 20),
+	('Power Supply', 'RM750', 'Corsair', 169, 
+	'{"Power": "750 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20),
+	('Power Supply', 'RM850', 'Corsair', 195, 
+	'{"Power": "850 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20),
+	('Power Supply', 'Toughpower PF1', 'Thermaltake', 149.99, 
+	'{"Power": "850 W", "Efficiency": "80+ Platinum", "Color": "Black"}', 20);
 GO
+
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status, Note)
+VALUES 
+    (1, 2, 800, 'Completed', N'Đơn hàng hoàn thành'),
+    (2, 1, 1200, 'Pending', N'Đơn hàng đang chờ xử lý'),
+    (3, 2, 500, 'Completed', N'Đơn hàng hoàn thành'),
+    (4, 1, 300, 'Canceled', N'Đơn hàng đã hủy'),
+    (5, 2, 1000, 'Completed', N'Đơn hàng hoàn thành');
+
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
+VALUES 
+    (1, 1, 1, 500, 500),
+    (1, 2, 1, 300, 300),
+    (2, 3, 1, 700, 700),
+    (2, 4, 2, 100, 200),
+    (3, 5, 1, 150, 150);
+
+INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID, Note)
+VALUES 
+    (1, 'Import', 10, 2, N'Nhập kho lần 1'),
+    (2, 'Import', 5, 2, N'Nhập kho lần 1'),
+    (3, 'Import', 3, 2, N'Nhập kho lần 1'),
+    (4, 'Import', 20, 2, N'Nhập kho lần 1'),
+    (5, 'Import', 15, 2, N'Nhập kho lần 1');
+
+
 
 -- Products: Processor
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
@@ -288,56 +377,5 @@ VALUES
 	('Power Supply', 'SuperNOVA', 'EVGA', 379.99, 
 	'{"Power": "1000 W", "Efficiency": "80+ Gold", "Color": "Black"}', 20);
 GO
-
-
-INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status)
-VALUES 
-    (1, 2, 1500.50, 'Completed'),
-    (2, 3, 799.99, 'Pending'),
-    (3, 4, 2150.75, 'Completed'),
-    (4, 5, 980.10, 'Canceled'),
-    (5, 6, 3200.00, 'Pending'),
-    (6, 7, 1500.99, 'Completed'),
-    (7, 8, 2100.00, 'Completed'),
-    (8, 9, 1750.75, 'Pending'),
-    (9, 10, 5400.00, 'Completed'),
-    (10, 1, 1890.20, 'Canceled');
-GO
-
-INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
-VALUES 
-    (1, 1, 2, 8078, 8078),
-    (1, 2, 3, 699, 699),
-    (2, 3, 1, 574, 574),
-    (3, 4, 1, 2193.4, 2193.4),
-    (3, 5, 2, 641.92, 641.92),
-    (4, 6, 4, 439.99, 439.99),
-    (5, 7, 3, 559.2, 559.2),
-    (6, 8, 5, 319.97, 319.97),
-    (7, 9, 1, 8078, 8078),
-    (8, 10, 3, 574, 574);
-GO
-
-INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID)
-VALUES 
-    (1, N'Nhập kho', 20, 1),
-    (2, N'Xuất kho', 5, 2),
-    (3, N'Nhập kho', 10, 3),
-    (4, N'Xuất kho', 7, 4),
-    (5, N'Nhập kho', 15, 5),
-    (6, N'Xuất kho', 2, 6),
-    (7, N'Nhập kho', 30, 7),
-    (8, N'Xuất kho', 10, 8),
-    (9, N'Nhập kho', 50, 9),
-    (10, N'Xuất kho', 3, 10);
-GO
-
-
-INSERT INTO Users (Username, PasswordHash, Role)
-VALUES 
-    ('admin', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2), 'Admin'), -- Tài khoản Admin
-    ('staff1', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'staff123'), 2), 'Staff');  -- Tài khoản User
-GO
-
 
 
