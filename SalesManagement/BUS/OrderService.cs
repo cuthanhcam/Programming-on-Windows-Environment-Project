@@ -14,5 +14,19 @@ namespace BUS
         {
             _context = context;
         }
+
+        public List<Order> GetAllOrders()
+        {
+            try
+            {
+                return _context.Orders.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving orders: " + ex.Message);
+            }
+        }
+
+
     }
 }

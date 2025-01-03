@@ -24,9 +24,12 @@ CREATE TABLE Customers (
 	Address NVARCHAR(MAX) NULL,			      -- Địa chỉ
     MembershipLevel NVARCHAR(50) NULL
 		CONSTRAINT DF_Customers_MembershipLevel DEFAULT 'Silver',
-    CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum'))
+    CONSTRAINT CK_Customers_MembershipLevel CHECK (MembershipLevel IN ('Silver', 'Gold', 'Platinum')),
+	CONSTRAINT UQ_Customers_Phone UNIQUE (Phone) -- Phone là duy nhất
 );
 GO
+
+SELECT * FROM Customers;
 
 -- Tạo bảng Employees (Nhân viên)
 CREATE TABLE Employees (

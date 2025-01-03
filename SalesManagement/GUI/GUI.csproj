@@ -115,6 +115,9 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="User Control\CustomerManagement.resx">
+      <DependentUpon>CustomerManagement.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User Control\OrderManagement.resx">
       <DependentUpon>OrderManagement.cs</DependentUpon>
     </EmbeddedResource>
