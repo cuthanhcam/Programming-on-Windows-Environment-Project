@@ -81,6 +81,20 @@ namespace GUI
                         item.SubItems.Add(order.Status);
                         item.SubItems.Add(order.Note ?? "N/A");
                         item.Group = groupHeader; // Gán đơn hàng vào nhóm
+
+                        switch (order.Status)
+                        {
+                            case "Canceled":
+                                item.ForeColor = Color.Red;
+                                break;
+                            case "Completed":
+                                item.ForeColor = Color.Green;
+                                break;
+                            default:
+                                item.ForeColor = SystemColors.WindowText;
+                                break;
+                        }
+
                         lstOrderList.Items.Add(item);
                     }
                 }
@@ -189,6 +203,15 @@ namespace GUI
                 return;
             }
             LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
+        }
+
+        private void btnReloadOrderList_Click(object sender, EventArgs e)
+        {
+            txtOrderID.Clear();
+            dtpOrderDateStart.Value = DateTime.Today;
+            dtpOrderDateEnd.Value = DateTime.Today; 
+            cmbTotalAmount.SelectedIndex = 0;
+            LoadOrderList();
         }
     }
 }

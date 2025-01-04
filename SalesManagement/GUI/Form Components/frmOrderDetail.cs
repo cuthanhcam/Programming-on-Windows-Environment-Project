@@ -2,14 +2,7 @@
 using DAL.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI.Form_Components
@@ -18,7 +11,7 @@ namespace GUI.Form_Components
     {
         private readonly int _orderID;
         private readonly OrderService _orderService;
-        
+
         public frmOrderDetail(int orderID, OrderService orderService)
         {
             InitializeComponent();
@@ -38,8 +31,18 @@ namespace GUI.Form_Components
             lstOrderDetail.Columns.Add("Unit Price", 100);
             lstOrderDetail.Columns.Add("Total Price", 100);
 
-            lstOrderDetail.View = View.Details; // Đảm bảo hiển thị chi tiết
-            lstOrderDetail.FullRowSelect = true; // Chọn toàn bộ dòng
+            lstOrderDetail.View = View.Details;
+            lstOrderDetail.FullRowSelect = true;
+            lstOrderDetail.OwnerDraw = true;
+            lstOrderDetail.SmallImageList = new ImageList();
+            lstOrderDetail.SmallImageList.ImageSize = new Size(1, 50);
+
+            // Ngăn chọn item
+            lstOrderDetail.ItemSelectionChanged += LstOrderDetail_ItemSelectionChanged;
+
+            lstOrderDetail.DrawItem += LstOrderDetail_DrawItem;
+            lstOrderDetail.DrawSubItem += LstOrderDetail_DrawSubItem;
+            lstOrderDetail.DrawColumnHeader += LstOrderDetail_DrawColumnHeader;
         }
 
         private void LoadOrderDetails()
@@ -49,14 +52,12 @@ namespace GUI.Form_Components
                 var order = _orderService.GetOrderDetails(_orderID);
                 if (order != null)
                 {
-                    // Hiển thị thông tin đơn hàng
                     lblOrderID.Text = order.OrderID.ToString();
                     lblEmployeeID.Text = order.EmployeeID?.ToString() ?? "N/A";
                     lblOrderDate.Text = order.OrderDate.ToString("dd/MM/yyyy");
                     lblTotalAmount.Text = order.TotalAmount.ToString("C");
                     lblDiscount.Text = order.Discount.ToString("C");
 
-                    // Hiển thị thông tin khách hàng
                     var customer = _orderService.GetCustomerByOrderID(order.OrderID);
                     if (customer != null)
                     {
@@ -67,16 +68,13 @@ namespace GUI.Form_Components
                         lblMembershipLevel.Text = customer.MembershipLevel ?? "N/A";
                     }
 
-                    // Tính toán tổng tiền phải trả
                     decimal discountRate = GetDiscountRate(customer?.MembershipLevel);
                     decimal discountAmount = order.TotalAmount * discountRate;
                     decimal totalAmountPayable = order.TotalAmount - discountAmount;
 
-                    // Hiển thị giá trị giảm giá và phần trăm giảm giá
                     lblDiscount.Text = $"{discountAmount.ToString("C")} ({(discountRate * 100):0}%)";
                     lblTotalAmountPayable.Text = totalAmountPayable.ToString("C");
 
-                    // Hiển thị chi tiết đơn hàng
                     lstOrderDetail.Items.Clear();
                     lstOrderDetail.Groups.Clear();
 
@@ -98,9 +96,45 @@ namespace GUI.Form_Components
             }
         }
 
+        // Ngăn chặn chọn item
+        private void LstOrderDetail_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            e.Item.Selected = false;  // Bỏ chọn ngay lập tức
+        }
+
+        private void LstOrderDetail_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        private void LstOrderDetail_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        private void LstOrderDetail_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            if (e.ColumnIndex == 1)  // Cột "Model"
+            {
+                string text = e.SubItem.Text;
+                Rectangle rect = e.Bounds;
+
+                e.Graphics.DrawString(
+                    text,
+                    lstOrderDetail.Font,
+                    Brushes.Black,
+                    rect
+                );
+            }
+            else
+            {
+                e.DrawDefault = true;
+            }
+        }
+
         private decimal GetDiscountRate(string membershipLevel)
         {
-            switch (membershipLevel.ToLower())
+            switch (membershipLevel?.ToLower())
             {
                 case "silver":
                     return 0m;

@@ -336,6 +336,7 @@
             this.btnReloadOrderList.Size = new System.Drawing.Size(52, 52);
             this.btnReloadOrderList.TabIndex = 24;
             this.btnReloadOrderList.UseVisualStyleBackColor = true;
+            this.btnReloadOrderList.Click += new System.EventHandler(this.btnReloadOrderList_Click);
             // 
             // tpCreateOrder
             // 

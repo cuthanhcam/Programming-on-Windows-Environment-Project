@@ -24,10 +24,6 @@ namespace GUI
         private string _username;
         private string _role;
 
-        public frmMain()
-        {
-            InitializeComponent();
-        }
         public frmMain(string role, string username)
         {
             InitializeComponent();
@@ -39,8 +35,8 @@ namespace GUI
             _customerService = new CustomerService(new SalesManagementContext());
             _stockService = new StockService(new SalesManagementContext());
             _statisticsService = new StatisticsService(new SalesManagementContext());
-            //_employeeService = new EmployeeService(new SalesManagementContext());
-            
+            _employeeService = new EmployeeService(new SalesManagementContext());
+
             InitializeTabPages();
             DisplayUserInfo();
         }
