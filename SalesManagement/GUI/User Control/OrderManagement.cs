@@ -25,41 +25,61 @@ namespace GUI
         {
             InitializeComponent();
             _orderService = orderService;
-            InitializeListViewColumnsCreateNewOrder();
+            InitializeListViewColumns();
+            LoadOrderList();
         }
 
-        private void InitializeListViewColumnsCreateNewOrder()
-        {
-            // Tạo cột cho lstProduct
-            lstProduct.Columns.Clear();
-            lstProduct.Columns.Add("ID", 50);
-            lstProduct.Columns.Add("Model", 250);
-            lstProduct.Columns.Add("Price", 100);
-            lstProduct.Columns.Add("Quantity", 100);
-            lstProduct.ShowGroups = true;
 
-            // Tạo cột cho lstSelectedProduct
-            lstSelectedProduct.Columns.Clear();
-            lstSelectedProduct.Columns.Add("ID", 50);
-            lstSelectedProduct.Columns.Add("Model", 230);
-            lstSelectedProduct.Columns.Add("Price", 100);
-            lstSelectedProduct.Columns.Add("Quantity", 70);
-            lstSelectedProduct.Columns.Add("Total", 100);
+        private void InitializeListViewColumns()
+        {
+            lstOrderList.Columns.Clear();
+            lstOrderList.Columns.Add("Order ID", 100);
+            lstOrderList.Columns.Add("Customer ID", 120);
+            lstOrderList.Columns.Add("Employee ID", 120);
+            lstOrderList.Columns.Add("Order Date", 170);
+            lstOrderList.Columns.Add("Total Amount", 120);
+            lstOrderList.Columns.Add("Status", 100);
+            lstOrderList.Columns.Add("Note", 220);
         }
 
         // Load danh sách đơn hàng
-        private void LoadOrderList()
+        private void LoadOrderList(string searchOrderID = null, DateTime? searchOrderDateStart = null, DateTime? searchOrderDateEnd = null, string sortByTotalAmount = null)
         {
-            var orders = _orderService.GetPendingOrders();
-            lstOrderList.Items.Clear();
-            foreach (var order in orders)
+            try
             {
-                var item = new ListViewItem(order.OrderID.ToString());
-                item.SubItems.Add(order.CustomerID.ToString());
-                item.SubItems.Add(order.OrderDate.ToString("dd/MM/yyyy"));
-                item.SubItems.Add(order.TotalAmount.ToString("C"));
-                item.SubItems.Add(order.Status);
-                lstOrderList.Items.Add(item);
+                var orders = _orderService.GetOrdersWithCustomerInfo(searchOrderID, searchOrderDateStart, searchOrderDateEnd, sortByTotalAmount);
+                lstOrderList.Items.Clear();
+
+                // Nhóm đơn hàng theo trạng thái
+                var groupedOrders = orders
+                    .GroupBy(o => o.Status)
+                    .OrderBy(g => g.Key); // Sắp xếp theo thứ tự Pending, Completed, Canceled
+
+                foreach (var group in groupedOrders)
+                {
+                    // Thêm tiêu đề nhóm
+                    var groupHeader = new ListViewItem($"Status: {group.Key}");
+                    groupHeader.Font = new Font(lstOrderList.Font, FontStyle.Bold);
+                    groupHeader.BackColor = Color.LightGray;
+                    lstOrderList.Items.Add(groupHeader);
+
+                    // Thêm các đơn hàng trong nhóm
+                    foreach (var order in group)
+                    {
+                        var item = new ListViewItem(order.OrderID.ToString());
+                        item.SubItems.Add(order.CustomerID.ToString());
+                        item.SubItems.Add(order.EmployeeID?.ToString() ?? "N/A");
+                        item.SubItems.Add(order.OrderDate.ToString("dd/MM/yyyy"));
+                        item.SubItems.Add(order.TotalAmount.ToString("C"));
+                        item.SubItems.Add(order.Status);
+                        item.SubItems.Add(order.Note ?? "N/A");
+                        lstOrderList.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading order list: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -77,122 +97,24 @@ namespace GUI
                 lstProduct.Items.Add(item);
             }
         }
-        // Tìm kiếm khách hàng bằng số điện thoại
-        private void SearchCustomerByPhone(string phone)
-        {
-            var customer = _customerService.GetCustomerByPhone(phone);
-            if (customer != null)
-            {
-                txtName.Text = customer.Name;
-                txtEmail.Text = customer.Email;
-                txtMembershipLevel.Text = customer.MembershipLevel;
-                lblAddress.Text = customer.Address;
-                btnAddNewCustomer.Visible = false;
-            }
-            else
-            {
-                ClearCustomerFields();
-                btnAddNewCustomer.Visible = true;
-            }
-        }
 
-        // Xóa thông tin khách hàng
-        private void ClearCustomerFields()
-        {
-            txtName.Clear();
-            txtEmail.Clear();
-            txtMembershipLevel.Clear();
-            txtAddress.Clear();
-        }
-
-        // Thêm khách hàng mới
-        private void AddNewCustomer()
-        {
-            var customer = new Customer
-            {
-                Name = txtName.Text,
-                Email = txtEmail.Text,
-                Phone = txtPhone.Text,
-                Address = lblAddress.Text,
-                MembershipLevel = txtMembershipLevel.Text
-            };
-            _customerService.AddCustomer(customer);
-            MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        // Thêm sản phẩm vào danh sách đã chọn
-        private void AddProductToSelectedList()
-        {
-            if (lstProduct.SelectedItems.Count > 0)
-            {
-                var selectedProduct = lstProduct.SelectedItems[0];
-                int productID = int.Parse(selectedProduct.SubItems[0].Text);
-                string model = selectedProduct.SubItems[1].Text;
-                decimal price = decimal.Parse(selectedProduct.SubItems[2].Text.Replace("$", ""));
-                int quantity = (int)nudQuantity.Value;
-
-                var item = new ListViewItem(productID.ToString());
-                item.SubItems.Add(model);
-                item.SubItems.Add(price.ToString("C"));
-                item.SubItems.Add(quantity.ToString());
-                item.SubItems.Add((price * quantity).ToString("C"));
-                lstSelectedProduct.Items.Add(item);
-            }
-        }
-
-        // Xóa sản phẩm khỏi danh sách đã chọn
-        private void DeleteSelectedProduct()
-        {
-            if (lstSelectedProduct.SelectedItems.Count > 0)
-            {
-                lstSelectedProduct.Items.Remove(lstSelectedProduct.SelectedItems[0]);
-            }
-        }
-
-        // Tạo đơn hàng mới
-        private void CreateOrder()
-        {
-            if (lstSelectedProduct.Items.Count == 0)
-            {
-                MessageBox.Show("Please add products to the order.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var order = new Order
-            {
-                CustomerID = _customerService.GetCustomerByPhone(txtPhone.Text).CustomerID,
-                OrderDate = DateTime.Now,
-                TotalAmount = lstSelectedProduct.Items.Cast<ListViewItem>().Sum(item => decimal.Parse(item.SubItems[4].Text.Replace("$", ""))),
-                Status = "Pending"
-            };
-
-            var orderDetails = lstSelectedProduct.Items.Cast<ListViewItem>().Select(item => new OrderDetail
-            {
-                ProductID = int.Parse(item.SubItems[0].Text),
-                Quantity = int.Parse(item.SubItems[3].Text),
-                Price = decimal.Parse(item.SubItems[4].Text.Replace("$", ""))
-            }).ToList();
-
-            _orderService.CreateOrder(order, orderDetails);
-            MessageBox.Show("Order created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearOrderFields();
-        }
-
-        // Xóa thông tin đơn hàng
-        private void ClearOrderFields()
-        {
-            lstSelectedProduct.Items.Clear();
-            txtPhone.Clear();
-            ClearCustomerFields();
-        }
 
         private void btnComplete_Click(object sender, EventArgs e)
         {
             if (lstOrderList.SelectedItems.Count > 0)
             {
                 int orderID = int.Parse(lstOrderList.SelectedItems[0].Text);
-                _orderService.UpdateOrderStatus(orderID, "Completed");
-                LoadOrderList();
+                string currentStatus = lstOrderList.SelectedItems[0].SubItems[5].Text;
+
+                if (currentStatus == "Pending")
+                {
+                    _orderService.UpdateOrderStatus(orderID, "Completed");
+                    LoadOrderList();
+                }
+                else
+                {
+                    MessageBox.Show("Only orders with status 'Pending' can be completed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -201,8 +123,17 @@ namespace GUI
             if (lstOrderList.SelectedItems.Count > 0)
             {
                 int orderID = int.Parse(lstOrderList.SelectedItems[0].Text);
-                _orderService.UpdateOrderStatus(orderID, "Canceled");
-                LoadOrderList();
+                string currentStatus = lstOrderList.SelectedItems[0].SubItems[5].Text;
+
+                if (currentStatus == "Pending")
+                {
+                    _orderService.UpdateOrderStatus(orderID, "Canceled");
+                    LoadOrderList();
+                }
+                else
+                {
+                    MessageBox.Show("Only orders with status 'Pending' can be canceled.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -216,29 +147,45 @@ namespace GUI
             }
         }
 
-        private void txtPhone_TextChanged(object sender, EventArgs e)
+
+        private void txtOrderID_TextChanged(object sender, EventArgs e)
         {
-            SearchCustomerByPhone(txtPhone.Text);
+            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
         }
 
-        private void btnAddNewCustomer_Click(object sender, EventArgs e)
+        private void cmbTotalAmount_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AddNewCustomer();
+            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
         }
 
-        private void btnAddUpdate_Click(object sender, EventArgs e)
+
+        private void txtOrderID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            AddProductToSelectedList();
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
+                e.Handled = true; // Ngăn phát ra tiếng
+            }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void lstOrderList_DoubleClick(object sender, EventArgs e)
         {
-            DeleteSelectedProduct();
+            if (lstOrderList.SelectedItems.Count > 0)
+            {
+                int orderID = int.Parse(lstOrderList.SelectedItems[0].Text);
+                var orderDetailsForm = new frmOrderDetail(orderID, _orderService);
+                orderDetailsForm.ShowDialog();
+            }
         }
 
-        private void btnCreateOrder_Click(object sender, EventArgs e)
+        private void dtpOrderDateStart_ValueChanged(object sender, EventArgs e)
         {
-            CreateOrder();
+            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
+        }
+
+        private void dtpOrderDateEnd_ValueChanged(object sender, EventArgs e)
+        {
+            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
         }
     }
 }
