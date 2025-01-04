@@ -28,7 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAddNewCustomer = new System.Windows.Forms.Button();
+            System.Windows.Forms.ListViewGroup listViewGroup19 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup20 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup21 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup22 = new System.Windows.Forms.ListViewGroup("Case", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup23 = new System.Windows.Forms.ListViewGroup("Graphic Card", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup24 = new System.Windows.Forms.ListViewGroup("RAM", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup25 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup26 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup27 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerManagement));
+            this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.Label();
@@ -38,18 +48,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnPurchaseHistory = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.lstEmployees = new System.Windows.Forms.ListView();
+            this.btnReload = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnAddNewCustomer
+            // btnAdd
             // 
-            this.btnAddNewCustomer.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnAddNewCustomer.Location = new System.Drawing.Point(161, 182);
-            this.btnAddNewCustomer.Name = "btnAddNewCustomer";
-            this.btnAddNewCustomer.Size = new System.Drawing.Size(150, 30);
-            this.btnAddNewCustomer.TabIndex = 31;
-            this.btnAddNewCustomer.Text = "New Customer";
-            this.btnAddNewCustomer.UseVisualStyleBackColor = true;
+            this.btnAdd.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnAdd.Location = new System.Drawing.Point(161, 182);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(150, 30);
+            this.btnAdd.TabIndex = 31;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -92,7 +107,7 @@
             // 
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEmail.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtEmail.Location = new System.Drawing.Point(646, 27);
+            this.txtEmail.Location = new System.Drawing.Point(634, 27);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(185, 28);
             this.txtEmail.TabIndex = 29;
@@ -111,7 +126,7 @@
             // 
             this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPhone.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtPhone.Location = new System.Drawing.Point(365, 27);
+            this.txtPhone.Location = new System.Drawing.Point(358, 27);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(185, 28);
             this.txtPhone.TabIndex = 27;
@@ -145,12 +160,103 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "Full Name:";
             // 
+            // btnPurchaseHistory
+            // 
+            this.btnPurchaseHistory.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnPurchaseHistory.Location = new System.Drawing.Point(799, 182);
+            this.btnPurchaseHistory.Name = "btnPurchaseHistory";
+            this.btnPurchaseHistory.Size = new System.Drawing.Size(250, 30);
+            this.btnPurchaseHistory.TabIndex = 32;
+            this.btnPurchaseHistory.Text = "Purchase History";
+            this.btnPurchaseHistory.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnUpdate.Location = new System.Drawing.Point(328, 182);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(150, 30);
+            this.btnUpdate.TabIndex = 34;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnDelete.Location = new System.Drawing.Point(497, 182);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(150, 30);
+            this.btnDelete.TabIndex = 35;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // lstEmployees
+            // 
+            this.lstEmployees.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lstEmployees.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstEmployees.Font = new System.Drawing.Font("Bahnschrift", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstEmployees.FullRowSelect = true;
+            listViewGroup19.Header = "Processor";
+            listViewGroup19.Name = "listViewGroupProcessor";
+            listViewGroup20.Header = "Motherboard";
+            listViewGroup20.Name = "listViewGroupMotherboard";
+            listViewGroup21.Header = "CPU Cooler";
+            listViewGroup21.Name = "listViewGroupCPUCooler";
+            listViewGroup22.Header = "Case";
+            listViewGroup22.Name = "listViewGroupCase";
+            listViewGroup23.Header = "Graphic Card";
+            listViewGroup23.Name = "listViewGroupGraphicCard";
+            listViewGroup24.Header = "RAM";
+            listViewGroup24.Name = "listViewGroupRAM";
+            listViewGroup25.Header = "Storage";
+            listViewGroup25.Name = "listViewGroupStorage";
+            listViewGroup26.Header = "Case Cooler";
+            listViewGroup26.Name = "listViewGroupCaseCooler";
+            listViewGroup27.Header = "Power Supply";
+            listViewGroup27.Name = "listViewGroupPowerSupply";
+            this.lstEmployees.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup19,
+            listViewGroup20,
+            listViewGroup21,
+            listViewGroup22,
+            listViewGroup23,
+            listViewGroup24,
+            listViewGroup25,
+            listViewGroup26,
+            listViewGroup27});
+            this.lstEmployees.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstEmployees.HideSelection = false;
+            this.lstEmployees.Location = new System.Drawing.Point(49, 245);
+            this.lstEmployees.MultiSelect = false;
+            this.lstEmployees.Name = "lstEmployees";
+            this.lstEmployees.Size = new System.Drawing.Size(1084, 363);
+            this.lstEmployees.TabIndex = 36;
+            this.lstEmployees.TileSize = new System.Drawing.Size(500, 30);
+            this.lstEmployees.UseCompatibleStateImageBehavior = false;
+            this.lstEmployees.View = System.Windows.Forms.View.Details;
+            // 
+            // btnReload
+            // 
+            this.btnReload.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReload.BackgroundImage")));
+            this.btnReload.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnReload.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.btnReload.Location = new System.Drawing.Point(1113, 8);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(52, 52);
+            this.btnReload.TabIndex = 37;
+            this.btnReload.UseVisualStyleBackColor = true;
+            // 
             // CustomerManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.btnAddNewCustomer);
+            this.Controls.Add(this.btnReload);
+            this.Controls.Add(this.lstEmployees);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnPurchaseHistory);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.groupBox1);
             this.Name = "CustomerManagement";
             this.Size = new System.Drawing.Size(1177, 653);
@@ -162,7 +268,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnAddNewCustomer;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label txtAddress;
@@ -172,5 +278,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPurchaseHistory;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ListView lstEmployees;
+        private System.Windows.Forms.Button btnReload;
     }
 }

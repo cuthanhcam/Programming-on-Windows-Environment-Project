@@ -223,6 +223,9 @@ namespace GUI
                 txtModel.Text = product.Model;
                 txtBrand.Text = product.Brand;
                 txtPrice.Text = product.Price.ToString("C");
+                txtPromotion.Text = product.Promotion.ToString();
+                dtpCreatedAt.Value = product.CreatedAt;
+                dtpUpdatedAt.Value = product.UpdatedAt;
 
                 StringBuilder sb = new StringBuilder();
 
@@ -326,6 +329,7 @@ namespace GUI
                 string model = txtModel.Text;
                 string brand = txtBrand.Text;
                 decimal price = decimal.TryParse(txtPrice.Text, out decimal p) ? p : 0;
+                int promotion = int.TryParse(txtPromotion.Text, out int promo) ? promo : 0;
 
                 // Lấy dữ liệu từ rtbSpecs
                 var lines = rtbSpecs.Lines;
@@ -351,7 +355,7 @@ namespace GUI
                 }
 
                 // Thêm sản phẩm mới
-                _productService.AddProduct(category, model, brand, price, specificationsJson, imagePath, 0, 0);
+                _productService.AddProduct(category, model, brand, price, specificationsJson, imagePath, promotion, 0);
 
                 // Cập nhật danh sách sản phẩm
                 _allProducts = _productService.GetAllProducts();
@@ -389,47 +393,48 @@ namespace GUI
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
+{
+    try
+    {
+        if (!int.TryParse(txtProductID.Text, out int productId))
+            throw new Exception("Invalid Product ID.");
+
+        // Lấy dữ liệu từ các TextBox
+        string category = txtCategory.Text;
+        string model = txtModel.Text;
+        string brand = txtBrand.Text;
+        decimal price = decimal.TryParse(txtPrice.Text, out decimal p) ? p : 0;
+        int promotion = int.TryParse(txtPromotion.Text, out int promo) ? promo : 0;
+
+        // Lấy dữ liệu từ rtbSpecs
+        var lines = rtbSpecs.Lines;
+        var specifications = new Dictionary<string, string>();
+
+        foreach (var line in lines)
         {
-            try
+            var parts = line.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
             {
-                if (!int.TryParse(txtProductID.Text, out int productId))
-                    throw new Exception("Invalid Product ID.");
-
-                // Lấy dữ liệu từ các TextBox
-                string category = txtCategory.Text;
-                string model = txtModel.Text;
-                string brand = txtBrand.Text;
-                decimal price = decimal.TryParse(txtPrice.Text, out decimal p) ? p : 0;
-
-                // Lấy dữ liệu từ rtbSpecs
-                var lines = rtbSpecs.Lines;
-                var specifications = new Dictionary<string, string>();
-
-                foreach (var line in lines)
-                {
-                    var parts = line.Split(new[] { ':' }, 2);
-                    if (parts.Length == 2)
-                    {
-                        specifications[parts[0].Trim()] = parts[1].Trim();
-                    }
-                }
-
-                // Chuyển đổi specifications thành JSON
-                string specificationsJson = Newtonsoft.Json.JsonConvert.SerializeObject(specifications);
-
-                // Không lưu ảnh ở đây, chỉ cập nhật thông tin sản phẩm
-                _productService.UpdateProduct(productId, category, model, brand, price, specificationsJson, null, 0, 0);
-
-                // Cập nhật danh sách sản phẩm
-                _allProducts = _productService.GetAllProducts();
-                LoadProducts(_allProducts);
-                MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error updating product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                specifications[parts[0].Trim()] = parts[1].Trim();
             }
         }
+
+        // Chuyển đổi specifications thành JSON
+        string specificationsJson = Newtonsoft.Json.JsonConvert.SerializeObject(specifications);
+
+        // Không lưu ảnh ở đây, chỉ cập nhật thông tin sản phẩm
+        _productService.UpdateProduct(productId, category, model, brand, price, specificationsJson, null, promotion, 0);
+
+        // Cập nhật danh sách sản phẩm
+        _allProducts = _productService.GetAllProducts();
+        LoadProducts(_allProducts);
+        MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Error updating product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 
         private void LoadImageToPictureBox(string imagePath)
         {

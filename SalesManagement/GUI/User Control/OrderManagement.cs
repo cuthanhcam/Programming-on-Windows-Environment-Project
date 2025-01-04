@@ -211,7 +211,7 @@ namespace GUI
             if (lstOrderList.SelectedItems.Count > 0)
             {
                 int orderID = int.Parse(lstOrderList.SelectedItems[0].Text);
-                var orderDetailsForm = new OrderDetailsForm(orderID, _orderService);
+                var orderDetailsForm = new frmOrderDetail(orderID, _orderService);
                 orderDetailsForm.ShowDialog();
             }
         }

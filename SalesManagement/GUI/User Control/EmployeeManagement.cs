@@ -16,14 +16,12 @@ namespace GUI
     public partial class EmployeeManagement : UserControl
     {
         private readonly EmployeeService _employeeService;
-        private readonly UserService _userService;
         private List<Employee> _allEmployees;
         private List<Employee> _filteredEmployees;
-        public EmployeeManagement(EmployeeService employeeService, UserService userService)
+        public EmployeeManagement(EmployeeService employeeService)
         {
             InitializeComponent();
             _employeeService = employeeService;
-            _userService = userService;
             _allEmployees = _employeeService.GetAllEmployees();
             _filteredEmployees = _allEmployees;
 
@@ -60,7 +58,7 @@ namespace GUI
                 item.SubItems.Add(employee.Name);
                 item.SubItems.Add(employee.Phone);
                 item.SubItems.Add(employee.Address);
-                item.SubItems.Add(employee.Position);
+                item.SubItems.Add(employee.Role);
                 item.SubItems.Add((employee.Salary ?? 0).ToString("C"));
                 item.SubItems.Add(employee.HireDate.ToShortDateString());
                 lstEmployees.Items.Add(item);
@@ -78,9 +76,9 @@ namespace GUI
             cmbSalary.Items.Add("Salary Descending");
             cmbSalary.SelectedIndex = 0;
 
-            cmbPosition.Items.Add("Admin");
-            cmbPosition.Items.Add("Staff");
-            cmbPosition.SelectedIndex = 0;
+            cmbRole.Items.Add("Admin");
+            cmbRole.Items.Add("Staff");
+            cmbRole.SelectedIndex = 0;
         }
         private void InitializeSearch()
         {
@@ -112,7 +110,7 @@ namespace GUI
                     txtName.Text = employee.Name;
                     txtPhone.Text = employee.Phone;
                     txtAddress.Text = employee.Address;
-                    cmbPosition.SelectedItem = employee.Position;
+                    cmbRole.SelectedItem = employee.Role;
                     txtSalary.Text = (employee.Salary ?? 0).ToString("0.00");
                     dtpHireDate.Value = employee.HireDate;
 
@@ -142,7 +140,7 @@ namespace GUI
                     Name = txtName.Text,
                     Phone = txtPhone.Text,
                     Address = txtAddress.Text,
-                    Position = cmbPosition.SelectedItem.ToString(),
+                    Position = cmbRole.SelectedItem.ToString(),
                     Salary = decimal.Parse(txtSalary.Text),
                     HireDate = dtpHireDate.Value
                 };
@@ -155,7 +153,7 @@ namespace GUI
                 {
                     Username = txtUsername.Text,
                     PasswordHash = HashPassword(txtPassword.Text),
-                    Role = cmbPosition.SelectedItem.ToString(),
+                    Role = cmbRole.SelectedItem.ToString(),
                     CreatedAt = DateTime.Now
                 };
 
@@ -188,7 +186,7 @@ namespace GUI
                         employee.Name = txtName.Text;
                         employee.Phone = txtPhone.Text;
                         employee.Address = txtAddress.Text;
-                        employee.Position = cmbPosition.SelectedItem.ToString();
+                        employee.Position = cmbRole.SelectedItem.ToString();
                         employee.Salary = decimal.Parse(txtSalary.Text);
                         employee.HireDate = dtpHireDate.Value;
 
@@ -200,7 +198,7 @@ namespace GUI
                         {
                             user.Username = txtUsername.Text;
                             user.PasswordHash = HashPassword(txtPassword.Text);
-                            user.Role = cmbPosition.SelectedItem.ToString();
+                            user.Role = cmbRole.SelectedItem.ToString();
 
                             _userService.UpdateUser(user);
                         }
@@ -274,7 +272,7 @@ namespace GUI
             txtName.Clear();
             txtPhone.Clear();
             txtAddress.Clear();
-            cmbPosition.SelectedIndex = 0;
+            cmbRole.SelectedIndex = 0;
             txtSalary.Clear();
             dtpHireDate.Value = DateTime.Now;
             txtUsername.Clear();
@@ -292,7 +290,7 @@ namespace GUI
                     txtName.Text = employee.Name;
                     txtPhone.Text = employee.Phone;
                     txtAddress.Text = employee.Address;
-                    cmbPosition.SelectedItem = employee.Position;
+                    cmbRole.SelectedItem = employee.Position;
                     txtSalary.Text = (employee.Salary ?? 0).ToString("0.00");
                     dtpHireDate.Value = employee.HireDate;
 

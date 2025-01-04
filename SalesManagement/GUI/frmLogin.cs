@@ -1,29 +1,27 @@
 ﻿using BUS;
 using DAL.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI
 {
     public partial class frmLogin : Form
     {
-        private readonly UserService userService = new UserService(); // Khởi tạo UserService
+        private readonly EmployeeService employeeService = new EmployeeService(new SalesManagementContext()); // Khởi tạo EmployeeService
+
         public frmLogin()
         {
             InitializeComponent();
             ApplyPlaceholder();
         }
+
         private void frmLogin_Load(object sender, EventArgs e)
         {
             
         }
+
         private void ApplyPlaceholder()
         {
             // Đặt placeholder cho username
@@ -55,12 +53,12 @@ namespace GUI
 
             try
             {
-                if (userService.Login(username, password, out string role))
+                if (employeeService.Login(username, password, out string role))
                 {
                     MessageBox.Show($"Đăng nhập thành công! Vai trò của bạn: {role}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     this.Hide();
-                    frmMain mainForm = new frmMain(role); // Mở form chính
+                    frmMain mainForm = new frmMain(role, username); // Truyền thêm username
                     mainForm.ShowDialog();
                     this.Close();
                 }
@@ -128,6 +126,7 @@ namespace GUI
                 }
             }
         }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn thoát không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

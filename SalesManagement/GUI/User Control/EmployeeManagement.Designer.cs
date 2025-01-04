@@ -57,7 +57,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dtpHireDate = new System.Windows.Forms.DateTimePicker();
-            this.cmbPosition = new System.Windows.Forms.ComboBox();
+            this.cmbRole = new System.Windows.Forms.ComboBox();
             this.txtSalary = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
@@ -306,7 +306,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.dtpHireDate);
-            this.groupBox5.Controls.Add(this.cmbPosition);
+            this.groupBox5.Controls.Add(this.cmbRole);
             this.groupBox5.Controls.Add(this.txtSalary);
             this.groupBox5.Controls.Add(this.txtAddress);
             this.groupBox5.Controls.Add(this.txtPhone);
@@ -334,14 +334,14 @@
             this.dtpHireDate.Size = new System.Drawing.Size(241, 24);
             this.dtpHireDate.TabIndex = 30;
             // 
-            // cmbPosition
+            // cmbRole
             // 
-            this.cmbPosition.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.cmbPosition.FormattingEnabled = true;
-            this.cmbPosition.Location = new System.Drawing.Point(99, 185);
-            this.cmbPosition.Name = "cmbPosition";
-            this.cmbPosition.Size = new System.Drawing.Size(240, 29);
-            this.cmbPosition.TabIndex = 29;
+            this.cmbRole.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.cmbRole.FormattingEnabled = true;
+            this.cmbRole.Location = new System.Drawing.Point(99, 185);
+            this.cmbRole.Name = "cmbRole";
+            this.cmbRole.Size = new System.Drawing.Size(240, 29);
+            this.cmbRole.TabIndex = 29;
             // 
             // txtSalary
             // 
@@ -551,7 +551,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cmbPosition;
+        private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.TextBox txtSalary;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.TextBox txtPhone;

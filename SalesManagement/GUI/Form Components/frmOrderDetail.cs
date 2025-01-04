@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace GUI.Form_Components
 {
-    public partial class OrderDetailsForm : Form
+    public partial class frmOrderDetail : Form
     {
         private readonly int _orderID;
         private readonly OrderService _orderService;
 
-        public OrderDetailsForm(int orderID, OrderService orderService)
+        public frmOrderDetail(int orderID, OrderService orderService)
         {
             InitializeComponent();
             _orderID = orderID;

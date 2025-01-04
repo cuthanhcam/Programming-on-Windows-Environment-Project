@@ -43,6 +43,11 @@
             this.btnStockManagement = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.btnEmployeesManagement = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.lblRole = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +71,7 @@
             // 
             // tpProducts
             // 
+            this.tpProducts.BackColor = System.Drawing.Color.White;
             this.tpProducts.Font = new System.Drawing.Font("Bahnschrift", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tpProducts.Location = new System.Drawing.Point(4, 5);
             this.tpProducts.Margin = new System.Windows.Forms.Padding(0);
@@ -73,7 +79,6 @@
             this.tpProducts.Size = new System.Drawing.Size(1177, 653);
             this.tpProducts.TabIndex = 0;
             this.tpProducts.Text = "Products";
-            this.tpProducts.UseVisualStyleBackColor = true;
             // 
             // tpOrders
             // 
@@ -207,11 +212,67 @@
             this.btnEmployeesManagement.UseVisualStyleBackColor = false;
             this.btnEmployeesManagement.Click += new System.EventHandler(this.btnEmployeesManagement_Click);
             // 
+            // btnLogout
+            // 
+            this.btnLogout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLogout.BackgroundImage")));
+            this.btnLogout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLogout.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.btnLogout.Location = new System.Drawing.Point(1120, 14);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(52, 52);
+            this.btnLogout.TabIndex = 38;
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.label1.Location = new System.Drawing.Point(734, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 22);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "User:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.label2.Location = new System.Drawing.Point(917, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 22);
+            this.label2.TabIndex = 40;
+            this.label2.Text = "Role:";
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.lblUser.Location = new System.Drawing.Point(792, 44);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(0, 22);
+            this.lblUser.TabIndex = 41;
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.lblRole.Location = new System.Drawing.Point(974, 44);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(0, 22);
+            this.lblRole.TabIndex = 42;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 811);
+            this.Controls.Add(this.lblRole);
+            this.Controls.Add(this.lblUser);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnEmployeesManagement);
             this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.btnStockManagement);
@@ -226,6 +287,7 @@
             this.tcMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -244,5 +306,10 @@
         private System.Windows.Forms.Button btnStockManagement;
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Button btnEmployeesManagement;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblRole;
     }
 }

@@ -148,6 +148,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="User Control\StatisticsManagement.resx">
+      <DependentUpon>StatisticsManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Control\StockManagement.resx">
+      <DependentUpon>StockManagement.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

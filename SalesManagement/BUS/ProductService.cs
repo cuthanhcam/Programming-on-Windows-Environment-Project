@@ -51,7 +51,9 @@ namespace BUS
                     Specifications = specifications, // Lưu các thông số kỹ thuật khác
                     Image = imagePath,
                     Promotion = promotion,
-                    Warranty = warranty
+                    Warranty = warranty,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
                 };
 
                 _context.Products.Add(newProduct);
@@ -63,6 +65,53 @@ namespace BUS
             }
         }
 
+        public void UpdateProduct(int productId, string category, string model, string brand, decimal price, string specifications, string imagePath, int promotion, int warranty)
+        {
+            try
+            {
+                var product = _context.Products.Find(productId);
+                if (product == null)
+                    throw new Exception("Product not found.");
+
+                // Cập nhật các trường chính
+                product.Category = category;
+                product.Model = model;
+                product.Brand = brand;
+                product.Price = price;
+
+                // Cập nhật các thông số kỹ thuật
+                product.Specifications = specifications;
+
+                // Cập nhật các trường khác
+                product.Image = imagePath;
+                product.Promotion = promotion;
+                product.Warranty = warranty;
+                product.UpdatedAt = DateTime.Now;
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating product: " + ex.Message);
+            }
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            try
+            {
+                var product = _context.Products.Find(productId);
+                if (product == null)
+                    throw new Exception("Product not found.");
+
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting product: " + ex.Message);
+            }
+        }
 
         // Lấy sản phẩm theo ID
         public Product GetProductById(int productId)
@@ -119,55 +168,6 @@ namespace BUS
             }
         }
 
-
-        public void UpdateProduct(int productId, string category, string model, string brand, decimal price, string specifications, string imagePath, int promotion, int warranty)
-        {
-            try
-            {
-                var product = _context.Products.Find(productId);
-                if (product == null)
-                    throw new Exception("Product not found.");
-
-                // Cập nhật các trường chính
-                product.Category = category;
-                product.Model = model;
-                product.Brand = brand;
-                product.Price = price;
-
-                // Cập nhật các thông số kỹ thuật
-                product.Specifications = specifications;
-
-                // Cập nhật các trường khác
-                product.Image = imagePath;
-                product.Promotion = promotion;
-                product.Warranty = warranty;
-
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error updating product: " + ex.Message);
-            }
-        }
-
-        public void DeleteProduct(int productId)
-        {
-            try
-            {
-                var product = _context.Products.Find(productId);
-                if (product == null)
-                    throw new Exception("Product not found.");
-
-                _context.Products.Remove(product);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting product: " + ex.Message);
-            }
-        }
-
-        
         public List<string> GetAllBrands()
         {
             try
@@ -226,6 +226,7 @@ namespace BUS
                 return "Invalid specifications format.";
             }
         }
+
         public List<string> GetDefaultSpecifications(string category)
         {
             var specifications = new List<string>();
@@ -263,6 +264,7 @@ namespace BUS
 
             return specifications;
         }
+
         public void UpdateProductImage(int productId, string imagePath)
         {
             try
