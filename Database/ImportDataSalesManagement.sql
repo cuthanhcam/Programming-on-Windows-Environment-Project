@@ -30,7 +30,7 @@ GO
 INSERT INTO Employees (Name, Phone, Address, Role, Salary, Username, PasswordHash)
 VALUES 
 	(N'Cù Thanh Cầm', '0353818874' , N'Quảng Ngãi', 'Admin', 1500, 'camct', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2)),
-	(N'Nguyễn Trần Đăng Khoa', '0333333333' , N'Lâm Đồng', 'Staff', 500, 'khoantd', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'staff123'), 2));
+	(N'Trần Trung Hậu', '0902621876' , N'Cần Giờ', 'Staff', 1000, 'hautt', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'staff123'), 2));
 GO
 
 
@@ -95,7 +95,7 @@ GO
 
 INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status, Note)
 VALUES 
-    (1, 2, 17705, 'Completed', N'Khách hàng hài lòng với dịch vụ'),
+	(1, 2, 17705, 'Completed', N'Khách hàng hài lòng với dịch vụ'),
     (2, 1, 2927.86, 'Pending', N'Yêu cầu giao hàng sớm'),
     (3, 2, 219.99, 'Completed', N'Khách hàng yêu cầu bảo hành thêm'),
     (4, 2, 962.99, 'Canceled', N'Khách hàng hủy đơn do lý do cá nhân');

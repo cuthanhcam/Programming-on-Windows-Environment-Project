@@ -18,7 +18,6 @@ DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS OrderDetails;
 DROP TABLE IF EXISTS StockTransactions;
 
--- Tạo bảng Customers (Khách hàng)
 CREATE TABLE Customers (
     CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Name NVARCHAR(200) NOT NULL,              -- Tên khách hàng
@@ -34,7 +33,6 @@ CREATE TABLE Customers (
 );
 GO
 
--- Tạo bảng Employees (Nhân viên)
 CREATE TABLE Employees (
     EmployeeID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Name NVARCHAR(200) NOT NULL,              -- Tên nhân viên
@@ -50,7 +48,6 @@ CREATE TABLE Employees (
 );
 GO
 
--- Tạo bảng Products (Sản phẩm)
 CREATE TABLE Products (
     ProductID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     Category NVARCHAR(100) NOT NULL,        -- Loại linh kiện
@@ -68,7 +65,6 @@ CREATE TABLE Products (
 );
 GO
 
--- Tạo bảng Orders (Đơn hàng)
 CREATE TABLE Orders (
     OrderID INT IDENTITY(1,1) PRIMARY KEY,  -- Khóa chính tự tăng
     CustomerID INT NOT NULL,                -- Liên kết đến khách hàng
@@ -85,7 +81,6 @@ CREATE TABLE Orders (
 );
 GO
 
--- Tạo bảng OrderDetails (Chi tiết đơn hàng)
 CREATE TABLE OrderDetails (
     OrderDetailID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     OrderID INT NOT NULL,                        -- Liên kết đến bảng Orders
@@ -100,8 +95,6 @@ CREATE TABLE OrderDetails (
 );
 GO
 
-
--- Tạo bảng StockTransactions (Giao dịch kho)
 CREATE TABLE StockTransactions (
     TransactionID INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính tự tăng
     ProductID INT NOT NULL,                      -- Liên kết đến bảng Products
