@@ -65,11 +65,11 @@
     <Compile Include="Form Components\CustomerHistoryForm.Designer.cs">
       <DependentUpon>CustomerHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form Components\OrderDetailsForm.cs">
+    <Compile Include="Form Components\frmOrderDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form Components\OrderDetailsForm.Designer.cs">
-      <DependentUpon>OrderDetailsForm.cs</DependentUpon>
+    <Compile Include="Form Components\frmOrderDetail.Designer.cs">
+      <DependentUpon>frmOrderDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="User Control\CustomerManagement.cs">
       <SubType>UserControl</SubType>
@@ -121,6 +121,9 @@
     <Compile Include="User Control\StockManagement.Designer.cs">
       <DependentUpon>StockManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form Components\frmOrderDetail.resx">
+      <DependentUpon>frmOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>

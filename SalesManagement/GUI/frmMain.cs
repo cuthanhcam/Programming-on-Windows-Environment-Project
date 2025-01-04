@@ -39,7 +39,7 @@ namespace GUI
             _customerService = new CustomerService(new SalesManagementContext());
             _stockService = new StockService(new SalesManagementContext());
             _statisticsService = new StatisticsService(new SalesManagementContext());
-            _employeeService = new EmployeeService(new SalesManagementContext());
+            //_employeeService = new EmployeeService(new SalesManagementContext());
             
             InitializeTabPages();
             DisplayUserInfo();
@@ -58,7 +58,7 @@ namespace GUI
             AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService));
             AddUserControlToTab(tpStock, new StockManagement(_stockService));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
-            AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService);
+            //AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService);
 
         }
         private void AddUserControlToTab(TabPage tabPage, UserControl userControl)
