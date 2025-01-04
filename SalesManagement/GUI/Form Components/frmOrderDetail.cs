@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,12 +18,13 @@ namespace GUI.Form_Components
     {
         private readonly int _orderID;
         private readonly OrderService _orderService;
-
+        
         public frmOrderDetail(int orderID, OrderService orderService)
         {
             InitializeComponent();
             _orderID = orderID;
             _orderService = orderService;
+
             LoadOrderDetails();
             InitializeListViewColumns();
         }
@@ -30,14 +32,14 @@ namespace GUI.Form_Components
         private void InitializeListViewColumns()
         {
             lstOrderDetail.Columns.Clear();
-            lstOrderDetail.Columns.Add("Image", 70);
             lstOrderDetail.Columns.Add("Product ID", 100);
-            lstOrderDetail.Columns.Add("Model", 200);
+            lstOrderDetail.Columns.Add("Model", 270);
             lstOrderDetail.Columns.Add("Quantity", 100);
             lstOrderDetail.Columns.Add("Unit Price", 100);
             lstOrderDetail.Columns.Add("Total Price", 100);
 
-            lstOrderDetail.LargeImageList = imageList;
+            lstOrderDetail.View = View.Details; // Đảm bảo hiển thị chi tiết
+            lstOrderDetail.FullRowSelect = true; // Chọn toàn bộ dòng
         }
 
         private void LoadOrderDetails()
@@ -47,14 +49,14 @@ namespace GUI.Form_Components
                 var order = _orderService.GetOrderDetails(_orderID);
                 if (order != null)
                 {
-                    // Load thông tin đơn hàng
+                    // Hiển thị thông tin đơn hàng
                     lblOrderID.Text = order.OrderID.ToString();
                     lblEmployeeID.Text = order.EmployeeID?.ToString() ?? "N/A";
                     lblOrderDate.Text = order.OrderDate.ToString("dd/MM/yyyy");
                     lblTotalAmount.Text = order.TotalAmount.ToString("C");
                     lblDiscount.Text = order.Discount.ToString("C");
 
-                    // Load thông tin khách hàng
+                    // Hiển thị thông tin khách hàng
                     var customer = _orderService.GetCustomerByOrderID(order.OrderID);
                     if (customer != null)
                     {
@@ -67,27 +69,24 @@ namespace GUI.Form_Components
 
                     // Tính toán tổng tiền phải trả
                     decimal discountRate = GetDiscountRate(customer?.MembershipLevel);
-                    decimal totalAmountPayable = order.TotalAmount - (order.TotalAmount * discountRate);
+                    decimal discountAmount = order.TotalAmount * discountRate;
+                    decimal totalAmountPayable = order.TotalAmount - discountAmount;
+
+                    // Hiển thị giá trị giảm giá và phần trăm giảm giá
+                    lblDiscount.Text = $"{discountAmount.ToString("C")} ({(discountRate * 100):0}%)";
                     lblTotalAmountPayable.Text = totalAmountPayable.ToString("C");
 
-                    // Load chi tiết đơn hàng
+                    // Hiển thị chi tiết đơn hàng
                     lstOrderDetail.Items.Clear();
+                    lstOrderDetail.Groups.Clear();
+
                     foreach (var detail in order.OrderDetails)
                     {
                         var item = new ListViewItem(detail.ProductID.ToString());
                         item.SubItems.Add(detail.Product.Model);
                         item.SubItems.Add(detail.Quantity.ToString());
                         item.SubItems.Add(detail.UnitPrice.ToString("C"));
-                        item.SubItems.Add((detail.Quantity * detail.UnitPrice).ToString("C"));
-
-                        // Thêm ảnh sản phẩm
-                        string imagePath = Path.Combine("Images", detail.Product.Category, detail.Product.Model + ".jpg");
-                        if (File.Exists(imagePath))
-                        {
-                            var image = Image.FromFile(imagePath);
-                            imageList.Images.Add(detail.Product.Model, image);
-                            item.ImageKey = detail.Product.Model;
-                        }
+                        item.SubItems.Add(detail.Price.ToString("C"));
 
                         lstOrderDetail.Items.Add(item);
                     }
