@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,37 +23,95 @@ namespace GUI.Form_Components
             InitializeComponent();
             _orderID = orderID;
             _orderService = orderService;
-            //LoadOrderDetails();
+            LoadOrderDetails();
+            InitializeListViewColumns();
         }
 
-        //private void LoadOrderDetails()
-        //{
-        //    // Lấy chi tiết đơn hàng từ OrderService
-        //    var orderDetails = _orderService.GetOrderDetails(_orderID);
+        private void InitializeListViewColumns()
+        {
+            lstOrderDetail.Columns.Clear();
+            lstOrderDetail.Columns.Add("Image", 70);
+            lstOrderDetail.Columns.Add("Product ID", 100);
+            lstOrderDetail.Columns.Add("Model", 200);
+            lstOrderDetail.Columns.Add("Quantity", 100);
+            lstOrderDetail.Columns.Add("Unit Price", 100);
+            lstOrderDetail.Columns.Add("Total Price", 100);
 
-        //    // Hiển thị dữ liệu lên giao diện
-        //    DisplayOrderDetails(orderDetails);
-        //}
+            lstOrderDetail.LargeImageList = imageList;
+        }
 
-        //private void DisplayOrderDetails(List<OrderDetail> orderDetails)
-        //{
-        //    // Xóa dữ liệu cũ (nếu có)
-        //    lstOrderDetails.Items.Clear();
+        private void LoadOrderDetails()
+        {
+            try
+            {
+                var order = _orderService.GetOrderDetails(_orderID);
+                if (order != null)
+                {
+                    // Load thông tin đơn hàng
+                    lblOrderID.Text = order.OrderID.ToString();
+                    lblEmployeeID.Text = order.EmployeeID?.ToString() ?? "N/A";
+                    lblOrderDate.Text = order.OrderDate.ToString("dd/MM/yyyy");
+                    lblTotalAmount.Text = order.TotalAmount.ToString("C");
+                    lblDiscount.Text = order.Discount.ToString("C");
 
-        //    // Thêm dữ liệu mới
-        //    foreach (var detail in orderDetails)
-        //    {
-        //        var item = new ListViewItem(detail.ProductID.ToString());
-        //        item.SubItems.Add(detail.Product.Model); // Giả sử Product được include trong OrderDetail
-        //        item.SubItems.Add(detail.Quantity.ToString());
-        //        item.SubItems.Add(detail.Price.ToString("C"));
-        //        item.SubItems.Add((detail.Quantity * detail.Price).ToString("C")); // Tính tổng tiền
-        //        lstOrderDetails.Items.Add(item);
-        //    }
+                    // Load thông tin khách hàng
+                    var customer = _orderService.GetCustomerByOrderID(order.OrderID);
+                    if (customer != null)
+                    {
+                        lblName.Text = customer.Name;
+                        lblEmail.Text = customer.Email ?? "N/A";
+                        lblPhone.Text = customer.Phone ?? "N/A";
+                        lblAddress.Text = customer.Address ?? "N/A";
+                        lblMembershipLevel.Text = customer.MembershipLevel ?? "N/A";
+                    }
 
-        //    // Hiển thị tổng tiền đơn hàng
-        //    decimal totalAmount = orderDetails.Sum(od => od.Quantity * od.Price);
-        //    lblTotalAmount.Text = totalAmount.ToString("C");
-        //}
+                    // Tính toán tổng tiền phải trả
+                    decimal discountRate = GetDiscountRate(customer?.MembershipLevel);
+                    decimal totalAmountPayable = order.TotalAmount - (order.TotalAmount * discountRate);
+                    lblTotalAmountPayable.Text = totalAmountPayable.ToString("C");
+
+                    // Load chi tiết đơn hàng
+                    lstOrderDetail.Items.Clear();
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var item = new ListViewItem(detail.ProductID.ToString());
+                        item.SubItems.Add(detail.Product.Model);
+                        item.SubItems.Add(detail.Quantity.ToString());
+                        item.SubItems.Add(detail.UnitPrice.ToString("C"));
+                        item.SubItems.Add((detail.Quantity * detail.UnitPrice).ToString("C"));
+
+                        // Thêm ảnh sản phẩm
+                        string imagePath = Path.Combine("Images", detail.Product.Category, detail.Product.Model + ".jpg");
+                        if (File.Exists(imagePath))
+                        {
+                            var image = Image.FromFile(imagePath);
+                            imageList.Images.Add(detail.Product.Model, image);
+                            item.ImageKey = detail.Product.Model;
+                        }
+
+                        lstOrderDetail.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading order details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private decimal GetDiscountRate(string membershipLevel)
+        {
+            switch (membershipLevel.ToLower())
+            {
+                case "silver":
+                    return 0m;
+                case "gold":
+                    return 0.05m;
+                case "platinum":
+                    return 0.10m;
+                default:
+                    return 0m;
+            }
+        }
     }
 }
