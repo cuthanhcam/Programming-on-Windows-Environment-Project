@@ -10,7 +10,6 @@ SELECT * FROM Products;
 SELECT * FROM Orders;
 SELECT * FROM OrderDetails;
 SELECT * FROM StockTransactions;
-SELECT * FROM Users;
 
 DELETE FROM Customers;
 DELETE FROM Employees;
@@ -26,6 +25,7 @@ VALUES
     (N'Lê Văn C', 'levanc@gmail.com', '0912345680', N'Đà Nẵng', 'Platinum'),
     (N'Phạm Thị D', 'phamthid@gmail.com', '0912345681', N'Hải Phòng', 'Silver'),
     (N'Hoàng Văn E', 'hoangvane@gmail.com', '0912345682', N'Cần Thơ', 'Gold');
+GO
 
 INSERT INTO Employees (Name, Phone, Address, Role, Salary, Username, PasswordHash)
 VALUES 
@@ -100,6 +100,7 @@ VALUES
     (3, 2, 500, 'Completed', N'Đơn hàng hoàn thành'),
     (4, 1, 300, 'Canceled', N'Đơn hàng đã hủy'),
     (5, 2, 1000, 'Completed', N'Đơn hàng hoàn thành');
+GO
 
 INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
 VALUES 
@@ -108,6 +109,7 @@ VALUES
     (2, 3, 1, 700, 700),
     (2, 4, 2, 100, 200),
     (3, 5, 1, 150, 150);
+GO
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID, Note)
 VALUES 
@@ -116,7 +118,7 @@ VALUES
     (3, 'Import', 3, 2, N'Nhập kho lần 1'),
     (4, 'Import', 20, 2, N'Nhập kho lần 1'),
     (5, 'Import', 15, 2, N'Nhập kho lần 1');
-
+GO
 
 
 -- Products: Processor
