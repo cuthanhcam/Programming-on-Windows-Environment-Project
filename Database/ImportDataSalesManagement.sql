@@ -95,21 +95,20 @@ GO
 
 INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status, Note)
 VALUES 
-    (1, 2, 800, 'Completed', N'Đơn hàng hoàn thành'),
-    (2, 1, 1200, 'Pending', N'Đơn hàng đang chờ xử lý'),
-    (3, 2, 500, 'Completed', N'Đơn hàng hoàn thành'),
-    (4, 1, 300, 'Canceled', N'Đơn hàng đã hủy'),
-    (5, 2, 1000, 'Completed', N'Đơn hàng hoàn thành');
-GO
+    (1, 2, 17705, 'Completed', N'Khách hàng hài lòng với dịch vụ'),
+    (2, 1, 2927.86, 'Pending', N'Yêu cầu giao hàng sớm'),
+    (3, 2, 219.99, 'Completed', N'Khách hàng yêu cầu bảo hành thêm'),
+    (4, 2, 962.99, 'Canceled', N'Khách hàng hủy đơn do lý do cá nhân');
 
 INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
 VALUES 
-    (1, 1, 1, 500, 500),
-    (1, 2, 1, 300, 300),
-    (2, 3, 1, 700, 700),
-    (2, 4, 2, 100, 200),
-    (3, 5, 1, 150, 150);
-GO
+    (1, 1, 2, 8078, 16156), -- Ryzen Threadripper 3990X
+    (1, 4, 1, 1549, 1549),  -- TRX40 CREATOR
+    (2, 2, 2, 699, 1398),   -- Ryzen 9 7950X
+    (2, 14, 1, 1529.86, 1529.86), -- GeForce RTX 3080 Ti Gaming OC 12G
+    (3, 19, 1, 219.99, 219.99),   -- 970 EVO
+    (4, 6, 1, 962.99, 962.99);    -- ROG ZENITH II EXTREME ALPHA
+
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID, Note)
 VALUES 
