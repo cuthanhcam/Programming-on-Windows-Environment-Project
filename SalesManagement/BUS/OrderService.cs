@@ -1,6 +1,7 @@
 ﻿using DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace BUS
@@ -14,89 +15,77 @@ namespace BUS
             _context = context;
         }
 
-        // Lấy tất cả đơn hàng
-        public List<Order> GetAllOrders()
+        public List<Order> GetOrdersWithCustomerInfo(string searchOrderID = null, DateTime? searchOrderDateStart = null, DateTime? searchOrderDateEnd = null, string sortByTotalAmount = null)
         {
-            try
-            {
-                return _context.Orders.ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders: " + ex.Message);
-            }
-        }
+            var query = _context.Orders
+                .Include(o => o.Customer)
+                .AsQueryable();
 
-        // Lấy danh sách đơn hàng có trạng thái Pending
-        public List<Order> GetPendingOrders()
-        {
-            try
+            // Tìm kiếm theo OrderID
+            if (!string.IsNullOrEmpty(searchOrderID))
             {
-                return _context.Orders
-                    .Where(o => o.Status == "Pending")
-                    .ToList();
+                query = query.Where(x => x.OrderID.ToString().Contains(searchOrderID));
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving pending orders: " + ex.Message);
-            }
-        }
 
-        // Lấy chi tiết đơn hàng
-        public List<OrderDetail> GetOrderDetails(int orderID)
-        {
-            try
+            // Tìm kiếm theo khoảng ngày
+            if (searchOrderDateStart.HasValue && searchOrderDateEnd.HasValue)
             {
-                return _context.OrderDetails
-                    .Where(od => od.OrderID == orderID)
-                    .ToList();
+                query = query.Where(x => DbFunctions.TruncateTime(x.OrderDate) >= searchOrderDateStart.Value.Date &&
+                                         DbFunctions.TruncateTime(x.OrderDate) <= searchOrderDateEnd.Value.Date);
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving order details: " + ex.Message);
-            }
-        }
 
-        // Tạo đơn hàng mới
-        public bool CreateOrder(Order order, List<OrderDetail> orderDetails)
-        {
-            try
+            // Sắp xếp theo TotalAmount
+            if (!string.IsNullOrEmpty(sortByTotalAmount))
             {
-                _context.Orders.Add(order);
-                _context.SaveChanges();
-
-                foreach (var detail in orderDetails)
+                if (sortByTotalAmount.ToLower() == "asc")
                 {
-                    detail.OrderID = order.OrderID;
-                    _context.OrderDetails.Add(detail);
+                    query = query.OrderBy(x => x.TotalAmount);
                 }
+                else if (sortByTotalAmount.ToLower() == "desc")
+                {
+                    query = query.OrderByDescending(x => x.TotalAmount);
+                }
+            }
 
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error creating order: " + ex.Message);
-            }
+            var result = query.ToList();
+            return result;
         }
 
-        // Cập nhật trạng thái đơn hàng
-        public bool UpdateOrderStatus(int orderID, string status)
+        public Order GetOrderDetails(int orderID)
+        {
+            var order = _context.Orders
+                .Include(o => o.OrderDetails)
+                .Include("OrderDetails.Product")
+                .Include(o => o.Customer)
+                .FirstOrDefault(o => o.OrderID == orderID);
+
+            return order;
+        }
+
+        public Customer GetCustomerByOrderID(int orderID)
+        {
+            var order = _context.Orders
+                .Include(o => o.Customer)
+                .FirstOrDefault(o => o.OrderID == orderID);
+
+            return order?.Customer;
+        }
+
+        public void UpdateOrderStatus(int orderID, string status)
         {
             try
             {
-                var order = _context.Orders.Find(orderID);
+                var order = _context.Orders.FirstOrDefault(o => o.OrderID == orderID);
                 if (order != null)
                 {
                     order.Status = status;
+                    order.UpdatedAt = DateTime.Now;
                     _context.SaveChanges();
-                    return true;
                 }
-                return false;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating order status: " + ex.Message);
+                throw new Exception($"Error updating order status: {ex.Message}");
             }
         }
     }

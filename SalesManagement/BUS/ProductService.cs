@@ -221,7 +221,7 @@ namespace BUS
 
                 return sb.ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "Invalid specifications format.";
             }
