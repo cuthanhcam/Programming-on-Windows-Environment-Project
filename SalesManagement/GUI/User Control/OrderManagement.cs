@@ -29,7 +29,6 @@ namespace GUI
             LoadOrderList();
         }
 
-
         private void InitializeListViewColumns()
         {
             lstOrderList.Columns.Clear();
@@ -40,6 +39,15 @@ namespace GUI
             lstOrderList.Columns.Add("Total Amount", 120);
             lstOrderList.Columns.Add("Status", 100);
             lstOrderList.Columns.Add("Note", 220);
+
+            lstOrderList.ShowGroups = true;
+            lstOrderList.View = View.Details;
+
+            // Khởi tạo cmbTotalAmount
+            cmbTotalAmount.Items.Add("All");
+            cmbTotalAmount.Items.Add("Ascending");
+            cmbTotalAmount.Items.Add("Descending");
+            cmbTotalAmount.SelectedIndex = 0;
         }
 
         // Load danh sách đơn hàng
@@ -49,6 +57,7 @@ namespace GUI
             {
                 var orders = _orderService.GetOrdersWithCustomerInfo(searchOrderID, searchOrderDateStart, searchOrderDateEnd, sortByTotalAmount);
                 lstOrderList.Items.Clear();
+                lstOrderList.Groups.Clear();
 
                 // Nhóm đơn hàng theo trạng thái
                 var groupedOrders = orders
@@ -57,22 +66,21 @@ namespace GUI
 
                 foreach (var group in groupedOrders)
                 {
-                    // Thêm tiêu đề nhóm
-                    var groupHeader = new ListViewItem($"Status: {group.Key}");
-                    groupHeader.Font = new Font(lstOrderList.Font, FontStyle.Bold);
-                    groupHeader.BackColor = Color.LightGray;
-                    lstOrderList.Items.Add(groupHeader);
+                    // Tạo nhóm mới
+                    var groupHeader = new ListViewGroup($"Status: {group.Key}", HorizontalAlignment.Left);
+                    lstOrderList.Groups.Add(groupHeader);
 
-                    // Thêm các đơn hàng trong nhóm
+                    // Thêm các đơn hàng vào nhóm
                     foreach (var order in group)
                     {
                         var item = new ListViewItem(order.OrderID.ToString());
                         item.SubItems.Add(order.CustomerID.ToString());
                         item.SubItems.Add(order.EmployeeID?.ToString() ?? "N/A");
-                        item.SubItems.Add(order.OrderDate.ToString("dd/MM/yyyy"));
+                        item.SubItems.Add(order.OrderDate.ToString("dd/MM/yyyy")); // "dd/MM/yyyy"
                         item.SubItems.Add(order.TotalAmount.ToString("C"));
                         item.SubItems.Add(order.Status);
                         item.SubItems.Add(order.Note ?? "N/A");
+                        item.Group = groupHeader; // Gán đơn hàng vào nhóm
                         lstOrderList.Items.Add(item);
                     }
                 }
@@ -83,22 +91,6 @@ namespace GUI
             }
         }
 
-        // Load danh sách sản phẩm
-        private void LoadProducts()
-        {
-            var products = _productService.GetAllProducts();
-            lstProduct.Items.Clear();
-            foreach (var product in products)
-            {
-                var item = new ListViewItem(product.ProductID.ToString());
-                item.SubItems.Add(product.Model);
-                item.SubItems.Add(product.Price.ToString("C"));
-                item.SubItems.Add(product.StockQuantity.ToString());
-                lstProduct.Items.Add(item);
-            }
-        }
-
-
         private void btnComplete_Click(object sender, EventArgs e)
         {
             if (lstOrderList.SelectedItems.Count > 0)
@@ -108,8 +100,16 @@ namespace GUI
 
                 if (currentStatus == "Pending")
                 {
-                    _orderService.UpdateOrderStatus(orderID, "Completed");
-                    LoadOrderList();
+                    try
+                    {
+                        _orderService.UpdateOrderStatus(orderID, "Completed");
+                        LoadOrderList();
+                        MessageBox.Show("Order completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error completing order: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
@@ -147,27 +147,6 @@ namespace GUI
             }
         }
 
-
-        private void txtOrderID_TextChanged(object sender, EventArgs e)
-        {
-            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
-        }
-
-        private void cmbTotalAmount_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
-        }
-
-
-        private void txtOrderID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
-                e.Handled = true; // Ngăn phát ra tiếng
-            }
-        }
-
         private void lstOrderList_DoubleClick(object sender, EventArgs e)
         {
             if (lstOrderList.SelectedItems.Count > 0)
@@ -178,13 +157,37 @@ namespace GUI
             }
         }
 
+        private void txtOrderID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
+                e.Handled = true;
+            }
+        }
+
+        private void cmbTotalAmount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
+        }
+
         private void dtpOrderDateStart_ValueChanged(object sender, EventArgs e)
         {
+            if (dtpOrderDateStart.Value > dtpOrderDateEnd.Value)
+            {
+                MessageBox.Show("Start date cannot be greater than end date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
         }
 
         private void dtpOrderDateEnd_ValueChanged(object sender, EventArgs e)
         {
+            if (dtpOrderDateEnd.Value < dtpOrderDateStart.Value)
+            {
+                MessageBox.Show("End date cannot be less than start date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             LoadOrderList(txtOrderID.Text, dtpOrderDateStart.Value, dtpOrderDateEnd.Value, cmbTotalAmount.SelectedItem?.ToString());
         }
     }

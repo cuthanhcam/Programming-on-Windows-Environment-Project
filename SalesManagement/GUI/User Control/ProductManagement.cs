@@ -53,7 +53,7 @@ namespace GUI
             cmbBrand.SelectedIndex = 0;
             SubscribeEvents();
 
-            // Khởi tạo cmbPrice
+            // Khởi tạo cmbPrice    
             cmbPrice.Items.Add("All");
             cmbPrice.Items.Add("Price Ascending");
             cmbPrice.Items.Add("Price Descending");
