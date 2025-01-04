@@ -24,27 +24,38 @@ namespace BUS
             // Tìm kiếm theo OrderID
             if (!string.IsNullOrEmpty(searchOrderID))
             {
-                query = query.Where(x => x.OrderID.ToString().Contains(searchOrderID));
+                int orderId;
+                if (int.TryParse(searchOrderID, out orderId))
+                {
+                    query = query.Where(x => x.OrderID == orderId);
+                }
+                else
+                {
+                    // Nếu searchOrderID không phải là số, không trả về kết quả nào
+                    query = query.Where(x => false);
+                }
             }
 
             // Tìm kiếm theo khoảng ngày
             if (searchOrderDateStart.HasValue && searchOrderDateEnd.HasValue)
             {
-                query = query.Where(x => DbFunctions.TruncateTime(x.OrderDate) >= searchOrderDateStart.Value.Date &&
-                                         DbFunctions.TruncateTime(x.OrderDate) <= searchOrderDateEnd.Value.Date);
+                query = query.Where(x => DbFunctions.TruncateTime(x.OrderDate) >= DbFunctions.TruncateTime(searchOrderDateStart.Value) &&
+                         DbFunctions.TruncateTime(x.OrderDate) <= DbFunctions.TruncateTime(searchOrderDateEnd.Value));
+
             }
 
             // Sắp xếp theo TotalAmount
             if (!string.IsNullOrEmpty(sortByTotalAmount))
             {
-                if (sortByTotalAmount.ToLower() == "asc")
+                if (sortByTotalAmount.Equals("Ascending", StringComparison.OrdinalIgnoreCase))
                 {
                     query = query.OrderBy(x => x.TotalAmount);
                 }
-                else if (sortByTotalAmount.ToLower() == "desc")
+                else if (sortByTotalAmount.Equals("Descending", StringComparison.OrdinalIgnoreCase))
                 {
                     query = query.OrderByDescending(x => x.TotalAmount);
                 }
+                // Nếu là "All" hoặc không hợp lệ, không sắp xếp
             }
 
             var result = query.ToList();
@@ -75,9 +86,35 @@ namespace BUS
         {
             try
             {
-                var order = _context.Orders.FirstOrDefault(o => o.OrderID == orderID);
+                var order = _context.Orders
+                    .Include(o => o.OrderDetails) // Include OrderDetails để lấy thông tin sản phẩm
+                    .FirstOrDefault(o => o.OrderID == orderID);
+
                 if (order != null)
                 {
+                    // Nếu chuyển sang trạng thái Completed
+                    if (status == "Completed" && order.Status != "Completed")
+                    {
+                        foreach (var detail in order.OrderDetails)
+                        {
+                            var product = _context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
+                            if (product != null)
+                            {
+                                // Trừ số lượng sản phẩm
+                                product.StockQuantity -= detail.Quantity;
+
+                                // Đảm bảo số lượng không âm
+                                if (product.StockQuantity < 0)
+                                {
+                                    product.StockQuantity = 0;
+                                }
+
+                                _context.Entry(product).State = EntityState.Modified;
+                            }
+                        }
+                    }
+
+                    // Cập nhật trạng thái đơn hàng
                     order.Status = status;
                     order.UpdatedAt = DateTime.Now;
                     _context.SaveChanges();
