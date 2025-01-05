@@ -220,5 +220,21 @@ namespace BUS
                 throw new Exception("Error adding order detail: " + ex.Message);
             }
         }
+
+        // Lấy lịch sử mua hàng của khách hàng
+        public List<Order> GetPurchaseHistoryByCustomer(int customerID)
+        {
+            try
+            {
+                return _context.Orders
+                    .Where(o => o.CustomerID == customerID)
+                    .OrderByDescending(o => o.OrderDate)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving purchase history: " + ex.Message);
+            }
+        }
     }
 }

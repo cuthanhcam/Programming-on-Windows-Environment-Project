@@ -136,5 +136,124 @@ namespace BUS
                 throw new Exception("Error adding customer: " + ex.Message);
             }
         }
+
+        // Tính tổng số tiền đã chi của khách hàng
+        //public decimal GetTotalSpentByCustomer(int customerID)
+        //{
+        //    try
+        //    {
+        //        var total = _context.Orders
+        //            .Where(o => o.CustomerID == customerID && o.Status == "Completed")
+        //            .Sum(o => (decimal?)o.TotalAmount) ?? 0; // Sử dụng decimal? để tránh lỗi NULL
+
+        //        return total;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error calculating total spent by customer: " + ex.Message);
+        //    }
+        //}
+
+        public decimal GetTotalSpentByCustomer(int customerID)
+        {
+            try
+            {
+                var orders = _context.Orders
+                    .Where(o => o.CustomerID == customerID && o.Status == "Completed")
+                    .ToList();
+
+                decimal totalSpent = 0;
+
+                foreach (var order in orders)
+                {
+                    var customer = _context.Customers.FirstOrDefault(c => c.CustomerID == order.CustomerID);
+                    if (customer != null)
+                    {
+                        decimal discountRate = GetDiscountRate(customer.MembershipLevel);
+                        decimal discountAmount = order.TotalAmount * discountRate;
+                        decimal totalAmountPayable = order.TotalAmount - discountAmount;
+
+                        totalSpent += totalAmountPayable;
+                    }
+                }
+
+                return totalSpent;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error calculating total spent by customer: " + ex.Message);
+            }
+        }
+
+        private decimal GetDiscountRate(string membershipLevel)
+        {
+            switch (membershipLevel?.ToLower())
+            {
+                case "silver":
+                    return 0m;
+                case "gold":
+                    return 0.05m;
+                case "platinum":
+                    return 0.10m;
+                default:
+                    return 0m;
+            }
+        }
+
+        // Lấy danh sách khách hàng kèm tổng số tiền đã chi
+        public List<CustomerWithTotal> GetAllCustomersWithTotalSpent()
+        {
+            try
+            {
+                var customers = _context.Customers.ToList();
+                var result = new List<CustomerWithTotal>();
+
+                foreach (var customer in customers)
+                {
+                    decimal totalSpent = GetTotalSpentByCustomer(customer.CustomerID);
+                    string membershipLevel = CalculateMembershipLevel(totalSpent);
+
+                    result.Add(new CustomerWithTotal
+                    {
+                        CustomerID = customer.CustomerID,
+                        Name = customer.Name,
+                        Email = customer.Email,
+                        Phone = customer.Phone,
+                        Address = customer.Address,
+                        MembershipLevel = membershipLevel,
+                        TotalSpent = totalSpent
+                    });
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving customers with total spent: " + ex.Message);
+            }
+        }
+
+        // Phương thức tính toán MembershipLevel
+        private string CalculateMembershipLevel(decimal totalSpent)
+        {
+            if (totalSpent < 2000)
+                return "Silver";
+            else if (totalSpent >= 2000 && totalSpent < 5000)
+                return "Gold";
+            else
+                return "Platinum";
+        }
+
+        // Lớp hỗ trợ để lưu thông tin khách hàng kèm tổng số tiền đã chi
+        public class CustomerWithTotal
+        {
+            public int CustomerID { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Phone { get; set; }
+            public string Address { get; set; }
+            public string MembershipLevel { get; set; }
+            public decimal TotalSpent { get; set; }
+        }
     }
 }

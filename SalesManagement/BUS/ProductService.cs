@@ -18,16 +18,9 @@ namespace BUS
         // Lấy toàn bộ danh sách sản phẩm
         public List<Product> GetAllProducts()
         {
-            try
+            using (var _context = new SalesManagementContext())
             {
-                using (var _context = new SalesManagementContext())
-                {
-                    return _context.Products.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving products: " + ex.Message, ex);
+                return _context.Products.ToList();
             }
         }
 
@@ -40,13 +33,17 @@ namespace BUS
                     throw new ArgumentException("Category, Model, and Brand are required fields.");
                 if (price <= 0) throw new ArgumentException("Price must be greater than zero.");
 
+                // Tính toán giá gốc từ giá sau khuyến mãi và phần trăm khuyến mãi
+                decimal originalPrice = (promotion == 0) ? price : (price * 100) / (100 - promotion);
+
                 // Tạo sản phẩm mới
                 var newProduct = new Product
                 {
                     Category = category,
                     Model = model,
                     Brand = brand,
-                    Price = price,
+                    OriginalPrice = originalPrice, // Lưu giá gốc
+                    Price = price, // Giá sau khuyến mãi
                     StockQuantity = 0, // Mặc định số lượng là 0
                     Specifications = specifications, // Lưu các thông số kỹ thuật khác
                     Image = imagePath,
@@ -65,7 +62,7 @@ namespace BUS
             }
         }
 
-        public void UpdateProduct(int productId, string category, string model, string brand, decimal price, string specifications, string imagePath, int promotion, int warranty)
+        public void UpdateProduct(int productId, string category, string model, string brand, decimal originalPrice, string specifications, string imagePath, int promotion, int warranty)
         {
             try
             {
@@ -73,18 +70,22 @@ namespace BUS
                 if (product == null)
                     throw new Exception("Product not found.");
 
+                // Tính toán giá gốc từ giá sau khuyến mãi và phần trăm khuyến mãi
+                decimal price = originalPrice * (100 - promotion) / 100;
+
                 // Cập nhật các trường chính
                 product.Category = category;
                 product.Model = model;
                 product.Brand = brand;
+                product.OriginalPrice = originalPrice;
                 product.Price = price;
+                product.Promotion = promotion;
 
                 // Cập nhật các thông số kỹ thuật
                 product.Specifications = specifications;
 
                 // Cập nhật các trường khác
                 product.Image = imagePath;
-                product.Promotion = promotion;
                 product.Warranty = warranty;
                 product.UpdatedAt = DateTime.Now;
 
@@ -92,7 +93,8 @@ namespace BUS
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating product: " + ex.Message);
+                // Hiển thị thông báo lỗi chi tiết
+                throw new Exception("Error updating product: " + ex.Message + (ex.InnerException != null ? " Inner Exception: " + ex.InnerException.Message : ""));
             }
         }
 
