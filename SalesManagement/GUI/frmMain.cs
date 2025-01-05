@@ -64,7 +64,7 @@ namespace GUI
         {
             AddUserControlToTab(tpProducts, new ProductManagement(_productService));
             AddUserControlToTab(tpOrders, new OrderManagement(_orderService, _customerService, _productService, _employeeID)); // Thêm employeeID cho tpOrderCreate
-            AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService));
+            AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService, _orderService));
             AddUserControlToTab(tpStock, new StockManagement(_stockService));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
             //AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService);

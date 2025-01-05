@@ -59,11 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form Components\CustomerHistoryForm.cs">
+    <Compile Include="Form Components\frmPurchaseHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form Components\CustomerHistoryForm.Designer.cs">
-      <DependentUpon>CustomerHistoryForm.cs</DependentUpon>
+    <Compile Include="Form Components\frmPurchaseHistory.Designer.cs">
+      <DependentUpon>frmPurchaseHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Form Components\frmOrderDetail.cs">
       <SubType>Form</SubType>
@@ -123,6 +123,9 @@
     </Compile>
     <EmbeddedResource Include="Form Components\frmOrderDetail.resx">
       <DependentUpon>frmOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form Components\frmPurchaseHistory.resx">
+      <DependentUpon>frmPurchaseHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

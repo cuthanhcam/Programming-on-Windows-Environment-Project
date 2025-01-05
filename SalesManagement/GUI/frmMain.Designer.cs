@@ -281,9 +281,10 @@
             this.Controls.Add(this.btnProductsManagement);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tcMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmMain";
+            this.Text = "C4F -SALES MANAGEMENT";
             this.tcMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
