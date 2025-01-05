@@ -29,6 +29,8 @@ namespace DAL.Entities
         [StringLength(100)]
         public string Brand { get; set; }
 
+        public decimal OriginalPrice { get; set; }
+
         public decimal Price { get; set; }
 
         public int StockQuantity { get; set; }

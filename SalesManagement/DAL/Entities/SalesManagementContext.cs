@@ -91,6 +91,11 @@ namespace DAL.Entities
                 .IsRequired();
 
             modelBuilder.Entity<Product>()
+                .Property(e => e.OriginalPrice)
+                .HasPrecision(18, 2)
+                .IsRequired();
+
+            modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 2)
                 .IsRequired();
