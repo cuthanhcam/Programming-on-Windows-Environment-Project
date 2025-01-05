@@ -27,11 +27,8 @@ DELETE FROM StockTransactions;
 
 INSERT INTO Customers (Name, Email, Phone, Address, MembershipLevel)
 VALUES 
-    (N'Nguyễn Văn A', 'nguyenvana@gmail.com', '0912345678', N'Hà Nội', 'Silver'),
-    (N'Trần Thị B', 'tranthib@gmail.com', '0912345679', N'Hồ Chí Minh', 'Gold'),
-    (N'Lê Văn C', 'levanc@gmail.com', '0912345680', N'Đà Nẵng', 'Platinum'),
-    (N'Phạm Thị D', 'phamthid@gmail.com', '0912345681', N'Hải Phòng', 'Silver'),
-    (N'Hoàng Văn E', 'hoangvane@gmail.com', '0912345682', N'Cần Thơ', 'Gold');
+    (N'Nguyễn Văn A', 'nguyenvana@gmail.com', '0912345678', N'Hà Nội', 'Platinum');
+    
 GO
 
 INSERT INTO Employees (Name, Phone, Address, Role, Salary, Username, PasswordHash)
