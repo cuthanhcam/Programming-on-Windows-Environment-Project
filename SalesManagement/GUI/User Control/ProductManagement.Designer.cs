@@ -65,7 +65,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtBrand = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.txtOriginalPrice = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -77,6 +77,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dtpCreatedAt = new System.Windows.Forms.DateTimePicker();
             this.dtpUpdatedAt = new System.Windows.Forms.DateTimePicker();
+            this.txtWarranty = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbProduct)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -120,10 +122,10 @@
             listViewGroup9});
             this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstProduct.HideSelection = false;
-            this.lstProduct.Location = new System.Drawing.Point(395, 171);
+            this.lstProduct.Location = new System.Drawing.Point(395, 145);
             this.lstProduct.MultiSelect = false;
             this.lstProduct.Name = "lstProduct";
-            this.lstProduct.Size = new System.Drawing.Size(770, 400);
+            this.lstProduct.Size = new System.Drawing.Size(770, 426);
             this.lstProduct.SmallImageList = this.imageListProducts;
             this.lstProduct.TabIndex = 0;
             this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
@@ -140,10 +142,10 @@
             // rtbSpecs
             // 
             this.rtbSpecs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbSpecs.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.rtbSpecs.Location = new System.Drawing.Point(26, 424);
+            this.rtbSpecs.Font = new System.Drawing.Font("Bahnschrift", 11F);
+            this.rtbSpecs.Location = new System.Drawing.Point(26, 438);
             this.rtbSpecs.Name = "rtbSpecs";
-            this.rtbSpecs.Size = new System.Drawing.Size(281, 217);
+            this.rtbSpecs.Size = new System.Drawing.Size(306, 198);
             this.rtbSpecs.TabIndex = 17;
             this.rtbSpecs.Text = "";
             this.rtbSpecs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbDetail_KeyPress);
@@ -152,7 +154,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label8.Location = new System.Drawing.Point(22, 399);
+            this.label8.Location = new System.Drawing.Point(22, 413);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(99, 22);
             this.label8.TabIndex = 16;
@@ -326,10 +328,10 @@
             // txtCategory
             // 
             this.txtCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCategory.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
-            this.txtCategory.Location = new System.Drawing.Point(107, 226);
+            this.txtCategory.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtCategory.Location = new System.Drawing.Point(132, 226);
             this.txtCategory.Name = "txtCategory";
-            this.txtCategory.Size = new System.Drawing.Size(163, 25);
+            this.txtCategory.Size = new System.Drawing.Size(200, 24);
             this.txtCategory.TabIndex = 29;
             // 
             // label5
@@ -345,10 +347,10 @@
             // txtModel
             // 
             this.txtModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtModel.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
-            this.txtModel.Location = new System.Drawing.Point(107, 257);
+            this.txtModel.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtModel.Location = new System.Drawing.Point(132, 257);
             this.txtModel.Name = "txtModel";
-            this.txtModel.Size = new System.Drawing.Size(163, 25);
+            this.txtModel.Size = new System.Drawing.Size(200, 24);
             this.txtModel.TabIndex = 31;
             // 
             // label7
@@ -364,10 +366,10 @@
             // txtBrand
             // 
             this.txtBrand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBrand.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
-            this.txtBrand.Location = new System.Drawing.Point(107, 292);
+            this.txtBrand.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtBrand.Location = new System.Drawing.Point(132, 292);
             this.txtBrand.Name = "txtBrand";
-            this.txtBrand.Size = new System.Drawing.Size(163, 25);
+            this.txtBrand.Size = new System.Drawing.Size(200, 24);
             this.txtBrand.TabIndex = 33;
             // 
             // label10
@@ -380,14 +382,14 @@
             this.label10.TabIndex = 32;
             this.label10.Text = "Brand:";
             // 
-            // txtPrice
+            // txtOriginalPrice
             // 
-            this.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPrice.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
-            this.txtPrice.Location = new System.Drawing.Point(107, 323);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(163, 25);
-            this.txtPrice.TabIndex = 35;
+            this.txtOriginalPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOriginalPrice.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtOriginalPrice.Location = new System.Drawing.Point(132, 323);
+            this.txtOriginalPrice.Name = "txtOriginalPrice";
+            this.txtOriginalPrice.Size = new System.Drawing.Size(200, 24);
+            this.txtOriginalPrice.TabIndex = 35;
             // 
             // label11
             // 
@@ -395,9 +397,9 @@
             this.label11.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
             this.label11.Location = new System.Drawing.Point(22, 325);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(45, 22);
+            this.label11.Size = new System.Drawing.Size(97, 22);
             this.label11.TabIndex = 34;
-            this.label11.Text = "Price:";
+            this.label11.Text = "Original Price:";
             // 
             // groupBox1
             // 
@@ -433,7 +435,7 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.cmbBrand);
             this.groupBox3.Font = new System.Drawing.Font("Bahnschrift", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(395, 89);
+            this.groupBox3.Location = new System.Drawing.Point(395, 74);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(529, 65);
             this.groupBox3.TabIndex = 38;
@@ -445,7 +447,7 @@
             this.groupBox4.Controls.Add(this.cmbPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Font = new System.Drawing.Font("Bahnschrift", 10F);
-            this.groupBox4.Location = new System.Drawing.Point(930, 89);
+            this.groupBox4.Location = new System.Drawing.Point(930, 74);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(235, 65);
             this.groupBox4.TabIndex = 39;
@@ -455,10 +457,10 @@
             // txtPromotion
             // 
             this.txtPromotion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPromotion.Font = new System.Drawing.Font("Bahnschrift Condensed", 11F);
-            this.txtPromotion.Location = new System.Drawing.Point(107, 354);
+            this.txtPromotion.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtPromotion.Location = new System.Drawing.Point(132, 354);
             this.txtPromotion.Name = "txtPromotion";
-            this.txtPromotion.Size = new System.Drawing.Size(163, 25);
+            this.txtPromotion.Size = new System.Drawing.Size(200, 24);
             this.txtPromotion.TabIndex = 41;
             // 
             // label4
@@ -494,6 +496,7 @@
             // dtpCreatedAt
             // 
             this.dtpCreatedAt.CalendarFont = new System.Drawing.Font("Bahnschrift Condensed", 12F);
+            this.dtpCreatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpCreatedAt.Location = new System.Drawing.Point(1000, 585);
             this.dtpCreatedAt.Name = "dtpCreatedAt";
             this.dtpCreatedAt.Size = new System.Drawing.Size(165, 20);
@@ -502,16 +505,38 @@
             // dtpUpdatedAt
             // 
             this.dtpUpdatedAt.CalendarFont = new System.Drawing.Font("Bahnschrift Condensed", 12F);
+            this.dtpUpdatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpUpdatedAt.Location = new System.Drawing.Point(1000, 616);
             this.dtpUpdatedAt.Name = "dtpUpdatedAt";
             this.dtpUpdatedAt.Size = new System.Drawing.Size(165, 20);
             this.dtpUpdatedAt.TabIndex = 45;
+            // 
+            // txtWarranty
+            // 
+            this.txtWarranty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWarranty.Font = new System.Drawing.Font("Bahnschrift", 10F);
+            this.txtWarranty.Location = new System.Drawing.Point(132, 385);
+            this.txtWarranty.Name = "txtWarranty";
+            this.txtWarranty.Size = new System.Drawing.Size(200, 24);
+            this.txtWarranty.TabIndex = 47;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label14.Location = new System.Drawing.Point(22, 385);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(68, 22);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "Warranty:";
             // 
             // ProductManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.txtWarranty);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.dtpUpdatedAt);
             this.Controls.Add(this.dtpCreatedAt);
             this.Controls.Add(this.label13);
@@ -522,7 +547,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txtPrice);
+            this.Controls.Add(this.txtOriginalPrice);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtBrand);
             this.Controls.Add(this.label10);
@@ -580,7 +605,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtBrand;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.TextBox txtOriginalPrice;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -592,5 +617,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker dtpCreatedAt;
         private System.Windows.Forms.DateTimePicker dtpUpdatedAt;
+        private System.Windows.Forms.TextBox txtWarranty;
+        private System.Windows.Forms.Label label14;
     }
 }

@@ -305,6 +305,7 @@ namespace GUI
                 MessageBox.Show("Please select an order to update the note.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         #endregion
 
         #region tpCreateOrder
@@ -394,8 +395,24 @@ namespace GUI
                 var selectedProduct = lstProduct.SelectedItems[0];
                 int productID = int.Parse(selectedProduct.Text);
                 string model = selectedProduct.SubItems[1].Text;
+                int stockQuantity = int.Parse(selectedProduct.SubItems[2].Text); // Lấy số lượng tồn kho
                 decimal unitPrice = decimal.Parse(selectedProduct.SubItems[3].Text, System.Globalization.NumberStyles.Currency);
                 int quantity = (int)nudQuantity.Value;
+
+                // Kiểm tra số lượng tồn kho
+                if (stockQuantity == 0)
+                {
+                    MessageBox.Show($"Product {model} is out of stock.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra số lượng yêu cầu có lớn hơn số lượng tồn kho không
+                if (quantity > stockQuantity)
+                {
+                    MessageBox.Show($"Not enough stock for product {model}. Available: {stockQuantity}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 decimal price = unitPrice * quantity;
 
                 var item = new ListViewItem(productID.ToString());
@@ -546,7 +563,7 @@ namespace GUI
 
                 // Đặt lại các trường nhập liệu
                 txtName.Clear();
-                txtPhone.Clear();
+                //txtPhone.Clear();
                 txtEmail.Clear();
                 txtMembershipLevel.Clear();
                 txtAddress.Clear();
@@ -576,6 +593,8 @@ namespace GUI
         private void btnReloadLstProduct_Click(object sender, EventArgs e)
         {
             LoadProductList();
+            nudQuantity.Value = 1;
+            txtProductID.Clear();
         }
 
         private void btnReloadTpCreateOrder_Click(object sender, EventArgs e)
@@ -594,6 +613,9 @@ namespace GUI
         }
 
 
+
         #endregion
+
+        
     }
 }
