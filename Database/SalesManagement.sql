@@ -53,15 +53,17 @@ CREATE TABLE Products (
     Category NVARCHAR(100) NOT NULL,        -- Loại linh kiện
     Model NVARCHAR(200) NOT NULL,           -- Tên model
     Brand NVARCHAR(100) NOT NULL,           -- Thương hiệu
-    Price DECIMAL(18, 2) NOT NULL CHECK (Price > 0), -- Giá bán
+    OriginalPrice DECIMAL(18, 2) NOT NULL CHECK (OriginalPrice > 0), -- Giá gốc
+    Price DECIMAL(18, 2) NOT NULL CHECK (Price > 0), -- Giá bán sau khuyến mãi
     StockQuantity INT NOT NULL CHECK (StockQuantity >= 0), -- Số lượng tồn kho
     Specifications NVARCHAR(MAX) NULL,      -- Thông số kỹ thuật (JSON)
-    Promotion INT DEFAULT 0,
-    Warranty INT DEFAULT 0,
-    Image NVARCHAR(255) NULL,
-    CONSTRAINT CK_Products_Category CHECK (Category <> ''), -- Kiểm tra loại sản phẩm không rỗng
+    Promotion INT DEFAULT 0 CHECK (Promotion >= 0 AND Promotion <= 100), -- Phần trăm khuyến mãi (0-100)
+    Warranty INT DEFAULT 0 CHECK (Warranty >= 0), -- Bảo hành (tháng)
+    Image NVARCHAR(255) NULL,               -- Đường dẫn ảnh
     CreatedAt DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày tạo
-    UpdatedAt DATETIME NOT NULL DEFAULT GETDATE()  -- Ngày cập nhật
+    UpdatedAt DATETIME NOT NULL DEFAULT GETDATE(), -- Ngày cập nhật
+    CONSTRAINT CK_Products_Category CHECK (Category <> ''), -- Kiểm tra loại sản phẩm không rỗng
+    CONSTRAINT CK_Products_Price CHECK (Price <= OriginalPrice) -- Giá sau khuyến mãi không được lớn hơn giá gốc
 );
 GO
 
