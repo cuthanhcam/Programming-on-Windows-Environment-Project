@@ -26,6 +26,10 @@ namespace BUS
         {
             return _context.Employees.FirstOrDefault(e => e.EmployeeID == id);
         }
+        public Employee GetEmployeeByUsername(string username)
+        {
+            return _context.Employees.FirstOrDefault(e => e.Username == username);
+        }
 
         public void AddEmployee(Employee employee)
         {

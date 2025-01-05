@@ -112,5 +112,29 @@ namespace BUS
                 throw new Exception("Error deleting customer: " + ex.Message);
             }
         }
+
+        public void AddCustomer(string name, string phone, string email, string membershipLevel, string address)
+        {
+            try
+            {
+                var newCustomer = new Customer
+                {
+                    Name = name,
+                    Phone = phone,
+                    Email = email,
+                    MembershipLevel = membershipLevel, // Sử dụng giá trị được truyền vào
+                    Address = address,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+
+                _context.Customers.Add(newCustomer);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding customer: " + ex.Message);
+            }
+        }
     }
 }

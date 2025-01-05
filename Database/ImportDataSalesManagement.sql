@@ -11,6 +11,13 @@ SELECT * FROM Orders;
 SELECT * FROM OrderDetails;
 SELECT * FROM StockTransactions;
 
+DROP TABLE IF EXISTS Customers;
+DROP TABLE IF EXISTS Employees;
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS OrderDetails;
+DROP TABLE IF EXISTS StockTransactions;
+
 DELETE FROM Customers;
 DELETE FROM Employees;
 DELETE FROM Products;
@@ -32,7 +39,6 @@ VALUES
 	(N'Cù Thanh Cầm', '0353818874' , N'Quảng Ngãi', 'Admin', 1500, 'camct', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'admin123'), 2)),
 	(N'Trần Trung Hậu', '0902621876' , N'Cần Giờ', 'Staff', 1000, 'hautt', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'staff123'), 2));
 GO
-
 
 INSERT INTO Products (Category, Model, Brand, Price, Specifications, StockQuantity)
 VALUES 
@@ -99,6 +105,7 @@ VALUES
     (2, 1, 2927.86, 'Pending', N'Yêu cầu giao hàng sớm'),
     (3, 2, 219.99, 'Completed', N'Khách hàng yêu cầu bảo hành thêm'),
     (4, 2, 962.99, 'Canceled', N'Khách hàng hủy đơn do lý do cá nhân');
+GO
 
 INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
 VALUES 
@@ -108,7 +115,7 @@ VALUES
     (2, 14, 1, 1529.86, 1529.86), -- GeForce RTX 3080 Ti Gaming OC 12G
     (3, 19, 1, 219.99, 219.99),   -- 970 EVO
     (4, 6, 1, 962.99, 962.99);    -- ROG ZENITH II EXTREME ALPHA
-
+GO
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID, Note)
 VALUES 

@@ -58,6 +58,9 @@
             System.Windows.Forms.ListViewGroup listViewGroup27 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
             this.tcOrder = new System.Windows.Forms.TabControl();
             this.tpOrderList = new System.Windows.Forms.TabPage();
+            this.btnSaveNote = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.rtbNote = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.dtpOrderDateEnd = new System.Windows.Forms.DateTimePicker();
@@ -74,19 +77,22 @@
             this.lstOrderList = new System.Windows.Forms.ListView();
             this.btnReloadOrderList = new System.Windows.Forms.Button();
             this.tpCreateOrder = new System.Windows.Forms.TabPage();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
-            this.btnPCBuilding = new System.Windows.Forms.Button();
-            this.btnInvoice = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAddNewCustomer = new System.Windows.Forms.Button();
             this.txtProductID = new System.Windows.Forms.TextBox();
-            this.btnAddUpdate = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.lstProduct = new System.Windows.Forms.ListView();
             this.lstSelectedProduct = new System.Windows.Forms.ListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCustomerID = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.txtMembershipLevel = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
@@ -97,7 +103,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnReload = new System.Windows.Forms.Button();
+            this.btnReloadTpCreateOrder = new System.Windows.Forms.Button();
+            this.btnReloadLstProduct = new System.Windows.Forms.Button();
             this.tcOrder.SuspendLayout();
             this.tpOrderList.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -123,6 +130,9 @@
             // tpOrderList
             // 
             this.tpOrderList.BackColor = System.Drawing.Color.White;
+            this.tpOrderList.Controls.Add(this.btnSaveNote);
+            this.tpOrderList.Controls.Add(this.label11);
+            this.tpOrderList.Controls.Add(this.rtbNote);
             this.tpOrderList.Controls.Add(this.groupBox2);
             this.tpOrderList.Controls.Add(this.groupBox4);
             this.tpOrderList.Controls.Add(this.btnOrderDetail);
@@ -136,6 +146,36 @@
             this.tpOrderList.Size = new System.Drawing.Size(1169, 615);
             this.tpOrderList.TabIndex = 0;
             this.tpOrderList.Text = "Order List";
+            // 
+            // btnSaveNote
+            // 
+            this.btnSaveNote.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnSaveNote.Location = new System.Drawing.Point(998, 542);
+            this.btnSaveNote.Name = "btnSaveNote";
+            this.btnSaveNote.Size = new System.Drawing.Size(150, 40);
+            this.btnSaveNote.TabIndex = 44;
+            this.btnSaveNote.Text = "Save Note";
+            this.btnSaveNote.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label11.Location = new System.Drawing.Point(994, 356);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(40, 22);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "Note:";
+            // 
+            // rtbNote
+            // 
+            this.rtbNote.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbNote.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.rtbNote.Location = new System.Drawing.Point(998, 381);
+            this.rtbNote.Name = "rtbNote";
+            this.rtbNote.Size = new System.Drawing.Size(150, 155);
+            this.rtbNote.TabIndex = 42;
+            this.rtbNote.Text = "";
             // 
             // groupBox2
             // 
@@ -250,7 +290,7 @@
             // btnOrderDetail
             // 
             this.btnOrderDetail.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnOrderDetail.Location = new System.Drawing.Point(989, 228);
+            this.btnOrderDetail.Location = new System.Drawing.Point(998, 228);
             this.btnOrderDetail.Name = "btnOrderDetail";
             this.btnOrderDetail.Size = new System.Drawing.Size(150, 40);
             this.btnOrderDetail.TabIndex = 39;
@@ -261,7 +301,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnCancel.Location = new System.Drawing.Point(989, 171);
+            this.btnCancel.Location = new System.Drawing.Point(998, 171);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 40);
             this.btnCancel.TabIndex = 38;
@@ -272,7 +312,7 @@
             // btnComplete
             // 
             this.btnComplete.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnComplete.Location = new System.Drawing.Point(989, 113);
+            this.btnComplete.Location = new System.Drawing.Point(998, 113);
             this.btnComplete.Name = "btnComplete";
             this.btnComplete.Size = new System.Drawing.Size(150, 40);
             this.btnComplete.TabIndex = 37;
@@ -324,6 +364,7 @@
             this.lstOrderList.TileSize = new System.Drawing.Size(500, 30);
             this.lstOrderList.UseCompatibleStateImageBehavior = false;
             this.lstOrderList.View = System.Windows.Forms.View.Details;
+            this.lstOrderList.Click += new System.EventHandler(this.lstOrderList_Click);
             this.lstOrderList.DoubleClick += new System.EventHandler(this.lstOrderList_DoubleClick);
             // 
             // btnReloadOrderList
@@ -341,20 +382,21 @@
             // tpCreateOrder
             // 
             this.tpCreateOrder.BackColor = System.Drawing.Color.White;
+            this.tpCreateOrder.Controls.Add(this.btnReloadLstProduct);
+            this.tpCreateOrder.Controls.Add(this.btnUpdate);
+            this.tpCreateOrder.Controls.Add(this.label12);
+            this.tpCreateOrder.Controls.Add(this.txtTotalAmount);
             this.tpCreateOrder.Controls.Add(this.nudQuantity);
-            this.tpCreateOrder.Controls.Add(this.btnPCBuilding);
-            this.tpCreateOrder.Controls.Add(this.btnInvoice);
             this.tpCreateOrder.Controls.Add(this.btnDelete);
             this.tpCreateOrder.Controls.Add(this.btnCreateOrder);
             this.tpCreateOrder.Controls.Add(this.label6);
             this.tpCreateOrder.Controls.Add(this.label5);
-            this.tpCreateOrder.Controls.Add(this.btnAddNewCustomer);
             this.tpCreateOrder.Controls.Add(this.txtProductID);
-            this.tpCreateOrder.Controls.Add(this.btnAddUpdate);
+            this.tpCreateOrder.Controls.Add(this.btnAdd);
             this.tpCreateOrder.Controls.Add(this.lstProduct);
             this.tpCreateOrder.Controls.Add(this.lstSelectedProduct);
             this.tpCreateOrder.Controls.Add(this.groupBox1);
-            this.tpCreateOrder.Controls.Add(this.btnReload);
+            this.tpCreateOrder.Controls.Add(this.btnReloadTpCreateOrder);
             this.tpCreateOrder.Location = new System.Drawing.Point(4, 34);
             this.tpCreateOrder.Name = "tpCreateOrder";
             this.tpCreateOrder.Padding = new System.Windows.Forms.Padding(3);
@@ -362,58 +404,70 @@
             this.tpCreateOrder.TabIndex = 2;
             this.tpCreateOrder.Text = "Create New Order";
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnUpdate.Location = new System.Drawing.Point(582, 498);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(120, 30);
+            this.btnUpdate.TabIndex = 43;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label12.Location = new System.Drawing.Point(915, 502);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(91, 22);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "Total Amount:";
+            // 
+            // txtTotalAmount
+            // 
+            this.txtTotalAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTotalAmount.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.txtTotalAmount.Location = new System.Drawing.Point(1015, 500);
+            this.txtTotalAmount.Name = "txtTotalAmount";
+            this.txtTotalAmount.Size = new System.Drawing.Size(137, 28);
+            this.txtTotalAmount.TabIndex = 42;
+            // 
             // nudQuantity
             // 
-            this.nudQuantity.Location = new System.Drawing.Point(288, 554);
+            this.nudQuantity.Location = new System.Drawing.Point(377, 572);
             this.nudQuantity.Name = "nudQuantity";
             this.nudQuantity.Size = new System.Drawing.Size(50, 28);
             this.nudQuantity.TabIndex = 40;
             // 
-            // btnPCBuilding
-            // 
-            this.btnPCBuilding.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnPCBuilding.Location = new System.Drawing.Point(945, 17);
-            this.btnPCBuilding.Name = "btnPCBuilding";
-            this.btnPCBuilding.Size = new System.Drawing.Size(158, 30);
-            this.btnPCBuilding.TabIndex = 39;
-            this.btnPCBuilding.Text = "PC Builder";
-            this.btnPCBuilding.UseVisualStyleBackColor = true;
-            // 
-            // btnInvoice
-            // 
-            this.btnInvoice.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnInvoice.Location = new System.Drawing.Point(977, 498);
-            this.btnInvoice.Name = "btnInvoice";
-            this.btnInvoice.Size = new System.Drawing.Size(158, 30);
-            this.btnInvoice.TabIndex = 38;
-            this.btnInvoice.Text = "Invoice";
-            this.btnInvoice.UseVisualStyleBackColor = true;
-            // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnDelete.Location = new System.Drawing.Point(790, 498);
+            this.btnDelete.Location = new System.Drawing.Point(721, 498);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(158, 30);
+            this.btnDelete.Size = new System.Drawing.Size(120, 30);
             this.btnDelete.TabIndex = 37;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnCreateOrder
             // 
             this.btnCreateOrder.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnCreateOrder.Location = new System.Drawing.Point(606, 498);
+            this.btnCreateOrder.Location = new System.Drawing.Point(994, 569);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(158, 30);
             this.btnCreateOrder.TabIndex = 36;
             this.btnCreateOrder.Text = "Create Order";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label6.Location = new System.Drawing.Point(219, 554);
+            this.label6.Location = new System.Drawing.Point(308, 574);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 22);
             this.label6.TabIndex = 34;
@@ -423,7 +477,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label5.Location = new System.Drawing.Point(16, 556);
+            this.label5.Location = new System.Drawing.Point(141, 573);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 22);
             this.label5.TabIndex = 32;
@@ -431,32 +485,36 @@
             // 
             // btnAddNewCustomer
             // 
-            this.btnAddNewCustomer.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnAddNewCustomer.Location = new System.Drawing.Point(20, 182);
+            this.btnAddNewCustomer.Enabled = false;
+            this.btnAddNewCustomer.Font = new System.Drawing.Font("Bahnschrift", 11F);
+            this.btnAddNewCustomer.Location = new System.Drawing.Point(11, 142);
             this.btnAddNewCustomer.Name = "btnAddNewCustomer";
             this.btnAddNewCustomer.Size = new System.Drawing.Size(150, 30);
             this.btnAddNewCustomer.TabIndex = 29;
-            this.btnAddNewCustomer.Text = "New Customer";
+            this.btnAddNewCustomer.Text = "Add New Customer";
             this.btnAddNewCustomer.UseVisualStyleBackColor = true;
+            this.btnAddNewCustomer.Click += new System.EventHandler(this.btnAddNewCustomer_Click);
             // 
             // txtProductID
             // 
             this.txtProductID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtProductID.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtProductID.Location = new System.Drawing.Point(96, 554);
+            this.txtProductID.Location = new System.Drawing.Point(216, 571);
             this.txtProductID.Name = "txtProductID";
-            this.txtProductID.Size = new System.Drawing.Size(100, 28);
+            this.txtProductID.Size = new System.Drawing.Size(74, 28);
             this.txtProductID.TabIndex = 33;
+            this.txtProductID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductID_KeyPress);
             // 
-            // btnAddUpdate
+            // btnAdd
             // 
-            this.btnAddUpdate.Font = new System.Drawing.Font("Bahnschrift", 13F);
-            this.btnAddUpdate.Location = new System.Drawing.Point(409, 551);
-            this.btnAddUpdate.Name = "btnAddUpdate";
-            this.btnAddUpdate.Size = new System.Drawing.Size(158, 30);
-            this.btnAddUpdate.TabIndex = 31;
-            this.btnAddUpdate.Text = "Add/Update";
-            this.btnAddUpdate.UseVisualStyleBackColor = true;
+            this.btnAdd.Font = new System.Drawing.Font("Bahnschrift", 13F);
+            this.btnAdd.Location = new System.Drawing.Point(450, 569);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(120, 30);
+            this.btnAdd.TabIndex = 31;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lstProduct
             // 
@@ -494,10 +552,10 @@
             listViewGroup18});
             this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstProduct.HideSelection = false;
-            this.lstProduct.Location = new System.Drawing.Point(20, 218);
+            this.lstProduct.Location = new System.Drawing.Point(20, 225);
             this.lstProduct.MultiSelect = false;
             this.lstProduct.Name = "lstProduct";
-            this.lstProduct.Size = new System.Drawing.Size(547, 310);
+            this.lstProduct.Size = new System.Drawing.Size(550, 333);
             this.lstProduct.TabIndex = 30;
             this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
             this.lstProduct.UseCompatibleStateImageBehavior = false;
@@ -547,40 +605,63 @@
             this.lstSelectedProduct.TileSize = new System.Drawing.Size(500, 30);
             this.lstSelectedProduct.UseCompatibleStateImageBehavior = false;
             this.lstSelectedProduct.View = System.Windows.Forms.View.Details;
+            this.lstSelectedProduct.SelectedIndexChanged += new System.EventHandler(this.lstSelectedProduct_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCustomerID);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.txtMembershipLevel);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtAddress);
             this.groupBox1.Controls.Add(this.lblAddress);
             this.groupBox1.Controls.Add(this.txtEmail);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.btnAddNewCustomer);
             this.groupBox1.Controls.Add(this.txtPhone);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(20, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(547, 159);
+            this.groupBox1.Size = new System.Drawing.Size(550, 189);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Customer Information:";
+            // 
+            // txtCustomerID
+            // 
+            this.txtCustomerID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCustomerID.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.txtCustomerID.Location = new System.Drawing.Point(71, 33);
+            this.txtCustomerID.Name = "txtCustomerID";
+            this.txtCustomerID.Size = new System.Drawing.Size(55, 28);
+            this.txtCustomerID.TabIndex = 35;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
+            this.label13.Location = new System.Drawing.Point(7, 37);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(23, 22);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "ID:";
             // 
             // txtMembershipLevel
             // 
             this.txtMembershipLevel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMembershipLevel.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtMembershipLevel.Location = new System.Drawing.Point(345, 68);
+            this.txtMembershipLevel.Location = new System.Drawing.Point(403, 107);
             this.txtMembershipLevel.Name = "txtMembershipLevel";
-            this.txtMembershipLevel.Size = new System.Drawing.Size(185, 28);
+            this.txtMembershipLevel.Size = new System.Drawing.Size(127, 28);
             this.txtMembershipLevel.TabIndex = 33;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label4.Location = new System.Drawing.Point(293, 70);
+            this.label4.Location = new System.Drawing.Point(341, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 22);
             this.label4.TabIndex = 34;
@@ -590,16 +671,16 @@
             // 
             this.txtAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAddress.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtAddress.Location = new System.Drawing.Point(71, 114);
+            this.txtAddress.Location = new System.Drawing.Point(71, 103);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(459, 28);
+            this.txtAddress.Size = new System.Drawing.Size(256, 28);
             this.txtAddress.TabIndex = 31;
             // 
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.lblAddress.Location = new System.Drawing.Point(7, 116);
+            this.lblAddress.Location = new System.Drawing.Point(7, 105);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(60, 22);
             this.lblAddress.TabIndex = 32;
@@ -609,7 +690,7 @@
             // 
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEmail.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtEmail.Location = new System.Drawing.Point(71, 68);
+            this.txtEmail.Location = new System.Drawing.Point(345, 71);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(185, 28);
             this.txtEmail.TabIndex = 29;
@@ -618,7 +699,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label3.Location = new System.Drawing.Point(7, 70);
+            this.label3.Location = new System.Drawing.Point(288, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 22);
             this.label3.TabIndex = 30;
@@ -628,16 +709,17 @@
             // 
             this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPhone.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtPhone.Location = new System.Drawing.Point(71, 27);
+            this.txtPhone.Location = new System.Drawing.Point(345, 35);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(185, 28);
             this.txtPhone.TabIndex = 27;
+            this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhone_KeyPress);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label2.Location = new System.Drawing.Point(7, 29);
+            this.label2.Location = new System.Drawing.Point(288, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 22);
             this.label2.TabIndex = 28;
@@ -647,7 +729,7 @@
             // 
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.txtName.Location = new System.Drawing.Point(345, 27);
+            this.txtName.Location = new System.Drawing.Point(71, 69);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(185, 28);
             this.txtName.TabIndex = 24;
@@ -656,22 +738,34 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
-            this.label1.Location = new System.Drawing.Point(293, 29);
+            this.label1.Location = new System.Drawing.Point(7, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 22);
             this.label1.TabIndex = 26;
             this.label1.Text = "Name:";
             // 
-            // btnReload
+            // btnReloadTpCreateOrder
             // 
-            this.btnReload.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReload.BackgroundImage")));
-            this.btnReload.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnReload.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnReload.Location = new System.Drawing.Point(1109, 6);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(52, 52);
-            this.btnReload.TabIndex = 23;
-            this.btnReload.UseVisualStyleBackColor = true;
+            this.btnReloadTpCreateOrder.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReloadTpCreateOrder.BackgroundImage")));
+            this.btnReloadTpCreateOrder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnReloadTpCreateOrder.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
+            this.btnReloadTpCreateOrder.Location = new System.Drawing.Point(1109, 6);
+            this.btnReloadTpCreateOrder.Name = "btnReloadTpCreateOrder";
+            this.btnReloadTpCreateOrder.Size = new System.Drawing.Size(52, 52);
+            this.btnReloadTpCreateOrder.TabIndex = 23;
+            this.btnReloadTpCreateOrder.UseVisualStyleBackColor = true;
+            this.btnReloadTpCreateOrder.Click += new System.EventHandler(this.btnReloadTpCreateOrder_Click);
+            // 
+            // btnReloadLstProduct
+            // 
+            this.btnReloadLstProduct.Font = new System.Drawing.Font("Bahnschrift", 11F);
+            this.btnReloadLstProduct.Location = new System.Drawing.Point(20, 569);
+            this.btnReloadLstProduct.Name = "btnReloadLstProduct";
+            this.btnReloadLstProduct.Size = new System.Drawing.Size(100, 30);
+            this.btnReloadLstProduct.TabIndex = 44;
+            this.btnReloadLstProduct.Text = "Refresh";
+            this.btnReloadLstProduct.UseVisualStyleBackColor = true;
+            this.btnReloadLstProduct.Click += new System.EventHandler(this.btnReloadLstProduct_Click);
             // 
             // OrderManagement
             // 
@@ -682,6 +776,7 @@
             this.Size = new System.Drawing.Size(1177, 653);
             this.tcOrder.ResumeLayout(false);
             this.tpOrderList.ResumeLayout(false);
+            this.tpOrderList.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -700,7 +795,7 @@
         private System.Windows.Forms.TabControl tcOrder;
         private System.Windows.Forms.TabPage tpOrderList;
         private System.Windows.Forms.TabPage tpCreateOrder;
-        private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.Button btnReloadTpCreateOrder;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label3;
@@ -714,14 +809,12 @@
         private System.Windows.Forms.ListView lstProduct;
         private System.Windows.Forms.TextBox txtMembershipLevel;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnAddUpdate;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtProductID;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnInvoice;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCreateOrder;
-        private System.Windows.Forms.Button btnPCBuilding;
         private System.Windows.Forms.NumericUpDown nudQuantity;
         private System.Windows.Forms.Button btnReloadOrderList;
         private System.Windows.Forms.ListView lstOrderList;
@@ -739,5 +832,14 @@
         private System.Windows.Forms.DateTimePicker dtpOrderDateStart;
         private System.Windows.Forms.DateTimePicker dtpOrderDateEnd;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.RichTextBox rtbNote;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnSaveNote;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtTotalAmount;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox txtCustomerID;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnReloadLstProduct;
     }
 }

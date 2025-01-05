@@ -281,5 +281,56 @@ namespace BUS
                 throw new Exception("Error updating product image: " + ex.Message);
             }
         }
+
+
+        public void UpdateProduct(Product product)
+        {
+            try
+            {
+                var existingProduct = _context.Products.Find(product.ProductID);
+                if (existingProduct == null)
+                    throw new Exception("Product not found.");
+
+                // Cập nhật số lượng sản phẩm
+                existingProduct.StockQuantity = product.StockQuantity;
+                existingProduct.UpdatedAt = DateTime.Now;
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating product: " + ex.Message);
+            }
+        }
+
+        public List<Product> GetProducts(string productID = null)
+        {
+            try
+            {
+                var query = _context.Products.AsQueryable();
+
+                // Lọc theo ProductID nếu có
+                if (!string.IsNullOrEmpty(productID))
+                {
+                    int id;
+                    if (int.TryParse(productID, out id))
+                    {
+                        query = query.Where(p => p.ProductID == id);
+                    }
+                    else
+                    {
+                        // Nếu productID không phải số, trả về danh sách rỗng
+                        return new List<Product>();
+                    }
+                }
+
+                return query.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving products: " + ex.Message);
+            }
+        }
+
     }
 }
