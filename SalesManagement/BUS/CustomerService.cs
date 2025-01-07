@@ -213,6 +213,8 @@ namespace BUS
                     decimal totalSpent = GetTotalSpentByCustomer(customer.CustomerID);
                     string membershipLevel = CalculateMembershipLevel(totalSpent);
 
+                    UpdateCustomerMembershipLevel(customer.CustomerID, membershipLevel);
+
                     result.Add(new CustomerWithTotal
                     {
                         CustomerID = customer.CustomerID,
@@ -242,6 +244,26 @@ namespace BUS
                 return "Gold";
             else
                 return "Platinum";
+        }
+
+        public bool UpdateCustomerMembershipLevel(int customerID, string membershipLevel)
+        {
+            try
+            {
+                var customer = _context.Customers.Find(customerID);
+                if (customer != null)
+                {
+                    customer.MembershipLevel = membershipLevel;
+                    customer.UpdatedAt = DateTime.Now;
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating customer membership level: " + ex.Message);
+            }
         }
 
         // Lớp hỗ trợ để lưu thông tin khách hàng kèm tổng số tiền đã chi

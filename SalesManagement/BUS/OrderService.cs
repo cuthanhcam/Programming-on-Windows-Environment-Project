@@ -87,35 +87,22 @@ namespace BUS
             try
             {
                 var order = _context.Orders
-                    .Include(o => o.OrderDetails) // Include OrderDetails để lấy thông tin sản phẩm
+                    .Include(o => o.OrderDetails)
                     .FirstOrDefault(o => o.OrderID == orderID);
 
                 if (order != null)
                 {
-                    // Nếu chuyển sang trạng thái Completed
                     if (status == "Completed" && order.Status != "Completed")
                     {
-                        //foreach (var detail in order.OrderDetails)
-                        //{
-                        //    var product = _context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
-                        //    if (product != null)
-                        //    {
-                        //        // Trừ số lượng sản phẩm
-                        //        product.StockQuantity -= detail.Quantity;
+                        // Cập nhật trạng thái đơn hàng
+                        order.Status = status;
+                        order.UpdatedAt = DateTime.Now;
+                        _context.SaveChanges();
 
-                        //        // Đảm bảo số lượng không âm
-                        //        if (product.StockQuantity < 0)
-                        //        {
-                        //            product.StockQuantity = 0;
-                        //        }
-
-                        //        _context.Entry(product).State = EntityState.Modified;
-                        //    }
-                        //}
-                        
-                        // Không thay đổi cho phù hợp với nghiệp vụ
+                        // Cập nhật lại MembershipLevel của khách hàng
+                        var customerService = new CustomerService(_context);
+                        customerService.GetAllCustomersWithTotalSpent();
                     }
-                    // Nếu chuyển sang trạng thái Canceled
                     else if (status == "Canceled" && order.Status == "Pending")
                     {
                         foreach (var detail in order.OrderDetails)
@@ -123,24 +110,15 @@ namespace BUS
                             var product = _context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
                             if (product != null)
                             {
-                                // Cộng lại số lượng sản phẩm đã trừ
                                 product.StockQuantity += detail.Quantity;
-
-                                // Đảm bảo số lượng không âm
-                                if (product.StockQuantity < 0)
-                                {
-                                    product.StockQuantity = 0;
-                                }
-
                                 _context.Entry(product).State = EntityState.Modified;
                             }
                         }
-                    }
 
-                    // Cập nhật trạng thái đơn hàng
-                    order.Status = status;
-                    order.UpdatedAt = DateTime.Now;
-                    _context.SaveChanges();
+                        order.Status = status;
+                        order.UpdatedAt = DateTime.Now;
+                        _context.SaveChanges();
+                    }
                 }
                 else
                 {
