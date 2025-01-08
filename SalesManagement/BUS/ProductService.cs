@@ -169,7 +169,53 @@ namespace BUS
                 throw new Exception("Error filtering products: " + ex.Message);
             }
         }
+        public List<Product> FilterProducts(string category, string brand, string searchText, string priceSort, int? productID = null)
+        {
+            try
+            {
+                var query = _context.Products.AsQueryable();
 
+                // Lọc theo ProductID
+                if (productID.HasValue)
+                {
+                    query = query.Where(p => p.ProductID == productID.Value);
+                }
+
+                // Lọc theo Category
+                if (!string.IsNullOrEmpty(category) && category != "All")
+                {
+                    query = query.Where(p => p.Category == category);
+                }
+
+                // Lọc theo Brand
+                if (!string.IsNullOrEmpty(brand) && brand != "All")
+                {
+                    query = query.Where(p => p.Brand == brand);
+                }
+
+                // Tìm kiếm theo Model
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    query = query.Where(p => p.Model.ToLower().Contains(searchText.ToLower()));
+                }
+
+                // Sắp xếp theo giá
+                if (priceSort == "Price Ascending")
+                {
+                    query = query.OrderBy(p => p.Price);
+                }
+                else if (priceSort == "Price Descending")
+                {
+                    query = query.OrderByDescending(p => p.Price);
+                }
+
+                return query.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error filtering products: " + ex.Message);
+            }
+        }
         public List<string> GetAllBrands()
         {
             try
