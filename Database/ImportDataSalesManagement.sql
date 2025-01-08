@@ -95,32 +95,27 @@ VALUES
     '{"Power": "850 W", "Efficiency": "80+ Platinum", "Color": "Black"}', 20, 0, 0);
 GO
 
-
+SELECT * FROM Orders;
 INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount, Status, Note)
 VALUES 
-	(1, 2, 17705, 'Completed', N'Khách hàng hài lòng với dịch vụ'),
-    (2, 1, 2927.86, 'Pending', N'Yêu cầu giao hàng sớm'),
-    (3, 2, 219.99, 'Completed', N'Khách hàng yêu cầu bảo hành thêm'),
-    (4, 2, 962.99, 'Canceled', N'Khách hàng hủy đơn do lý do cá nhân');
+	(1, 1, 2511.99, 'Completed'),
+    (2, 2, 2057.05, 'Completed');
 GO
 
 INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Price)
 VALUES 
-    (1, 1, 2, 8078, 16156), -- Ryzen Threadripper 3990X
-    (1, 4, 1, 1549, 1549),  -- TRX40 CREATOR
-    (2, 2, 2, 699, 1398),   -- Ryzen 9 7950X
-    (2, 14, 1, 1529.86, 1529.86), -- GeForce RTX 3080 Ti Gaming OC 12G
-    (3, 19, 1, 219.99, 219.99),   -- 970 EVO
-    (4, 6, 1, 962.99, 962.99);    -- ROG ZENITH II EXTREME ALPHA
+	(1,	4, 1, 1549.00, 1549.00),
+	(1,	6, 1, 962.99, 962.99),
+	(2,	13, 1, 1529.86, 1529.86),
+	(2,	17,	1, 307.20, 307.20),
+	(2,	18,	1, 219.99, 219.99);
 GO
 
 INSERT INTO StockTransactions (ProductID, TransactionType, Quantity, EmployeeID, Note)
 VALUES 
-    (1, 'Import', 10, 2, N'Nhập kho lần 1'),
-    (2, 'Import', 5, 2, N'Nhập kho lần 1'),
-    (3, 'Import', 3, 2, N'Nhập kho lần 1'),
-    (4, 'Import', 20, 2, N'Nhập kho lần 1'),
-    (5, 'Import', 15, 2, N'Nhập kho lần 1');
+    (1,	'Export',	5, 1),	
+	(2,	'Import',	5, 1),	
+	(3,	'Import',	5, 1);
 GO
 
 
