@@ -26,6 +26,7 @@ namespace BUS
         {
             return _context.Employees.FirstOrDefault(e => e.EmployeeID == id);
         }
+
         public Employee GetEmployeeByUsername(string username)
         {
             return _context.Employees.FirstOrDefault(e => e.Username == username);
@@ -33,6 +34,7 @@ namespace BUS
 
         public void AddEmployee(Employee employee)
         {
+            employee.PasswordHash = HashPassword(employee.PasswordHash); // Mã hóa mật khẩu trước khi lưu
             _context.Employees.Add(employee);
             _context.SaveChanges();
         }
@@ -53,6 +55,8 @@ namespace BUS
                 existingEmployee.Role = employee.Role;
                 existingEmployee.Salary = employee.Salary;
                 existingEmployee.HireDate = employee.HireDate;
+                existingEmployee.Username = employee.Username;
+                existingEmployee.PasswordHash = HashPassword(employee.PasswordHash); // Mã hóa mật khẩu trước khi cập nhật
                 _context.SaveChanges();
             }
         }
@@ -118,6 +122,15 @@ namespace BUS
                 var computedHash = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 var computedHashString = string.Concat(computedHash.Select(b => b.ToString("x2")));
                 return storedHash.Equals(computedHashString, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        public string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return string.Concat(hashedBytes.Select(b => b.ToString("x2")));
             }
         }
     }

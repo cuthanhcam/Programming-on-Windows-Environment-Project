@@ -214,5 +214,6 @@ namespace BUS
                 throw new Exception("Error retrieving purchase history: " + ex.Message);
             }
         }
+
     }
 }
