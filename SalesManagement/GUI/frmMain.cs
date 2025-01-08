@@ -63,9 +63,9 @@ namespace GUI
         private void InitializeTabPages()
         {
             AddUserControlToTab(tpProducts, new ProductManagement(_productService));
-            AddUserControlToTab(tpOrders, new OrderManagement(_orderService, _customerService, _productService, _employeeID)); // Thêm employeeID cho tpOrderCreate
+            AddUserControlToTab(tpOrders, new OrderManagement(_orderService, _customerService, _productService, _employeeID));
             AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService, _orderService));
-            AddUserControlToTab(tpStock, new StockManagement(_stockService));
+            AddUserControlToTab(tpStock, new StockManagement(_stockService, _productService, _employeeID));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
             //AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService);
 
