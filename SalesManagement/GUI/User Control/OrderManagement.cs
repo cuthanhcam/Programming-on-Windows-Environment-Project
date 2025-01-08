@@ -19,9 +19,9 @@ namespace GUI
         private readonly CustomerService _customerService;
         private readonly ProductService _productService;
         private readonly int _employeeID;
-
         private List<Order> _orders;
         private List<Product> _addProducts;
+        
         public OrderManagement(OrderService orderService, CustomerService customerService, ProductService productService, int employeeID)
         {
             InitializeComponent();
