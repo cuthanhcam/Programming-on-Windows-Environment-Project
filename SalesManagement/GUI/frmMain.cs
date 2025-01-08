@@ -67,7 +67,7 @@ namespace GUI
             AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService, _orderService));
             AddUserControlToTab(tpStock, new StockManagement(_stockService, _productService, _employeeID));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
-            //AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService);
+            AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService));
 
         }
         private void AddUserControlToTab(TabPage tabPage, UserControl userControl)
