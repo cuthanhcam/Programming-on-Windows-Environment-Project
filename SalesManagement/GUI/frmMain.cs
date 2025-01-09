@@ -2,13 +2,6 @@
 using DAL.Entities;
 using GUI.User_Control;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI
@@ -52,6 +45,7 @@ namespace GUI
 
             InitializeTabPages();
             DisplayUserInfo();
+            ApplyRoleBasedAccessControl(); // Áp dụng phân quyền
         }
 
         private void DisplayUserInfo()
@@ -62,54 +56,65 @@ namespace GUI
 
         private void InitializeTabPages()
         {
-            AddUserControlToTab(tpProducts, new ProductManagement(_productService));
+            AddUserControlToTab(tpProducts, new ProductManagement(_productService, _role));
             AddUserControlToTab(tpOrders, new OrderManagement(_orderService, _customerService, _productService, _employeeID));
             AddUserControlToTab(tpCustomers, new CustomerManagement(_customerService, _orderService));
             AddUserControlToTab(tpStock, new StockManagement(_stockService, _productService, _employeeID));
             AddUserControlToTab(tpStatistics, new StatisticsManagement(_statisticsService));
             AddUserControlToTab(tpEmployees, new EmployeeManagement(_employeeService));
-
         }
+
         private void AddUserControlToTab(TabPage tabPage, UserControl userControl)
         {
             userControl.Dock = DockStyle.Fill;
             tabPage.Controls.Add(userControl);
         }
 
+        private void ApplyRoleBasedAccessControl()
+        {
+            if (_role == "Staff")
+            {
+                // Ẩn các nút và tab không dành cho Staff
+                btnStockManagement.Visible = false;
+                btnStatistics.Visible = false;
+                btnEmployeesManagement.Visible = false;
+
+                // Ẩn các tab tương ứng
+                tcMain.TabPages.Remove(tpStock);
+                tcMain.TabPages.Remove(tpStatistics);
+                tcMain.TabPages.Remove(tpEmployees);
+            }
+            // Admin sẽ có quyền truy cập tất cả, không cần thay đổi gì
+        }
+
         private void btnProductsManagement_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 0;
-            //tcMain.SelectedTab = tpProducts;
         }
 
         private void btnOrdersManagement_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 1;
-            //tcMain.SelectedTab = tpOrders;
         }
 
         private void btnCustomersManagement_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 2;
-            //tcMain.SelectedTab = tpCustomers;
         }
 
         private void btnStockManagement_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 3;
-            //tcMain.SelectedTab = tpStock;
         }
 
         private void btnStatistics_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 4;
-            //tcMain.SelectedTab = tpStatistics;
         }
 
         private void btnEmployeesManagement_Click(object sender, EventArgs e)
         {
             tcMain.SelectedIndex = 5;
-            //tcMain.SelectedTab = tpEmployees;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

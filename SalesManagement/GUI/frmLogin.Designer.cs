@@ -40,6 +40,7 @@
             this.pnlPassword = new System.Windows.Forms.Panel();
             this.picPassword = new System.Windows.Forms.PictureBox();
             this.chkShowPassword = new System.Windows.Forms.CheckBox();
+            this.lblChangePassword = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlUsername.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -170,12 +171,24 @@
             this.chkShowPassword.UseVisualStyleBackColor = true;
             this.chkShowPassword.CheckedChanged += new System.EventHandler(this.chkShowPassword_CheckedChanged);
             // 
+            // lblChangePassword
+            // 
+            this.lblChangePassword.AutoSize = true;
+            this.lblChangePassword.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblChangePassword.Location = new System.Drawing.Point(135, 676);
+            this.lblChangePassword.Name = "lblChangePassword";
+            this.lblChangePassword.Size = new System.Drawing.Size(157, 22);
+            this.lblChangePassword.TabIndex = 9;
+            this.lblChangePassword.Text = "Change Password";
+            this.lblChangePassword.Click += new System.EventHandler(this.lblChangePassword_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(435, 745);
+            this.Controls.Add(this.lblChangePassword);
             this.Controls.Add(this.chkShowPassword);
             this.Controls.Add(this.pnlPassword);
             this.Controls.Add(this.pnlUsername);
@@ -215,6 +228,7 @@
         private System.Windows.Forms.Panel pnlPassword;
         private System.Windows.Forms.PictureBox picPassword;
         private System.Windows.Forms.CheckBox chkShowPassword;
+        private System.Windows.Forms.Label lblChangePassword;
     }
 }
 

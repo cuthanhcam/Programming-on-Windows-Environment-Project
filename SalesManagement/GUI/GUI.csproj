@@ -98,6 +98,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form Components\frmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form Components\frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form Components\frmPurchaseHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,9 @@
     <Compile Include="User Control\StockManagement.Designer.cs">
       <DependentUpon>StockManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form Components\frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form Components\frmOrderDetail.resx">
       <DependentUpon>frmOrderDetail.cs</DependentUpon>
     </EmbeddedResource>

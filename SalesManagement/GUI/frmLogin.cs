@@ -1,5 +1,6 @@
 ﻿using BUS;
 using DAL.Entities;
+using GUI.Form_Components;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -133,6 +134,12 @@ namespace GUI
             {
                 this.Close();
             }
+        }
+
+        private void lblChangePassword_Click(object sender, EventArgs e)
+        {
+            frmChangePassword changePasswordForm = new frmChangePassword();
+            changePasswordForm.ShowDialog();
         }
     }
 }
