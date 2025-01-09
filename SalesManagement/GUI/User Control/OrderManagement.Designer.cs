@@ -28,25 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup28 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup29 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup30 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup31 = new System.Windows.Forms.ListViewGroup("Case", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup32 = new System.Windows.Forms.ListViewGroup("Graphic Card", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup33 = new System.Windows.Forms.ListViewGroup("RAM", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup34 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup35 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup36 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderManagement));
-            System.Windows.Forms.ListViewGroup listViewGroup37 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup38 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup39 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup40 = new System.Windows.Forms.ListViewGroup("Case", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup41 = new System.Windows.Forms.ListViewGroup("Graphic Card", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup42 = new System.Windows.Forms.ListViewGroup("RAM", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup43 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup44 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup45 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup46 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup47 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup48 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
@@ -56,6 +37,25 @@
             System.Windows.Forms.ListViewGroup listViewGroup52 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup53 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup54 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup28 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup29 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup30 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup31 = new System.Windows.Forms.ListViewGroup("Case", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup32 = new System.Windows.Forms.ListViewGroup("Graphic Card", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup33 = new System.Windows.Forms.ListViewGroup("RAM", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup34 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup35 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup36 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup37 = new System.Windows.Forms.ListViewGroup("Processor", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup38 = new System.Windows.Forms.ListViewGroup("Motherboard", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup39 = new System.Windows.Forms.ListViewGroup("CPU Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup40 = new System.Windows.Forms.ListViewGroup("Case", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup41 = new System.Windows.Forms.ListViewGroup("Graphic Card", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup42 = new System.Windows.Forms.ListViewGroup("RAM", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup43 = new System.Windows.Forms.ListViewGroup("Storage", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup44 = new System.Windows.Forms.ListViewGroup("Case Cooler", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup45 = new System.Windows.Forms.ListViewGroup("Power Supply", System.Windows.Forms.HorizontalAlignment.Left);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderManagement));
             this.tcOrder = new System.Windows.Forms.TabControl();
             this.tpOrderList = new System.Windows.Forms.TabPage();
             this.btnSaveNote = new System.Windows.Forms.Button();
@@ -327,34 +327,34 @@
             this.lstOrderList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstOrderList.Font = new System.Drawing.Font("Bahnschrift", 13F);
             this.lstOrderList.FullRowSelect = true;
-            listViewGroup28.Header = "Processor";
-            listViewGroup28.Name = "listViewGroupProcessor";
-            listViewGroup29.Header = "Motherboard";
-            listViewGroup29.Name = "listViewGroupMotherboard";
-            listViewGroup30.Header = "CPU Cooler";
-            listViewGroup30.Name = "listViewGroupCPUCooler";
-            listViewGroup31.Header = "Case";
-            listViewGroup31.Name = "listViewGroupCase";
-            listViewGroup32.Header = "Graphic Card";
-            listViewGroup32.Name = "listViewGroupGraphicCard";
-            listViewGroup33.Header = "RAM";
-            listViewGroup33.Name = "listViewGroupRAM";
-            listViewGroup34.Header = "Storage";
-            listViewGroup34.Name = "listViewGroupStorage";
-            listViewGroup35.Header = "Case Cooler";
-            listViewGroup35.Name = "listViewGroupCaseCooler";
-            listViewGroup36.Header = "Power Supply";
-            listViewGroup36.Name = "listViewGroupPowerSupply";
+            listViewGroup46.Header = "Processor";
+            listViewGroup46.Name = "listViewGroupProcessor";
+            listViewGroup47.Header = "Motherboard";
+            listViewGroup47.Name = "listViewGroupMotherboard";
+            listViewGroup48.Header = "CPU Cooler";
+            listViewGroup48.Name = "listViewGroupCPUCooler";
+            listViewGroup49.Header = "Case";
+            listViewGroup49.Name = "listViewGroupCase";
+            listViewGroup50.Header = "Graphic Card";
+            listViewGroup50.Name = "listViewGroupGraphicCard";
+            listViewGroup51.Header = "RAM";
+            listViewGroup51.Name = "listViewGroupRAM";
+            listViewGroup52.Header = "Storage";
+            listViewGroup52.Name = "listViewGroupStorage";
+            listViewGroup53.Header = "Case Cooler";
+            listViewGroup53.Name = "listViewGroupCaseCooler";
+            listViewGroup54.Header = "Power Supply";
+            listViewGroup54.Name = "listViewGroupPowerSupply";
             this.lstOrderList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup28,
-            listViewGroup29,
-            listViewGroup30,
-            listViewGroup31,
-            listViewGroup32,
-            listViewGroup33,
-            listViewGroup34,
-            listViewGroup35,
-            listViewGroup36});
+            listViewGroup46,
+            listViewGroup47,
+            listViewGroup48,
+            listViewGroup49,
+            listViewGroup50,
+            listViewGroup51,
+            listViewGroup52,
+            listViewGroup53,
+            listViewGroup54});
             this.lstOrderList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstOrderList.HideSelection = false;
             this.lstOrderList.Location = new System.Drawing.Point(26, 113);
@@ -373,7 +373,7 @@
             this.btnReloadOrderList.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReloadOrderList.BackgroundImage")));
             this.btnReloadOrderList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnReloadOrderList.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnReloadOrderList.Location = new System.Drawing.Point(1111, 6);
+            this.btnReloadOrderList.Location = new System.Drawing.Point(1108, 10);
             this.btnReloadOrderList.Name = "btnReloadOrderList";
             this.btnReloadOrderList.Size = new System.Drawing.Size(52, 52);
             this.btnReloadOrderList.TabIndex = 24;
@@ -522,6 +522,51 @@
             this.lstProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstProduct.Font = new System.Drawing.Font("Bahnschrift", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstProduct.FullRowSelect = true;
+            listViewGroup28.Header = "Processor";
+            listViewGroup28.Name = "listViewGroupProcessor";
+            listViewGroup29.Header = "Motherboard";
+            listViewGroup29.Name = "listViewGroupMotherboard";
+            listViewGroup30.Header = "CPU Cooler";
+            listViewGroup30.Name = "listViewGroupCPUCooler";
+            listViewGroup31.Header = "Case";
+            listViewGroup31.Name = "listViewGroupCase";
+            listViewGroup32.Header = "Graphic Card";
+            listViewGroup32.Name = "listViewGroupGraphicCard";
+            listViewGroup33.Header = "RAM";
+            listViewGroup33.Name = "listViewGroupRAM";
+            listViewGroup34.Header = "Storage";
+            listViewGroup34.Name = "listViewGroupStorage";
+            listViewGroup35.Header = "Case Cooler";
+            listViewGroup35.Name = "listViewGroupCaseCooler";
+            listViewGroup36.Header = "Power Supply";
+            listViewGroup36.Name = "listViewGroupPowerSupply";
+            this.lstProduct.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup28,
+            listViewGroup29,
+            listViewGroup30,
+            listViewGroup31,
+            listViewGroup32,
+            listViewGroup33,
+            listViewGroup34,
+            listViewGroup35,
+            listViewGroup36});
+            this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstProduct.HideSelection = false;
+            this.lstProduct.Location = new System.Drawing.Point(20, 225);
+            this.lstProduct.MultiSelect = false;
+            this.lstProduct.Name = "lstProduct";
+            this.lstProduct.Size = new System.Drawing.Size(550, 333);
+            this.lstProduct.TabIndex = 30;
+            this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
+            this.lstProduct.UseCompatibleStateImageBehavior = false;
+            this.lstProduct.View = System.Windows.Forms.View.Details;
+            // 
+            // lstSelectedProduct
+            // 
+            this.lstSelectedProduct.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lstSelectedProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstSelectedProduct.Font = new System.Drawing.Font("Bahnschrift", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSelectedProduct.FullRowSelect = true;
             listViewGroup37.Header = "Processor";
             listViewGroup37.Name = "listViewGroupProcessor";
             listViewGroup38.Header = "Motherboard";
@@ -540,7 +585,7 @@
             listViewGroup44.Name = "listViewGroupCaseCooler";
             listViewGroup45.Header = "Power Supply";
             listViewGroup45.Name = "listViewGroupPowerSupply";
-            this.lstProduct.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            this.lstSelectedProduct.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup37,
             listViewGroup38,
             listViewGroup39,
@@ -550,51 +595,6 @@
             listViewGroup43,
             listViewGroup44,
             listViewGroup45});
-            this.lstProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstProduct.HideSelection = false;
-            this.lstProduct.Location = new System.Drawing.Point(20, 225);
-            this.lstProduct.MultiSelect = false;
-            this.lstProduct.Name = "lstProduct";
-            this.lstProduct.Size = new System.Drawing.Size(550, 333);
-            this.lstProduct.TabIndex = 30;
-            this.lstProduct.TileSize = new System.Drawing.Size(500, 30);
-            this.lstProduct.UseCompatibleStateImageBehavior = false;
-            this.lstProduct.View = System.Windows.Forms.View.Details;
-            // 
-            // lstSelectedProduct
-            // 
-            this.lstSelectedProduct.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.lstSelectedProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstSelectedProduct.Font = new System.Drawing.Font("Bahnschrift", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstSelectedProduct.FullRowSelect = true;
-            listViewGroup46.Header = "Processor";
-            listViewGroup46.Name = "listViewGroupProcessor";
-            listViewGroup47.Header = "Motherboard";
-            listViewGroup47.Name = "listViewGroupMotherboard";
-            listViewGroup48.Header = "CPU Cooler";
-            listViewGroup48.Name = "listViewGroupCPUCooler";
-            listViewGroup49.Header = "Case";
-            listViewGroup49.Name = "listViewGroupCase";
-            listViewGroup50.Header = "Graphic Card";
-            listViewGroup50.Name = "listViewGroupGraphicCard";
-            listViewGroup51.Header = "RAM";
-            listViewGroup51.Name = "listViewGroupRAM";
-            listViewGroup52.Header = "Storage";
-            listViewGroup52.Name = "listViewGroupStorage";
-            listViewGroup53.Header = "Case Cooler";
-            listViewGroup53.Name = "listViewGroupCaseCooler";
-            listViewGroup54.Header = "Power Supply";
-            listViewGroup54.Name = "listViewGroupPowerSupply";
-            this.lstSelectedProduct.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup46,
-            listViewGroup47,
-            listViewGroup48,
-            listViewGroup49,
-            listViewGroup50,
-            listViewGroup51,
-            listViewGroup52,
-            listViewGroup53,
-            listViewGroup54});
             this.lstSelectedProduct.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstSelectedProduct.HideSelection = false;
             this.lstSelectedProduct.Location = new System.Drawing.Point(582, 64);
@@ -761,7 +761,7 @@
             this.btnReloadTpCreateOrder.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReloadTpCreateOrder.BackgroundImage")));
             this.btnReloadTpCreateOrder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnReloadTpCreateOrder.Font = new System.Drawing.Font("Bahnschrift", 12.75F);
-            this.btnReloadTpCreateOrder.Location = new System.Drawing.Point(1109, 6);
+            this.btnReloadTpCreateOrder.Location = new System.Drawing.Point(1108, 10);
             this.btnReloadTpCreateOrder.Name = "btnReloadTpCreateOrder";
             this.btnReloadTpCreateOrder.Size = new System.Drawing.Size(52, 52);
             this.btnReloadTpCreateOrder.TabIndex = 23;

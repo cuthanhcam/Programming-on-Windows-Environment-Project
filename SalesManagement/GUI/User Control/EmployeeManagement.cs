@@ -124,8 +124,20 @@ namespace GUI
         {
             try
             {
-                // Tạo đối tượng Employee từ dữ liệu nhập vào
-                var employee = new Employee
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                    string.IsNullOrWhiteSpace(txtPhone.Text) ||
+                    string.IsNullOrWhiteSpace(txtAddress.Text) ||
+                    string.IsNullOrWhiteSpace(txtSalary.Text) ||
+                    string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                    string.IsNullOrWhiteSpace(txtPassword.Text))
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Tạo đối tượng Employee mới
+                var newEmployee = new Employee
                 {
                     Name = txtName.Text,
                     Phone = txtPhone.Text,
@@ -134,22 +146,38 @@ namespace GUI
                     Salary = decimal.Parse(txtSalary.Text),
                     HireDate = dtpHireDate.Value,
                     Username = txtUsername.Text,
-                    PasswordHash = txtPassword.Text // Mật khẩu gốc
+                    PasswordHash = txtPassword.Text,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
                 };
 
-                // Thêm nhân viên vào cơ sở dữ liệu
-                _employeeService.AddEmployee(employee);
+                // Gọi phương thức thêm nhân viên
+                _employeeService.AddEmployee(newEmployee);
 
                 // Làm mới danh sách nhân viên
                 _allEmployees = _employeeService.GetAllEmployees();
                 LoadEmployees(_allEmployees);
 
-                MessageBox.Show("Nhân viên đã được thêm thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Thêm nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputFields();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Phương thức để xóa dữ liệu trong các control nhập liệu
+        private void ClearInputFields()
+        {
+            txtName.Clear();
+            txtPhone.Clear();
+            txtAddress.Clear();
+            cmbRole.SelectedIndex = 0;
+            txtSalary.Clear();
+            dtpHireDate.Value = DateTime.Now;
+            txtUsername.Clear();
+            txtPassword.Clear();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -228,11 +256,12 @@ namespace GUI
         }
 
         private void btnReload_Click(object sender, EventArgs e)
-        {
+        {   
             // Làm mới danh sách nhân viên
             _allEmployees = _employeeService.GetAllEmployees();
             LoadEmployees(_allEmployees);
             txtEmployeeID.Clear();
+            txtSearchName.Clear();
             // Xóa dữ liệu trong các control nhập liệu
             txtName.Clear();
             txtPhone.Clear();

@@ -173,8 +173,9 @@ namespace GUI
                     try
                     {
                         _orderService.UpdateOrderStatus(orderID, "Canceled");
-                        LoadOrderList();
-                        MessageBox.Show("Order canceled successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadOrderList(); // Cập nhật danh sách đơn hàng
+                        LoadProductList(); // Cập nhật lại danh sách sản phẩm
+                        MessageBox.Show("Order canceled successfully and product list reloaded!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -330,6 +331,12 @@ namespace GUI
                     MessageBox.Show("Customer not found. Please add a new customer.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     btnAddNewCustomer.Enabled = true;
 
+                    // Đặt các ô về trống
+                    txtCustomerID.Text = string.Empty;
+                    txtName.Text = string.Empty;
+                    txtEmail.Text = string.Empty;
+                    txtAddress.Text = string.Empty;
+
                     // Gán giá trị mặc định "Silver" cho txtMembershipLevel
                     txtMembershipLevel.Text = "Silver";
                 }
@@ -341,6 +348,9 @@ namespace GUI
         {
             try
             {
+                _productService.RefreshContext();
+
+                // Lấy danh sách sản phẩm từ CSDL
                 var products = _productService.GetProducts(productID);
                 lstProduct.Items.Clear();
                 lstProduct.Groups.Clear();
@@ -366,7 +376,7 @@ namespace GUI
                     {
                         var item = new ListViewItem(product.ProductID.ToString());
                         item.SubItems.Add(product.Model);
-                        item.SubItems.Add(product.StockQuantity.ToString());
+                        item.SubItems.Add(product.StockQuantity.ToString()); // Hiển thị số lượng tồn kho từ CSDL
                         item.SubItems.Add(product.Price.ToString("C"));
                         item.Group = groupHeader; // Gán sản phẩm vào nhóm
 
@@ -523,6 +533,9 @@ namespace GUI
                 txtAddress.Clear();
                 txtTotalAmount.Text = "0";
                 rtbNote.Clear();
+
+                // Tải lại danh sách sản phẩm từ CSDL
+                LoadProductList();
             }
             catch (Exception ex)
             {
@@ -599,6 +612,7 @@ namespace GUI
 
         private void btnReloadTpCreateOrder_Click(object sender, EventArgs e)
         {
+            // Đặt lại các control về mặc định
             txtCustomerID.Clear();
             txtPhone.Clear();
             txtName.Clear();
@@ -609,13 +623,11 @@ namespace GUI
             nudQuantity.Value = 1;
             lstSelectedProduct.Items.Clear();
             txtTotalAmount.Text = "0";
+
+            // Tải lại danh sách sản phẩm từ CSDL
             LoadProductList();
         }
 
-
-
         #endregion
-
-        
     }
 }

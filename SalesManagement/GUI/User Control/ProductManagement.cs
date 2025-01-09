@@ -16,16 +16,18 @@ namespace GUI
 {
     public partial class ProductManagement : UserControl
     {
+        private readonly string _role;
         private readonly ProductService _productService;
         //private static readonly string ImagesBasePath = @"D:\SourceCode\VisualStudio\CSharp\Programming-on-Windows-Environment-Project\Images";
         private static readonly string ImagesBasePath = Path.Combine(Application.StartupPath, "Images");
         private List<Product> _allProducts;
         private List<Product> _filteredProducts;
 
-        public ProductManagement(ProductService productService)
+        public ProductManagement(ProductService productService, string role)
         {
             InitializeComponent();
             _productService = productService;
+            _role = role;
             _allProducts = _productService.GetAllProducts();
             _filteredProducts = _allProducts;
             InitializeListViewColumns();
@@ -34,6 +36,15 @@ namespace GUI
             InitializeSearch();
 
             rtbSpecs.KeyPress += rtbDetail_KeyPress;
+            ApplyRoleBasedAccessControl();
+        }
+
+        private void ApplyRoleBasedAccessControl()
+        {
+            if (_role == "Staff")
+            {
+                btnDelete.Enabled = false; // Ẩn nút Delete
+            }
         }
 
         private void InitializeComboBoxes()

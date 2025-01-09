@@ -408,9 +408,9 @@
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 13F);
             this.label2.Location = new System.Drawing.Point(22, 188);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 22);
+            this.label2.Size = new System.Drawing.Size(39, 22);
             this.label2.TabIndex = 21;
-            this.label2.Text = "Position:";
+            this.label2.Text = "Role:";
             // 
             // txtName
             // 
