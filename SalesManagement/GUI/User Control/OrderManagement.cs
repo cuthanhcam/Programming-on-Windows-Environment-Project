@@ -161,6 +161,8 @@ namespace GUI
             }
         }
 
+        private bool _isProductListLoaded = false;
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (lstOrderList.SelectedItems.Count > 0)
@@ -174,7 +176,13 @@ namespace GUI
                     {
                         _orderService.UpdateOrderStatus(orderID, "Canceled");
                         LoadOrderList(); // Cập nhật danh sách đơn hàng
-                        LoadProductList(); // Cập nhật lại danh sách sản phẩm
+
+                        if (!_isProductListLoaded)
+                        {
+                            LoadProductList(); // Cập nhật lại danh sách sản phẩm
+                            _isProductListLoaded = true;
+                        }
+
                         MessageBox.Show("Order canceled successfully and product list reloaded!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)

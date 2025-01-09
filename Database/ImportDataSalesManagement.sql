@@ -3,6 +3,8 @@ GO
 
 -- Kiểm tra mã băm SHA256 (nghi ngờ không đồng nhất với dotnet) - Đã fix
 SELECT CONVERT(VARCHAR(MAX), HASHBYTES('SHA2_256', 'admin123'), 2) AS HashedPassword;
+SELECT * FROM Employees WHERE Username = 'camct';
+
 
 SELECT * FROM Customers;
 SELECT * FROM Employees;

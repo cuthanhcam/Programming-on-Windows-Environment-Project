@@ -18,8 +18,8 @@ namespace GUI
     {
         private readonly string _role;
         private readonly ProductService _productService;
-        //private static readonly string ImagesBasePath = @"D:\SourceCode\VisualStudio\CSharp\Programming-on-Windows-Environment-Project\Images";
-        private static readonly string ImagesBasePath = Path.Combine(Application.StartupPath, "Images");
+        private static readonly string ImagesBasePath = @"D:\SourceCode\VisualStudio\CSharp\Programming-on-Windows-Environment-Project\Images";
+        //private static readonly string ImagesBasePath = Path.Combine(Application.StartupPath, "Images");
         private List<Product> _allProducts;
         private List<Product> _filteredProducts;
 

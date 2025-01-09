@@ -205,6 +205,9 @@ namespace BUS
         {
             try
             {
+                // Refresh context trước khi lấy dữ liệu
+                RefreshContext();
+
                 var customers = _context.Customers.ToList();
                 var result = new List<CustomerWithTotal>();
 
@@ -213,7 +216,11 @@ namespace BUS
                     decimal totalSpent = GetTotalSpentByCustomer(customer.CustomerID);
                     string membershipLevel = CalculateMembershipLevel(totalSpent);
 
-                    UpdateCustomerMembershipLevel(customer.CustomerID, membershipLevel);
+                    // Cập nhật MembershipLevel nếu có thay đổi
+                    if (customer.MembershipLevel != membershipLevel)
+                    {
+                        UpdateCustomerMembershipLevel(customer.CustomerID, membershipLevel);
+                    }
 
                     result.Add(new CustomerWithTotal
                     {
@@ -226,6 +233,9 @@ namespace BUS
                         TotalSpent = totalSpent
                     });
                 }
+
+                // Refresh context một lần nữa sau khi cập nhật
+                RefreshContext();
 
                 return result;
             }
@@ -276,6 +286,15 @@ namespace BUS
             public string Address { get; set; }
             public string MembershipLevel { get; set; }
             public decimal TotalSpent { get; set; }
+        }
+
+
+        public void RefreshContext()
+        {
+            foreach (var entity in _context.ChangeTracker.Entries())
+            {
+                entity.Reload();
+            }
         }
     }
 }

@@ -38,8 +38,8 @@ namespace GUI
         {
             lstCustomer.Columns.Clear();
             lstCustomer.Columns.Add("ID", 50);
-            lstCustomer.Columns.Add("Name", 150);
-            lstCustomer.Columns.Add("Email", 200);
+            lstCustomer.Columns.Add("Name", 180);
+            lstCustomer.Columns.Add("Email", 170);
             lstCustomer.Columns.Add("Phone", 100);
             lstCustomer.Columns.Add("Address", 120);
             lstCustomer.Columns.Add("Level", 80);
@@ -53,20 +53,22 @@ namespace GUI
         {
             try
             {
+                // Refresh context trước khi lấy dữ liệu
+                _customerService.RefreshContext();
+
                 var customers = _customerService.GetAllCustomersWithTotalSpent();
 
-                switch (sortByTotalSpent)
+                switch (sortByTotalSpent.ToLower())
                 {
-                    case "Ascending":
+                    case "ascending":
                         customers = customers.OrderBy(c => c.TotalSpent).ToList();
                         break;
-                    case "Descending":
+                    case "descending":
                         customers = customers.OrderByDescending(c => c.TotalSpent).ToList();
-                        break;
-                    default:
                         break;
                 }
 
+                lstCustomer.BeginUpdate();
                 lstCustomer.Items.Clear();
                 lstCustomer.Groups.Clear();
 
@@ -74,36 +76,38 @@ namespace GUI
                 var groupGold = new ListViewGroup("Gold", HorizontalAlignment.Left);
                 var groupSilver = new ListViewGroup("Silver", HorizontalAlignment.Left);
 
-                lstCustomer.Groups.Add(groupPlatinum);
-                lstCustomer.Groups.Add(groupGold);
-                lstCustomer.Groups.Add(groupSilver);
+                lstCustomer.Groups.AddRange(new ListViewGroup[] { groupPlatinum, groupGold, groupSilver });
 
                 foreach (var customer in customers)
                 {
-                    var item = new ListViewItem(customer.CustomerID.ToString());
-                    item.SubItems.Add(customer.Name);
-                    item.SubItems.Add(customer.Email);
-                    item.SubItems.Add(customer.Phone);
-                    item.SubItems.Add(customer.Address);
-                    item.SubItems.Add(customer.MembershipLevel);
-                    item.SubItems.Add(customer.TotalSpent.ToString("C"));
-
-                    // Gán nhóm cho từng khách hàng
-                    switch (customer.MembershipLevel)
+                    var item = new ListViewItem(new[]
                     {
-                        case "Platinum":
+                        customer.CustomerID.ToString(),
+                        customer.Name,
+                        customer.Email ?? string.Empty,
+                        customer.Phone,
+                        customer.Address ?? string.Empty,
+                        customer.MembershipLevel,
+                        customer.TotalSpent.ToString("C")
+                    });
+
+                    switch (customer.MembershipLevel.ToUpper())
+                    {
+                        case "PLATINUM":
                             item.Group = groupPlatinum;
                             break;
-                        case "Gold":
+                        case "GOLD":
                             item.Group = groupGold;
                             break;
-                        case "Silver":
+                        case "SILVER":
                             item.Group = groupSilver;
                             break;
                     }
 
                     lstCustomer.Items.Add(item);
                 }
+
+                lstCustomer.EndUpdate();
             }
             catch (Exception ex)
             {
