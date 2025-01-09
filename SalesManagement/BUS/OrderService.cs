@@ -110,7 +110,7 @@ namespace BUS
                             var product = _context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
                             if (product != null)
                             {
-                                product.StockQuantity += detail.Quantity;
+                                product.StockQuantity += detail.Quantity; // Tăng số lượng sản phẩm trong kho
                                 _context.Entry(product).State = EntityState.Modified;
                             }
                         }
@@ -214,6 +214,6 @@ namespace BUS
                 throw new Exception("Error retrieving purchase history: " + ex.Message);
             }
         }
-
+   
     }
 }

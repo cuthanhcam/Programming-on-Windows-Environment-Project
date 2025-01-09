@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Linq;
 
 namespace BUS
 {
@@ -34,9 +35,37 @@ namespace BUS
 
         public void AddEmployee(Employee employee)
         {
-            employee.PasswordHash = HashPassword(employee.PasswordHash); // Mã hóa mật khẩu trước khi lưu
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+
+            // Kiểm tra username đã tồn tại
+            var existingEmployee = _context.Employees.FirstOrDefault(e => e.Username == employee.Username);
+            if (existingEmployee != null)
+            {
+                throw new Exception("Tên đăng nhập đã tồn tại!");
+            }
+
+            try
+            {
+                // Mã hóa mật khẩu
+                employee.PasswordHash = HashPassword(employee.PasswordHash);
+
+                // Đảm bảo các trường DateTime được set
+                employee.CreatedAt = DateTime.Now;
+                employee.UpdatedAt = DateTime.Now;
+
+                // Thêm vào context
+                _context.Employees.Add(employee);
+
+                // Lưu thay đổi
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Không thể thêm nhân viên: " + ex.Message);
+            }
         }
 
         public List<Employee> SearchEmployeeById(int id)
@@ -57,7 +86,34 @@ namespace BUS
                 existingEmployee.HireDate = employee.HireDate;
                 existingEmployee.Username = employee.Username;
                 existingEmployee.PasswordHash = HashPassword(employee.PasswordHash); // Mã hóa mật khẩu trước khi cập nhật
+
+                // Chỉ cập nhật mật khẩu nếu có mật khẩu mới
+                //if (!string.IsNullOrEmpty(employee.PasswordHash))
+                //{
+                //    existingEmployee.PasswordHash = HashPassword(employee.PasswordHash);
+                //}
+
                 _context.SaveChanges();
+            }
+        }
+
+        public bool UpdatePassword(string username, string newPassword)
+        {
+            try
+            {
+                var employee = _context.Employees.FirstOrDefault(e => e.Username == username);
+                if (employee != null)
+                {
+                    employee.PasswordHash = HashPassword(newPassword);
+                    employee.UpdatedAt = DateTime.Now;
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
             }
         }
 

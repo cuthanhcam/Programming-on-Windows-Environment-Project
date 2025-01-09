@@ -379,6 +379,13 @@ namespace BUS
                 throw new Exception("Error retrieving products: " + ex.Message);
             }
         }
-
+        public void RefreshContext()
+        {
+            // Refresh the context to get latest data
+            foreach (var entry in _context.ChangeTracker.Entries())
+            {
+                entry.Reload();
+            }
+        }
     }
 }
