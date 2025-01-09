@@ -48,6 +48,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.lblRole = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -262,12 +263,24 @@
             this.lblRole.Size = new System.Drawing.Size(0, 22);
             this.lblRole.TabIndex = 42;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Bahnschrift", 30F);
+            this.label3.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.label3.Location = new System.Drawing.Point(75, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(359, 48);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "Sales Management";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 811);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblRole);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.label2);
@@ -312,5 +325,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Label lblRole;
+        private System.Windows.Forms.Label label3;
     }
 }
