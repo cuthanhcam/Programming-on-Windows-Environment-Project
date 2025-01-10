@@ -107,17 +107,26 @@ namespace BUS
                     {
                         foreach (var detail in order.OrderDetails)
                         {
+                            if (detail == null) continue;
+
                             var product = _context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
                             if (product != null)
                             {
-                                product.StockQuantity += detail.Quantity; // Tăng số lượng sản phẩm trong kho
+                                int oldQuantity = product.StockQuantity;
+                                product.StockQuantity += detail.Quantity;
                                 _context.Entry(product).State = EntityState.Modified;
+
+                                // Log để kiểm tra
+                                Console.WriteLine($"Product ID: {product.ProductID}, Old Quantity: {oldQuantity}, Added Quantity: {detail.Quantity}, New Quantity: {product.StockQuantity}");
                             }
                         }
 
                         order.Status = status;
                         order.UpdatedAt = DateTime.Now;
                         _context.SaveChanges();
+
+                        // Log để kiểm tra
+                        Console.WriteLine($"Order ID: {order.OrderID} has been canceled successfully.");
                     }
                 }
                 else
@@ -127,6 +136,8 @@ namespace BUS
             }
             catch (Exception ex)
             {
+                // Log lỗi
+                Console.WriteLine($"Error updating order status: {ex.Message}");
                 throw new Exception($"Error updating order status: {ex.Message}");
             }
         }
